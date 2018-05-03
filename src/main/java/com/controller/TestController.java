@@ -9,7 +9,7 @@ public class TestController {
 	
 	@RequestMapping("/index")
     public String showUpload(){
-      System.out.println("进入跳转页面控制器");
+      //System.out.println("进入跳转页面控制器");
       return "index";
 	}    
 }
