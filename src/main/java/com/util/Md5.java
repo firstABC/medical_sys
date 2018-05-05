@@ -41,9 +41,7 @@ public class Md5 {
 	
 	
 	  public static void main(String[] args) {  
-	        String md5 = encoderByMd5("password");  
-	        String md52 = encoderByMd5("password");   
+	        String md5 = encoderByMd5("123456");  
 	        System.out.println(md5);
-	        System.out.println(md52);
 	    }  
 }
