@@ -25,10 +25,10 @@
   	<filter-name>LoginLimitFilter</filter-name>
   	<filter-class>com.filter.LoginLimitFilter</filter-class>
 </filter>
-<filter-mapping>
+<!-- <filter-mapping>
   <filter-name>LoginLimitFilter</filter-name>
   <url-pattern>*.abc</url-pattern>
-</filter-mapping>
+</filter-mapping> -->
   
   <context-param>
     <param-name>contextConfigLocation</param-name>
