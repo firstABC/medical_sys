@@ -24,6 +24,7 @@ import com.service.PermissionsService;
 import com.service.Role_permissionsService;
 import com.service.UserService;
 import com.service.User_RoleService;
+import com.util.LoginUserMap;
 import com.util.Md5;
 
 @Controller
@@ -37,7 +38,7 @@ public class UserController {
 	@Autowired
 	private Role_permissionsService role_permissionsService;
 	@Autowired
-	private PermissionsService PermissionsService;
+	private PermissionsService permissionsService;
 	
 	@RequestMapping("/toLogin")
 	public MsgDTO loginVerfiy(HttpServletRequest request,String userAccount,String userPwd){
@@ -58,8 +59,7 @@ public class UserController {
 					HttpSession session = request.getSession();
 					String userSessionId = session.getId();
 					String userid = userBack.getUserid();
-					ServletContext application = request.getSession().getServletContext();
-					application.setAttribute(userid, userSessionId);
+					LoginUserMap.setLoginUsers(userid, userSessionId);
 					session.setAttribute("userid", userid);
 					
 					Set permissionsSet = new HashSet();
@@ -72,7 +72,7 @@ public class UserController {
 						for(Role_permissions role_permissions:ltRolepermissions){
 							String perid = role_permissions.getPerid();
 							//查具体的权限
-							Permissions permissions = PermissionsService.selectPermissions(perid);
+							Permissions permissions = permissionsService.selectPermissions(perid);
 							String percode = permissions.getPercode();
 							permissionsSet.add(percode);
 						}

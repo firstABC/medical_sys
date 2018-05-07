@@ -1,9 +1,10 @@
 package com.listener;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import com.util.LoginUserMap;
 
 public class SessionListener implements HttpSessionListener {
 
@@ -16,9 +17,8 @@ public class SessionListener implements HttpSessionListener {
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
-		ServletContext application = session.getServletContext();
-		String userid = (String)session.getAttribute("userid");
-		application.setAttribute("userid", "");
+		String sessionid = session.getId();
+		LoginUserMap.removeUser(sessionid);
 	}
 
 }

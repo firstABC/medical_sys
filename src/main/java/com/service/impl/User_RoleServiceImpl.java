@@ -3,12 +3,13 @@ package com.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.entity.User_role;
 import com.entity.User_roleExample;
 import com.mapper.User_roleMapper;
 import com.service.User_RoleService;
-
+@Service("User_RoleService")
 public class User_RoleServiceImpl implements User_RoleService {
 
 	@Autowired

@@ -3,12 +3,13 @@ package com.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.entity.Role_permissions;
 import com.entity.Role_permissionsExample;
 import com.mapper.Role_permissionsMapper;
 import com.service.Role_permissionsService;
-
+@Service("role_permissionsService")
 public class Role_permissionsServiceImpl implements Role_permissionsService {
 
 	@Autowired
