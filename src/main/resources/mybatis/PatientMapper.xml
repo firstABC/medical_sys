@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PatientMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Patient" >
+    <result column="patientId" property="patientid" jdbcType="VARCHAR" />
+    <result column="paName" property="paname" jdbcType="VARCHAR" />
+    <result column="paIDCard" property="paidcard" jdbcType="VARCHAR" />
+    <result column="paPhone" property="paphone" jdbcType="VARCHAR" />
+    <result column="paAge" property="paage" jdbcType="VARCHAR" />
+    <result column="paSex" property="pasex" jdbcType="VARCHAR" />
+    <result column="paMarriage" property="pamarriage" jdbcType="VARCHAR" />
+    <result column="paAddress" property="paaddress" jdbcType="VARCHAR" />
+    <result column="paCreator" property="pacreator" jdbcType="VARCHAR" />
+    <result column="icId" property="icid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    patientId, paName, paIDCard, paPhone, paAge, paSex, paMarriage, paAddress, paCreator, 
+    icId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.PatientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from patient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.PatientExample" >
+    delete from patient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Patient" >
+    insert into patient (patientId, paName, paIDCard, 
+      paPhone, paAge, paSex, 
+      paMarriage, paAddress, paCreator, 
+      icId)
+    values (#{patientid,jdbcType=VARCHAR}, #{paname,jdbcType=VARCHAR}, #{paidcard,jdbcType=VARCHAR}, 
+      #{paphone,jdbcType=VARCHAR}, #{paage,jdbcType=VARCHAR}, #{pasex,jdbcType=VARCHAR}, 
+      #{pamarriage,jdbcType=VARCHAR}, #{paaddress,jdbcType=VARCHAR}, #{pacreator,jdbcType=VARCHAR}, 
+      #{icid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Patient" >
+    insert into patient
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="patientid != null" >
+        patientId,
+      </if>
+      <if test="paname != null" >
+        paName,
+      </if>
+      <if test="paidcard != null" >
+        paIDCard,
+      </if>
+      <if test="paphone != null" >
+        paPhone,
+      </if>
+      <if test="paage != null" >
+        paAge,
+      </if>
+      <if test="pasex != null" >
+        paSex,
+      </if>
+      <if test="pamarriage != null" >
+        paMarriage,
+      </if>
+      <if test="paaddress != null" >
+        paAddress,
+      </if>
+      <if test="pacreator != null" >
+        paCreator,
+      </if>
+      <if test="icid != null" >
+        icId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="patientid != null" >
+        #{patientid,jdbcType=VARCHAR},
+      </if>
+      <if test="paname != null" >
+        #{paname,jdbcType=VARCHAR},
+      </if>
+      <if test="paidcard != null" >
+        #{paidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="paphone != null" >
+        #{paphone,jdbcType=VARCHAR},
+      </if>
+      <if test="paage != null" >
+        #{paage,jdbcType=VARCHAR},
+      </if>
+      <if test="pasex != null" >
+        #{pasex,jdbcType=VARCHAR},
+      </if>
+      <if test="pamarriage != null" >
+        #{pamarriage,jdbcType=VARCHAR},
+      </if>
+      <if test="paaddress != null" >
+        #{paaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pacreator != null" >
+        #{pacreator,jdbcType=VARCHAR},
+      </if>
+      <if test="icid != null" >
+        #{icid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.PatientExample" resultType="java.lang.Integer" >
+    select count(*) from patient
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update patient
+    <set >
+      <if test="record.patientid != null" >
+        patientId = #{record.patientid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paname != null" >
+        paName = #{record.paname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paidcard != null" >
+        paIDCard = #{record.paidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paphone != null" >
+        paPhone = #{record.paphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paage != null" >
+        paAge = #{record.paage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pasex != null" >
+        paSex = #{record.pasex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pamarriage != null" >
+        paMarriage = #{record.pamarriage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paaddress != null" >
+        paAddress = #{record.paaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pacreator != null" >
+        paCreator = #{record.pacreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icid != null" >
+        icId = #{record.icid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update patient
+    set patientId = #{record.patientid,jdbcType=VARCHAR},
+      paName = #{record.paname,jdbcType=VARCHAR},
+      paIDCard = #{record.paidcard,jdbcType=VARCHAR},
+      paPhone = #{record.paphone,jdbcType=VARCHAR},
+      paAge = #{record.paage,jdbcType=VARCHAR},
+      paSex = #{record.pasex,jdbcType=VARCHAR},
+      paMarriage = #{record.pamarriage,jdbcType=VARCHAR},
+      paAddress = #{record.paaddress,jdbcType=VARCHAR},
+      paCreator = #{record.pacreator,jdbcType=VARCHAR},
+      icId = #{record.icid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

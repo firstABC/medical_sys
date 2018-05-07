@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.DrugMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Drug" >
+    <result column="drugId" property="drugid" jdbcType="VARCHAR" />
+    <result column="drugName" property="drugname" jdbcType="VARCHAR" />
+    <result column="drugNum" property="drugnum" jdbcType="INTEGER" />
+    <result column="drugPrice" property="drugprice" jdbcType="DECIMAL" />
+    <result column="drugUnit" property="drugunit" jdbcType="VARCHAR" />
+    <result column="drugRemark" property="drugremark" jdbcType="VARCHAR" />
+    <result column="drugCode" property="drugcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    drugId, drugName, drugNum, drugPrice, drugUnit, drugRemark, drugCode
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.DrugExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drug
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.DrugExample" >
+    delete from drug
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Drug" >
+    insert into drug (drugId, drugName, drugNum, 
+      drugPrice, drugUnit, drugRemark, 
+      drugCode)
+    values (#{drugid,jdbcType=VARCHAR}, #{drugname,jdbcType=VARCHAR}, #{drugnum,jdbcType=INTEGER}, 
+      #{drugprice,jdbcType=DECIMAL}, #{drugunit,jdbcType=VARCHAR}, #{drugremark,jdbcType=VARCHAR}, 
+      #{drugcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Drug" >
+    insert into drug
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drugid != null" >
+        drugId,
+      </if>
+      <if test="drugname != null" >
+        drugName,
+      </if>
+      <if test="drugnum != null" >
+        drugNum,
+      </if>
+      <if test="drugprice != null" >
+        drugPrice,
+      </if>
+      <if test="drugunit != null" >
+        drugUnit,
+      </if>
+      <if test="drugremark != null" >
+        drugRemark,
+      </if>
+      <if test="drugcode != null" >
+        drugCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drugid != null" >
+        #{drugid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugname != null" >
+        #{drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugnum != null" >
+        #{drugnum,jdbcType=INTEGER},
+      </if>
+      <if test="drugprice != null" >
+        #{drugprice,jdbcType=DECIMAL},
+      </if>
+      <if test="drugunit != null" >
+        #{drugunit,jdbcType=VARCHAR},
+      </if>
+      <if test="drugremark != null" >
+        #{drugremark,jdbcType=VARCHAR},
+      </if>
+      <if test="drugcode != null" >
+        #{drugcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.DrugExample" resultType="java.lang.Integer" >
+    select count(*) from drug
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update drug
+    <set >
+      <if test="record.drugid != null" >
+        drugId = #{record.drugid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugname != null" >
+        drugName = #{record.drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugnum != null" >
+        drugNum = #{record.drugnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugprice != null" >
+        drugPrice = #{record.drugprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.drugunit != null" >
+        drugUnit = #{record.drugunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugremark != null" >
+        drugRemark = #{record.drugremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugcode != null" >
+        drugCode = #{record.drugcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update drug
+    set drugId = #{record.drugid,jdbcType=VARCHAR},
+      drugName = #{record.drugname,jdbcType=VARCHAR},
+      drugNum = #{record.drugnum,jdbcType=INTEGER},
+      drugPrice = #{record.drugprice,jdbcType=DECIMAL},
+      drugUnit = #{record.drugunit,jdbcType=VARCHAR},
+      drugRemark = #{record.drugremark,jdbcType=VARCHAR},
+      drugCode = #{record.drugcode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
