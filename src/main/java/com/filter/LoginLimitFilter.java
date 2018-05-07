@@ -18,7 +18,6 @@ import com.util.LoginUserMap;
 /**
  * Servlet Filter implementation class LoginLimitFilter
  */
-@WebFilter("/LoginLimitFilter")
 public class LoginLimitFilter implements Filter {
 
     /**
@@ -46,15 +45,23 @@ public class LoginLimitFilter implements Filter {
 	    //获取项目路径
 	    String path = servletRequest.getContextPath(); 
 	    String basePath = servletRequest.getScheme()+"://"+servletRequest.getServerName()+":"+servletRequest.getServerPort()+path;
-
+	    String url =servletRequest.getRequestURI();
+	    System.out.println(url+"----"+path);
+	    basePath = "http://localhost:8080/ERPSystem/to/login.abc";
 	    String sessionid = session.getId();
+	    if(url.endsWith("login.abc")){
+	    	chain.doFilter(request, response);
+	    	return;
+	    }
 	    String userid = (String) session.getAttribute("userid");
 	    if(userid!=null&&userid!=""){
 	    	if(!LoginUserMap.isInLoginUsers(userid, sessionid)){//当前用户被挤掉了
-	    		servletResponse.sendRedirect(basePath + "?logoutway=edge");//跳转到登录界面，并提示被挤掉的
+	    		servletResponse.sendRedirect(basePath);//跳转到登录界面，并提示被挤掉的
+	    		return;
 	    	}
 	    }else{//session过期或者没有登录
 	    	servletResponse.sendRedirect(basePath);//跳转到登录界面，并提示被挤掉的
+	    	return ;
 	    }
 	    
 		chain.doFilter(request, response);
