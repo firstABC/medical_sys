@@ -34,6 +34,7 @@ public class DrugController {
 	public ModelAndView toPage(@PathVariable("page")String page){
 		return new ModelAndView(page);
 	}
+	//获取列表
 	@RequestMapping("/list")
     public @ResponseBody MsgDTO drugList(){
 		logger.info("Get Drug List Begin");
