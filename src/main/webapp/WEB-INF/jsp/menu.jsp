@@ -42,7 +42,7 @@
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="user.html">用户管理</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="${pageContext.request.contextPath}/switch/user.abc">用户管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
 						  	</ul>
 						</li>

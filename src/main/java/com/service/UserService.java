@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.Date;
+import java.util.List;
 
 import com.entity.User;
 
@@ -20,4 +21,9 @@ public interface UserService {
 	 * @return
 	 */
 	public int updateLastTime(String userid,Date lastTime);
+	/**
+	 * 获取所有的用户
+	 * @return
+	 */
+	public List<User> selectUserAll();
 }
