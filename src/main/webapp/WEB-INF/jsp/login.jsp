@@ -18,19 +18,22 @@
     
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="bootstrapValidator/bootstrapValidator.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrapValidator/bootstrapValidator.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
     <script type="text/javascript">
 	function toLogin(){
     	var option = {
-    		url:'${pageContext.request.getContextPath()}/gs/toPublish',
+    		url:'${pageContext.request.getContextPath()}/uesr/toLogin.abc',
     		type :"post",
     		dataType:'json',
     		headers:{"ClientCallMode" : "ajax"}, 
     		success : function(data) {
-    			if(data.message == 'error'){
-					alert("用户名或密码错误！");
+    			if(data.status == '-1'){
+					alert(data.message);
 				}else{
-					window.location.href="${pageContext.request.contextPath}/gs/manageA";
+					alert("登录成功");
+					alert(data)
+					//window.location.href="${pageContext.request.contextPath}/gs/manageA";
 				}
             },
          };
@@ -55,11 +58,11 @@
                         <div class="box content">
                             <div class="form loginBox">
                                 <form method="post" action="" accept-charset="UTF-8" id="loginForm" name="loginForm">
-                                   <select class="form-control">
+                                   <!-- <select class="form-control">
                                         <option>角色1</option>
                                         <option>角色2</option>
                                         <option>角色3</option>
-                                    </select>
+                                    </select> -->
                                     <input class="form-control" type="text" placeholder="用户名" name="userAccount" id="userAccount">
                                     <input class="form-control" type="password" placeholder="密码" name="userPwd" id="userPwd">
                                     <input class="form-control yz" type="text" placeholder="验证码" name=""><span class="code" id="idcode"></span>

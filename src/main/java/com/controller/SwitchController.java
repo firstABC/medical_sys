@@ -4,10 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/to")
-public class ToLogin {
+@RequestMapping("/switch")
+public class SwitchController {
 	@RequestMapping("/login")
-	public String toLogin(){
+	public String toLogin(){//到登录
 		return "/login";
 	}
+	
 }

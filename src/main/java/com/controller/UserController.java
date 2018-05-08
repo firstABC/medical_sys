@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.MsgDTO;
 import com.entity.Permissions;
@@ -41,6 +42,7 @@ public class UserController {
 	private PermissionsService permissionsService;
 	
 	@RequestMapping("/toLogin")
+	@ResponseBody
 	public MsgDTO loginVerfiy(HttpServletRequest request,String userAccount,String userPwd){
 		MsgDTO msgDTO = new MsgDTO();
 		try {
