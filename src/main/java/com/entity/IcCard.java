@@ -12,11 +12,9 @@ public class IcCard {
     public String getIcid() {
         return icid;
     }
-
     public void setIcid(String icid) {
         this.icid = icid == null ? null : icid.trim();
     }
-
     public String getIccardnum() {
         return iccardnum;
     }
