@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,12 @@ public class PermissionsServiceImpl implements PermissionsService {
 		Permissions permissions = permissionsMapper.selectByExample(permissionsExample).get(0);
 		return permissions;
 	}
+
+	@Override
+	public List<Permissions> selectPermissions() {
+		List<Permissions> ltPerissions = permissionsMapper.selectByExample(null);
+		return ltPerissions;
+	}
+	
 
 }

@@ -14,7 +14,7 @@
 			<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
                <div class="menu">
 					<ul id="menu" >
-						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/switch/openUser.abc" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
 						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
 						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
 						<li class="menu-academico">

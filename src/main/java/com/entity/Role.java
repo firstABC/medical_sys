@@ -5,7 +5,19 @@ public class Role {
 
     private String rolenmae;
 
-    public String getRoleid() {
+    
+    
+    public Role() {
+		super();
+	}
+
+	public Role(String roleid, String rolenmae) {
+		super();
+		this.roleid = roleid;
+		this.rolenmae = rolenmae;
+	}
+
+	public String getRoleid() {
         return roleid;
     }
 
