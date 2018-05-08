@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class UserServiceImpl implements UserService{
 		UserExample uExam = new UserExample();
 		uExam.createCriteria().andUseraccountEqualTo(user.getUseraccount())
 								.andUserpwdEqualTo(user.getUserpwd());
-		User use1 = (User) userMapper.selectByExample(uExam);
-		return use1;
+		List<User> ltUser =  userMapper.selectByExample(uExam);
+		User user1 = ltUser==null?null:ltUser.get(0);
+		return user1;
 	}
 
 	@Override

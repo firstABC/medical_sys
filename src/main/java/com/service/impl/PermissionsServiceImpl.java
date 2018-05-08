@@ -18,7 +18,7 @@ public class PermissionsServiceImpl implements PermissionsService {
 	public Permissions selectPermissions(String perid) {
 		PermissionsExample permissionsExample = new PermissionsExample();
 		permissionsExample.createCriteria().andPeridEqualTo(perid);
-		Permissions permissions = (Permissions) permissionsMapper.selectByExample(permissionsExample);
+		Permissions permissions = permissionsMapper.selectByExample(permissionsExample).get(0);
 		return permissions;
 	}
 

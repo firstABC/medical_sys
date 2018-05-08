@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.MsgDTO;
 import com.entity.Permissions;
@@ -41,6 +42,7 @@ public class UserController {
 	private PermissionsService permissionsService;
 	
 	@RequestMapping("/toLogin")
+	@ResponseBody
 	public MsgDTO loginVerfiy(HttpServletRequest request,String userAccount,String userPwd){
 		MsgDTO msgDTO = new MsgDTO();
 		try {
@@ -61,7 +63,8 @@ public class UserController {
 					String userid = userBack.getUserid();
 					LoginUserMap.setLoginUsers(userid, userSessionId);
 					session.setAttribute("userid", userid);
-					
+					session.setAttribute("currentUser", userBack);
+						
 					Set permissionsSet = new HashSet();
 					//查询所有的角色
 					List<User_role> ltuserRole =  user_RoleService.selectUserRole(userid);
