@@ -1,15 +1,14 @@
 package com.dto;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class MsgDTO {
-	public final static Integer STATUS_OK = 0;
-	public final static Integer STATUS_ERR = -1;
-	public final static Integer STATUS_FORBIDDEN = -2;
+	public final static Integer STATUS_OK = 0;	//成功
+	public final static Integer STATUS_ERR = -1;	//失败
+	public final static Integer STATUS_Zero = -2;	//获取数据为空
 	
 	public final static String MESSAGE_OK = "操作成功";
 	public final static String MESSAGE_ERR = "操作失败";
+	public final static String MESSAGE_Zero = "列表为空";
 	
 	private Integer status = STATUS_OK;
 	
@@ -17,7 +16,7 @@ public class MsgDTO {
 	
 	private Integer total = 0;
 	
-	private Map<String, Object> data = new HashMap<String, Object>();
+	private Object data = null;
 	
 	//返回成功结果的方法
 	public static MsgDTO success(){
@@ -33,25 +32,16 @@ public class MsgDTO {
 		msgDTO.setMessage(MESSAGE_ERR);
 		return msgDTO;
 	}
-	//存放数据，支持链式操作
-	public MsgDTO add(String key,Object value){
+	//返回空结果的方法
+	public static MsgDTO zero(){
 		MsgDTO msgDTO = new MsgDTO();
-		data.put(key, value);
-		msgDTO.setData(data);
-		return msgDTO;  
+		msgDTO.setStatus(STATUS_Zero);
+		msgDTO.setMessage(MESSAGE_Zero);
+		return msgDTO;
 	}
-	
 	public MsgDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public MsgDTO(Integer status, String message, Integer total,
-			Map<String, Object> data) {
-		super();
-		this.status = status;
-		this.message = message;
-		this.total = total;
-		this.data = data;
 	}
 	public Integer getStatus() {
 		return status;
@@ -76,10 +66,10 @@ public class MsgDTO {
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
-	public Map<String, Object> getData() {
+	public Object getData() {
 		return data;
 	}
-	public void setData(Map<String, Object> data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 }
