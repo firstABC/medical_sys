@@ -63,7 +63,8 @@ public class UserController {
 					String userid = userBack.getUserid();
 					LoginUserMap.setLoginUsers(userid, userSessionId);
 					session.setAttribute("userid", userid);
-					
+					session.setAttribute("currentUser", userBack);
+						
 					Set permissionsSet = new HashSet();
 					//查询所有的角色
 					List<User_role> ltuserRole =  user_RoleService.selectUserRole(userid);

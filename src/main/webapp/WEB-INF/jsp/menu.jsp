@@ -1,57 +1,13 @@
-
-<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>医疗系统</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-	<link href="bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-	<link href="bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
-	<link href="css/font-awesome.css" rel="stylesheet">
-
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	
-	<script src="js/jquery-1.10.2.min.js"></script>
-   	<script src="bootstrap/js/bootstrap.min.js"></script>
-   	<script src="bootstrapValidator/bootstrapValidator.min.js"></script>
-
-</head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
 <body>
-   	<div class="page-container">
-   		<!-- inner-content -->
-		<div class="left-content">
-			<div class="inner-content">
-				<!-- top_bg -->
-				<div class="header-section">
-					<div class="top_bg">
-						<div class="header_top">
-							<div class="top_right">
-								<ul>
-									<li><a href="javascript:;">当前位置</a></li>|
-									<li><a href="javascript:;">首页</a></li>
-								</ul>
-							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<!-- content -->
-				<div class="content"></div>
-			</div>
-		</div> 
-
-		<!--/sidebar-menu-->
-		<div class="sidebar-menu">
+<div class="sidebar-menu">
 			<header class="logo1">
 				<a href="javascript:;" class="sidebar-icon"><span class="fa fa-bars"></span></a> 
 			</header>
@@ -100,10 +56,5 @@
 					</ul>
 				</div>
 			</div>
-	  	<div class="clearfix"></div>	
-	</div>
-
-	<!-- demo -->
-   	<script type="text/javascript" src='js/js.js'></script>
 </body>
 </html>

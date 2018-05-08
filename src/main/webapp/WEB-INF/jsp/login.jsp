@@ -31,9 +31,7 @@
     			if(data.status == '-1'){
 					alert(data.message);
 				}else{
-					alert("登录成功");
-					alert(data)
-					//window.location.href="${pageContext.request.contextPath}/gs/manageA";
+					window.location.href="${pageContext.request.contextPath}/switch/index.abc";
 				}
             },
          };
