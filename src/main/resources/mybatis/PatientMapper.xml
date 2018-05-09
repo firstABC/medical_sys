@@ -232,4 +232,49 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+   <resultMap id="PCResultMap" type="com.entity.PatientCardVO" >
+    <result column="patientId" property="patientid" jdbcType="VARCHAR" />
+    <result column="paName" property="paname" jdbcType="VARCHAR" />
+    <result column="paIDCard" property="paidcard" jdbcType="VARCHAR" />
+    <result column="paPhone" property="paphone" jdbcType="VARCHAR" />
+    <result column="paAge" property="paage" jdbcType="VARCHAR" />
+    <result column="paSex" property="pasex" jdbcType="VARCHAR" />
+    <result column="paMarriage" property="pamarriage" jdbcType="VARCHAR" />
+    <result column="paAddress" property="paaddress" jdbcType="VARCHAR" />
+    <result column="paCreator" property="pacreator" jdbcType="VARCHAR" />
+    <result column="icId" property="icid" jdbcType="VARCHAR" />
+    <result column="icCardNum" property="iccardnum" jdbcType="VARCHAR" />
+    <result column="icBalance" property="icbalance" jdbcType="DECIMAL" />
+    <result column="isStatus" property="isstatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查询患者和ICCard信息 -患者为条件-->
+  <select id="selectPatientIcCard" resultMap="PCResultMap" parameterType="com.entity.PatientExample">
+   	select p.patientId,p.paName,p.paIDCard,p.paPhone,p.paAge,p.paSex,p.paMarriage,p.paAddress,p.paCreator, 
+   	i.icId,i.icCardNum,i.icBalance,i.isStatus from patient as p
+	left join icCard as i on p.icId = i.icId
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+   <!-- 查询患者和ICCard信息 -多条件模糊查询-->
+  <select id="selectPatientByCons" resultMap="PCResultMap" parameterType="com.dto.PaCaCons">
+   	select p.patientId,p.paName,p.paIDCard,p.paPhone,p.paAge,p.paSex,p.paMarriage,p.paAddress,p.paCreator, 
+   	i.icId,i.icCardNum,i.icBalance,i.isStatus from patient as p
+	left join icCard as i on p.icId = i.icId where 1=1
+	<if test="iccardnum != null and iccardnum != ''" >
+      and i.icCardNum like #{iccardnum}
+    </if>
+    <if test="paname != null and paname != ''" >
+      and p.paName like #{paname}
+    </if>
+    <if test="paphone != null and paphone != ''" >
+      and p.paPhone like #{paphone}
+    </if>
+    <if test="isstatus != null and isstatus != ''" >
+      and i.isStatus like #{isstatus}
+    </if>
+  </select>
 </mapper>

@@ -70,4 +70,12 @@ public class Drug {
     public void setDrugcode(String drugcode) {
         this.drugcode = drugcode == null ? null : drugcode.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Drug [drugid=" + drugid + ", drugname=" + drugname
+				+ ", drugnum=" + drugnum + ", drugprice=" + drugprice
+				+ ", drugunit=" + drugunit + ", drugremark=" + drugremark
+				+ ", drugcode=" + drugcode + "]";
+	}
 }

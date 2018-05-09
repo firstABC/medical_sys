@@ -13,4 +13,8 @@ public interface DrugService {
 	public int deleteDrug(String drugId) throws Exception;
 
 	public int updateDrug(Drug drug) throws Exception;
+	
+	public Drug getDrug(String drugId) throws Exception;
+	
+	public List<Drug> getDrugByCons(String drugName,String drugCode) throws Exception;
 }
