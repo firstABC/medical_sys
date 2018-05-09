@@ -57,7 +57,7 @@ public class PatientController {
 		}catch(Exception e){
 			msgDTO.setStatus(MsgDTO.STATUS_ERR);
 			msgDTO.setMessage(e.getMessage());
-			logger.error("Get Patient List Exaception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+			logger.error("Get Patient List Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
 		}
 		return msgDTO;
 	}  

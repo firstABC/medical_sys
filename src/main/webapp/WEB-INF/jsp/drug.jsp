@@ -89,6 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                                <th>名称</th>
 				                                <th>数量</th>
 				                                <th>单价</th>
+				                                <th>单位</th>
 				                                <th>备注</th>
 				                                <th>操作</th>
 				                            </tr>
@@ -272,11 +273,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	{"data": "drugname"},
 	            	{"data": "drugnum"},
 	            	{"data": "drugprice"},
+	            	{"data": "drugunit",
+	            		render:function(drugunit){
+	                        if(drugunit=="A"){
+	                            return "盒";
+	                        }else if(drugunit=="B"){
+	                            return "瓶";
+	                        }else{
+	                        	return null;
+	                        }
+                    	}
+	            	},
 	            	{"data": "drugremark"},
 	            	{"data": null}
 	            ], 
 	            "columnDefs":[{
-		            "targets": 5,
+		            "targets": 6,
 		            "defaultContent": "<a href='#' id='editrow'>编辑</a><a href='#' id='delrow'>删除</a>" 
 		        }],
         		//插件的汉化

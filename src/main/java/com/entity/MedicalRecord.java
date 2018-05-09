@@ -112,4 +112,14 @@ public class MedicalRecord {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+	@Override
+	public String toString() {
+		return "MedicalRecord [id=" + id + ", iccardnum=" + iccardnum
+				+ ", paname=" + paname + ", pasex=" + pasex + ", paage="
+				+ paage + ", selfReported=" + selfReported
+				+ ", nowMedicalRecord=" + nowMedicalRecord + ", diagnosis="
+				+ diagnosis + ", remark=" + remark + ", physician=" + physician
+				+ ", createtime=" + createtime + "]";
+	}
 }

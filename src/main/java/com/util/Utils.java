@@ -14,17 +14,7 @@ public class Utils {
     public static boolean listNotNull(List a) {
         return null != a && !a.isEmpty();
     }
-    /**
-	 * 获取当前日期0:0:0
-	 * @return
-     * @throws ParseException  
-	 */
-	public static Date getToday() throws ParseException {
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		String td = f.format(new Date());
-		return f.parse(td);
-	}
-	
+  
 	public static boolean numNotNull(int num){
 		return 0 != num;
 	}
@@ -36,8 +26,15 @@ public class Utils {
 		} catch (Exception e) {}
 		return ret;
 	}
+	//UUID
 	public static String getUUID(){
 		String str = UUID.randomUUID().toString();
 		return str;
+	}
+	//当前日期时间
+	public static Date getNow() throws ParseException {
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateNow = dateFormater.format(new Date());
+		return dateFormater.parse(dateNow);
 	}
 }

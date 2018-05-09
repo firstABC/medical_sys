@@ -53,7 +53,7 @@ public class DrugController {
 		}catch(Exception e){
 			msgDTO.setStatus(MsgDTO.STATUS_ERR);
 			msgDTO.setMessage(e.getMessage());
-			logger.error("Get Drug List Exaception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+			logger.error("Get Drug List Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
 		}
 		return msgDTO;
 	}  

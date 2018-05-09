@@ -224,9 +224,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	{"data": "paname"},
 	            	{"data": "paphone"},
 	            	{"data": "paage"},
-	            	{"data": "pasex"},
+	            	{"data": "pasex",
+	            		render:function(pasex){
+	                        if(pasex=="B"){
+	                            return "女";
+	                        }else{
+	                            return "男";
+	                        }
+                    	}
+	            	},
 	            	{"data": "icbalance"},
-	            	{"data": "isstatus"},
+	            	{"data": "isstatus",
+	            		render:function(isstatus){
+	                        if(isstatus=="C"){
+	                            return "销户";
+	                        }else if(isstatus=="B"){
+	                            return "冻结";
+	                        }else{
+	                        	return "正常"
+	                        }
+                    	}
+	            	},
 	            	{"data": null}
 	            ], 
 	            "columnDefs":[{
