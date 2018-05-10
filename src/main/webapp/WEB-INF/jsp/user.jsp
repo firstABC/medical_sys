@@ -66,7 +66,7 @@
 											<input type="text" name="" value="" class="form-control">
 										</div>
 										<div class="searchType"><button type="button" class="btn btn-info btn-sm">搜索</button></div>
-										<div class="cx fr"><button type="button" class="btn btn-info btn-sm" onclick="window.location.href='addUser.html'">新增</button></div>
+										<div class="cx fr"><button type="button" class="btn btn-info btn-sm" onclick="window.location.href='<%=basePath%>/switch/addUser.abc'">新增</button></div>
 									</div>
 
 									<table class="table-bordered table-striped table-hover" id="table" width="100%" border="0" cellspacing="0" cellpadding="2">

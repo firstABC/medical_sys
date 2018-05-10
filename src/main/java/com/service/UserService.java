@@ -26,4 +26,11 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> selectUserAll();
+	
+	/**
+	 * 创建用户
+	 * @param user
+	 * @return
+	 */
+	public int createUser(User user);
 }

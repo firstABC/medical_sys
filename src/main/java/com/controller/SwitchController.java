@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,11 @@ public class SwitchController {
 	public ModelAndView toRole(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("role");
-		//从文件中读取所有的角色
-		String path= "//resources//role.property";
-		List<Role> ltRole = FileReadUtil.fileToRole(path);
+		FileReadUtil ileReadUtil = new FileReadUtil();
+		//查询所有的角色
+		URL url = this.getClass().getResource("/");
+		String path= url.getPath()+"role.property";
+		List<Role> ltRole = ileReadUtil.fileToRole(path);
 		//从数据库中读取所有的权限
 		List<Permissions> ltPermissions = permissionsService.selectPermissions();
 		
@@ -59,6 +62,19 @@ public class SwitchController {
 		mv.addObject("ltUser", ltUser);
 		mv.setViewName("user");
 		return mv; 
+	}
+	
+	@RequestMapping("/addUser")
+	public ModelAndView toAddUser(){
+		ModelAndView mv = new ModelAndView();
+		FileReadUtil ileReadUtil = new FileReadUtil();
+		//查询所有的角色
+		URL url = this.getClass().getResource("/");
+		String path= url.getPath()+"role.property";
+		List<Role> ltRole = ileReadUtil.fileToRole(path);
+		mv.addObject("ltRole", ltRole);
+		mv.setViewName("addUser");
+		return mv;
 	}
 	
 }

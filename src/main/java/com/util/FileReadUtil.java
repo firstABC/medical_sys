@@ -17,9 +17,9 @@ import com.entity.Role;
  */
 public class FileReadUtil {
 
-	public static List roleList = new ArrayList<Role>();
+	public  List roleList = new ArrayList<Role>();
 	
-	public static List fileToRole(String path){
+	public  List fileToRole(String path){
 		try {
 			File file = new File(path);
 			InputStreamReader inSReader = new InputStreamReader(new FileInputStream(file),"utf-8");
@@ -32,6 +32,8 @@ public class FileReadUtil {
 				Role role = new Role(roleId,roleName);
 				roleList.add(role);
 			}
+			reader.close();
+			inSReader.close();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

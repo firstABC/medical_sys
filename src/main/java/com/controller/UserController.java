@@ -5,12 +5,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +35,8 @@ import com.util.Md5;
 @RequestMapping("/uesr")
 public class UserController {
 
+	private static Logger logger = LoggerFactory
+			.getLogger(UserController.class);
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -99,5 +106,51 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return msgDTO;
+	}
+	
+	@RequestMapping("/createUser")
+	@ResponseBody
+	@Transactional
+	public MsgDTO createUser(HttpServletRequest request){
+		MsgDTO msgDTO = new MsgDTO();
+	try{
+		String[] roleIds = request.getParameterValues("role");
+		String userAccount = request.getParameter("userAccount");
+		String userPwd = request.getParameter("userPwd");
+		String userPwdAffirm =request.getParameter("userPwdAffirm");
+		if(!userPwd.equals(userPwdAffirm)){
+			msgDTO.setStatus(msgDTO.STATUS_ERR);
+			msgDTO.setMessage("两次密码不一致");
+			return msgDTO;
+		}
+		User user = new User();
+		Date date=new Date();
+		String userId = UUID.randomUUID().toString();
+		user.setUserid(userId);
+		user.setCreatetime(date);
+		user.setUseraccount(userAccount);
+		user.setUserpwd(userPwd);
+		user.setStatus("A");
+		int isOk = userService.createUser(user);
+		
+		if(roleIds.length>0){
+			for(String roleId:roleIds){
+				User_role user_role = new User_role();
+				user_role.setUrid(UUID.randomUUID().toString());
+				user_role.setRoleid(roleId);
+				user_role.setUserid(userId);
+				int isOk1 = user_RoleService.insertUser_Role(user_role);
+			}
+		}
+		msgDTO.setStatus(msgDTO.STATUS_OK);
+		msgDTO.setMessage("创建用户成功");
+		return msgDTO;
+	}catch(Throwable e){
+		msgDTO.setStatus(msgDTO.STATUS_ERR);
+		msgDTO.setMessage("操作失败，请稍后重试");
+		logger.error("创建用户失败："+e);
+		return msgDTO;
+	}
+		
 	}
 }

@@ -12,4 +12,10 @@ public interface User_RoleService {
 	 * @return
 	 */
 	public List<User_role> selectUserRole(String userid);
+	
+	/**
+	 * 添加用户权限关联
+	 * @return
+	 */
+	public int insertUser_Role(User_role user_role);
 }

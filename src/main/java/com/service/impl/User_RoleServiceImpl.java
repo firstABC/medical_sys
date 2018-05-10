@@ -21,5 +21,10 @@ public class User_RoleServiceImpl implements User_RoleService {
 		List<User_role> ltuserRole = user_roleMapper.selectByExample(user_roleExample);
 		return ltuserRole;
 	}
+	@Override
+	public int insertUser_Role(User_role user_role) {
+		int isOk = user_roleMapper.insert(user_role);
+		return isOk;
+	}
 
 }

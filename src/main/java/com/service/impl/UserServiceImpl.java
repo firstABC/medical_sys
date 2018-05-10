@@ -40,6 +40,12 @@ public class UserServiceImpl implements UserService{
 		List<User> ltUser = userMapper.selectByExample(null);
 		return ltUser;
 	}
+
+	@Override
+	public int createUser(User user) {
+		int isOk = userMapper.insertSelective(user);
+		return isOk;
+	}
 	
 	
 }
