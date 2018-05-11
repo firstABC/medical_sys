@@ -1,10 +1,7 @@
-package com.entity;
+package com.dto;
 
-import java.util.Date;
 
-import com.dto.MedicalRecordCons;
-
-public class MedicalRecord {
+public class MedicalRecordCons {
     private String id;
 
     private String iccardnum;
@@ -25,29 +22,8 @@ public class MedicalRecord {
 
     private String physician;
 
-    private Date createtime;
     
-    
-    public MedicalRecord() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-    
-	public MedicalRecord(MedicalRecordCons meRec) {
-		super();
-		this.id = meRec.getId();
-		this.iccardnum = meRec.getIccardnum();
-		this.paname = meRec.getPaname();
-		this.pasex = meRec.getPasex();
-		this.paage = meRec.getPaage();
-		this.selfReported = meRec.getSelfReported();
-		this.nowMedicalRecord = meRec.getNowMedicalRecord();
-		this.diagnosis = meRec.getDiagnosis();
-		this.remark = meRec.getRemark();
-		this.physician = meRec.getPhysician();
-	}
-
-	public String getId() {
+    public String getId() {
         return id;
     }
     
@@ -127,16 +103,6 @@ public class MedicalRecord {
         this.physician = physician == null ? null : physician.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-    
-    
-    
 	@Override
 	public String toString() {
 		return "MedicalRecord [id=" + id + ", iccardnum=" + iccardnum
@@ -144,6 +110,8 @@ public class MedicalRecord {
 				+ paage + ", selfReported=" + selfReported
 				+ ", nowMedicalRecord=" + nowMedicalRecord + ", diagnosis="
 				+ diagnosis + ", remark=" + remark + ", physician=" + physician
-				+ ", createtime=" + createtime + "]";
+				+ "]";
 	}
+
+    
 }

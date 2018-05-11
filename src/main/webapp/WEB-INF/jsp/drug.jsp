@@ -95,26 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                            </tr>
 				                        </thead>
 				                        <tbody>
-				                        	<!-- <tr>
-				                        		<td>0001</td>
-								                <td>头孢颗粒</td>
-								                <td>176</td>
-								                <td>29</td>
-								                <td>治疗感冒</td>
-								                <td>
-								                	<a href="javascript:;">编辑</a>
-								                </td>
-				                        	</tr>
-				                        	<tr>
-				                        		<td>0002</td>
-								                <td>头孢颗粒</td>
-								                <td>176</td>
-								                <td>29</td>
-								                <td>治疗感冒</td>
-								                <td>
-								                	<a href="javascript:;">编辑</a>
-								                </td>
-				                        	</tr> -->
+				                        	
 				                        </tbody>
 						    		</table>
 
@@ -130,32 +111,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="panel panel-title text-center">药品补录<a href="javascript:;" class="closeAdd fr"><i class="glyphicon glyphicon-remove" data-bv-icon-for="num" style=""></i></a></div>
 
 					<div class="blForm"> 
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="editDrugForm">
+							<input type="text" placeholder="" name="drugid" id="drugid" hidden="hidden">
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">编号<span class="text-muted">*</span></label>
 									<div class="col-sm-4">
-										<input type="tel" class="form-control" placeholder="">
+										<input type="text" class="form-control" placeholder="" name="drugcode" id="drugcode">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">药品名称<span class="text-muted">*</span></label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" name="" placeholder="">
+										<input type="text" class="form-control" placeholder="" name="drugname" id="drugname">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">数量</label>
 									<div class="col-sm-4">
-										<input type="tel" class="form-control" placeholder="">
+										<input type="tel" class="form-control" placeholder="" name="drugnum" id="drugnum">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">单位</label>
 									<div class="col-sm-4">
-										<select class="form-control">
-											<option>盒</option>
-											<option>瓶</option>
+										<select class="form-control" name="drugunit" id="drugunit">
+											<option value ="A">盒</option>
+											<option value ="B">瓶</option>
 										</select>
 									</div>
 								</div>
@@ -163,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label for="" class="col-sm-4 control-label">单价</label>
 									<div class="col-sm-4">
 										<div class=" input-group">
-											<input type="tel" class="form-control">
+											<input type=tel class="form-control" name="drugprice" id="drugprice">
 											<span class="input-group-addon">元</span>
 										</div>
 									</div>
@@ -171,12 +153,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">备注</label>
 									<div class="col-sm-4">
-										<textarea class="form-control"></textarea>
+										<textarea class="form-control" name="drugremark" id="drugremark"></textarea>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-12 text-center">
-								<button type="button" class="btn btn-info">确定</button>
+								<button type="button" class="btn btn-info" id="editDrug">确定</button>
 							</div>
 						</form>
 					</div>
@@ -309,7 +291,76 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            "sSearch": "搜索"
 		        },
 	        });
+	        /*编辑按钮*/
+		    $('#table tbody').on( 'click', 'a#editrow', function () {
+		    	$('.blBox').show();
+		    	var data = t.row( $(this).parents('tr') ).data();
+		    	for (var key in data ){
+		    		if(key =="drugid"){
+		    			$("#"+key).hide();
+		    		}
+		    		$("#"+key).val(data[key]);
+		    	}
 
+		    });
+	        /*删除按钮*/
+		    $('#table tbody').on( 'click', 'a#delrow', function () {
+		        var data = t.row( $(this).parents('tr') ).data();
+		        if(confirm("是否确认删除这条数据")){
+		            $.ajax({
+		                url:'<%=basePath%>/drug/delete.abc',
+		                type:'post',
+		                data: {"drugId": data.drugid}, 
+		                timeout:"3000",
+		                cache:"false",
+		                async:"false",
+		                success:function(res){
+		                    if(res.status == 0){
+		                        //t.row().remove();	//删除这行的数据
+		                        alert(res.message);
+		                    }else{
+		                    	alert(res.message);
+		                    }
+		                },
+		                error:function(err){
+		                    alert("获取数据失败");
+		                }
+		            });
+		        }
+		        t.ajax.reload();	//刷新datatable
+		    });
+	        //添加或编辑药品
+	         $('#editDrug').on('click', function(){
+	        	var params = $("#editDrugForm").serialize();
+	        	if(confirm("是否确认编辑这条数据")){
+	        		$.ajax({
+						url:'<%=basePath%>/drug/edit.abc',
+			    		type :'post',
+			    		data:params,
+			    		timeout:"3000",
+		                cache:"false",
+		                async:"false",
+			    		success:function(res){
+			    			if(res.message == '修改成功!'){
+			    				alert(res.message);
+			    			}else if(res.message =='添加成功!'){
+			    				alert(res.message);
+			    			}else{
+			    				alert(res.message);
+			    			}
+			    		},
+			    		error:function(err){
+			                alert("获取数据失败");
+			            }
+			        });
+		        }
+	        	t.ajax.reload();		//刷新datatable
+	        	$('#editDrugForm input').val('');	//手动清除form表单
+        		$('#drugremark').val();
+        		$('#drugunit').val();
+        		$('.blBox').hide();			//关闭编辑框
+			});
+		    
 	        // 药品补录
 	        $('.bl').on('click', function(){
 	        	$('.blBox').show();

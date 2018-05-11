@@ -33,13 +33,9 @@ public class PatientController {
 	private PatientService patientService;
 	
 	/**
-	 * 通用页面跳转
+	 * 获取列表
+	 * @return
 	 */
-	@RequestMapping(value="{page}",method=RequestMethod.GET)
-	public ModelAndView toPage(@PathVariable("page")String page){
-		return new ModelAndView(page);
-	}
-	//获取列表
 	@RequestMapping("/list")
     public @ResponseBody MsgDTO patientList(){
 		logger.info("Get Patient List Start");

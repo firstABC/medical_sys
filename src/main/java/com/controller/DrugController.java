@@ -35,7 +35,10 @@ public class DrugController {
 	public ModelAndView toPage(@PathVariable("page")String page){
 		return new ModelAndView(page);
 	}
-	//获取列表
+	/**
+	 * 获取列表
+	 * @return
+	 */
 	@RequestMapping("/list")
     public @ResponseBody MsgDTO drugList(){
 		logger.info("Get Drug List Start");
@@ -57,28 +60,11 @@ public class DrugController {
 		}
 		return msgDTO;
 	}  
-	
-	@RequestMapping(value = "/add", method = { RequestMethod.POST })
-	public @ResponseBody MsgDTO addDrug(@RequestBody Drug drug){
-		logger.info("Add Drug Start: "+drug.toString());
-		MsgDTO msgDTO = new MsgDTO();
-		int total = 0;
-		try {
-			total = drugService.addDrug(drug);
-			if(Utils.numNotNull(total)){
-				msgDTO = MsgDTO.success();
-				msgDTO.setTotal(total);
-			}else{
-				msgDTO = MsgDTO.zero();
-			}
-			logger.info("Add Drug End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
-		} catch (Exception e) {
-			msgDTO.setStatus(MsgDTO.STATUS_ERR);
-			msgDTO.setMessage(e.getMessage());
-			logger.error("Add Drug Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
-		}
-		return msgDTO;
-	}
+	/**
+	 * 删除
+	 * @param drugId
+	 * @return
+	 */
 	@RequestMapping(value = "/delete", method = { RequestMethod.POST })
 	public @ResponseBody MsgDTO deleteDrug(@RequestParam("drugId")String drugId){
 		logger.info("Delete Drug Start: drugId="+drugId);
@@ -104,31 +90,45 @@ public class DrugController {
 		}
 		return msgDTO;
 	}
-	@RequestMapping(value = "/update", method = { RequestMethod.POST })
-	public @ResponseBody MsgDTO updateDrug(@RequestBody Drug drug){
-		logger.info("Update Drug Start: "+drug.toString());
+	/**
+	 * 添加或修改
+	 * @param drug
+	 * @return
+	 */
+	@RequestMapping(value = "/edit", method = { RequestMethod.POST })
+	public @ResponseBody MsgDTO updateDrug(Drug drug){
+		logger.info("Edit Drug Start: "+drug.toString());
 		MsgDTO msgDTO = new MsgDTO();
 		int total = 0;
 		try {
 			if(Utils.stringNotEmpty(drug.getDrugid())){
 				total = drugService.updateDrug(drug);
 				if(Utils.numNotNull(total)){
-					msgDTO = MsgDTO.success();
+					msgDTO.setStatus(MsgDTO.STATUS_OK);
+					msgDTO.setMessage("修改成功!");
 					msgDTO.setTotal(total);
 				}else{
 					msgDTO = MsgDTO.zero();
 				}
 			}else{
-				msgDTO = MsgDTO.fail();
+				total = drugService.addDrug(drug);
+				if(Utils.numNotNull(total)){
+					msgDTO.setStatus(MsgDTO.STATUS_OK);
+					msgDTO.setMessage("添加成功!");
+					msgDTO.setTotal(total);
+				}else{
+					msgDTO = MsgDTO.zero();
+				}
 			}
-			logger.info("Update Drug End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
+			logger.info("Edit Drug End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
 		} catch (Exception e) {
 			msgDTO.setStatus(MsgDTO.STATUS_ERR);
 			msgDTO.setMessage(e.getMessage());
-			logger.error("Update Drug Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+			logger.error("Edit Drug Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
 		}
 		return msgDTO;
 	}
+	
 	@RequestMapping(value = "/getDrug", method = { RequestMethod.POST })
 	public @ResponseBody MsgDTO getDrug(@RequestParam("drugId")String drugId){
 		logger.info("Get Drug Start: drugId="+drugId);

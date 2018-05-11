@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dto.MedicalRecordCons;
 import com.dto.MsgDTO;
+import com.entity.Drug;
 import com.entity.MedicalRecord;
 import com.entity.MedicalRecord;
 import com.service.MedicalRecordService;
@@ -36,11 +38,11 @@ public class MedicalRecordController {
 	 */
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public ModelAndView meReList(@RequestParam("icCardNum")String icCardNum,ModelMap map){
-		logger.info("Get MedicalRecord List Start");
+		logger.info("Get MedicalRecord List Start: icCardNum="+icCardNum);
 		MsgDTO msgDTO = new MsgDTO();
 		try{
 			if(Utils.stringNotEmpty(icCardNum)){
-				List<MedicalRecord> meList = medicalRecordService.getMeReList(icCardNum);
+				List<MedicalRecord> meList = medicalRecordService.getMeReListByCons(icCardNum);
 				if(Utils.listNotNull(meList)){
 					msgDTO = MsgDTO.success();
 					msgDTO.setTotal(meList.size());
@@ -49,8 +51,15 @@ public class MedicalRecordController {
 					msgDTO = MsgDTO.zero();
 				}
 			}else{
-				//参数为空
-				msgDTO = MsgDTO.zero();
+				//参数为空,查询全部
+				List<MedicalRecord> meList = medicalRecordService.getMeReList();
+				if(Utils.listNotNull(meList)){
+					msgDTO = MsgDTO.success();
+					msgDTO.setTotal(meList.size());
+					msgDTO.setData(meList);
+				}else{
+					msgDTO = MsgDTO.zero();
+				}
 			}
 			logger.info("Get MedicalRecord List End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
 		}catch(Exception e){
@@ -61,7 +70,12 @@ public class MedicalRecordController {
 		map.put("msgDTO", msgDTO);
 		return new ModelAndView("patientHis");
 	}
-	
+	/**
+	 * 获取病历详细信息
+	 * @param id
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value = "/getMeRe", method = RequestMethod.GET)
 	public ModelAndView getMeRe(@RequestParam("id")String id,ModelMap map){
 		logger.info("Get MedicalRecord Start: id="+id);
@@ -88,52 +102,46 @@ public class MedicalRecordController {
 		map.put("msgDTO", msgDTO);
 		return new ModelAndView("patientHisLi");
 	}
-	@RequestMapping(value = "/add", method = { RequestMethod.POST })
-	public @ResponseBody MsgDTO addMedicalRecord(@RequestBody MedicalRecord meRe){
-		logger.info("Add MedicalRecord Start: "+meRe.toString());
+	/**
+	 * 新增病历
+	 * @param meRe
+	 * @return
+	 */
+	@RequestMapping(value = "/edit", method = { RequestMethod.POST })
+	public @ResponseBody MsgDTO addMedicalRecord(MedicalRecordCons meRe){
+		logger.info("Edit MedicalRecord Start: "+meRe.toString());
 		MsgDTO msgDTO = new MsgDTO();
 		int total = 0;
 		try {
-			total = medicalRecordService.addMeRe(meRe);
-			if(Utils.numNotNull(total)){
-				msgDTO = MsgDTO.success();
-				msgDTO.setTotal(total);
-			}else{
-				msgDTO = MsgDTO.zero();
-			}
-			logger.info("Add MedicalRecord End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
-		} catch (ParseException pe) {
-			msgDTO.setStatus(MsgDTO.STATUS_ERR);
-			msgDTO.setMessage(pe.getMessage());
-			logger.error("Add MedicalRecord ParseException: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
-		}catch (Exception e) {
-			msgDTO.setStatus(MsgDTO.STATUS_ERR);
-			msgDTO.setMessage(e.getMessage());
-			logger.error("Add MedicalRecord Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
-		}
-		return msgDTO;
-	}
-	
-	//获取列表json
-		@RequestMapping("/jsonlist")
-	    public @ResponseBody MsgDTO jsonmeReList(@RequestParam("icCardNum")String icCardNum){
-			logger.info("Get MedicalRecord List Start");
-			MsgDTO msgDTO = new MsgDTO();
-			try{
-				List<MedicalRecord> meList = medicalRecordService.getMeReList(icCardNum);
-				if(Utils.listNotNull(meList)){
-					msgDTO = MsgDTO.success();
-					msgDTO.setTotal(meList.size());
-					msgDTO.setData(meList);
+			if(Utils.stringNotEmpty(meRe.getId())){
+				total = medicalRecordService.updateMeRe(meRe);
+				if(Utils.numNotNull(total)){
+					msgDTO.setStatus(MsgDTO.STATUS_OK);
+					msgDTO.setMessage("修改成功!");
+					msgDTO.setTotal(total);
 				}else{
 					msgDTO = MsgDTO.zero();
 				}
-				logger.info("Get MedicalRecord List End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
-			}catch(Exception e){
-				msgDTO.setStatus(MsgDTO.STATUS_ERR);
-				msgDTO.setMessage(e.getMessage());
-				logger.error("Get MedicalRecord List Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+			}else{
+				total = medicalRecordService.addMeRe(meRe);
+				if(Utils.numNotNull(total)){
+					msgDTO.setStatus(MsgDTO.STATUS_OK);
+					msgDTO.setMessage("添加成功!");
+					msgDTO.setTotal(total);
+				}else{
+					msgDTO = MsgDTO.zero();
+				}
 			}
-			return msgDTO;
-		}  
+			logger.info("Edit MedicalRecord End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
+		} catch (ParseException pe) {
+			msgDTO.setStatus(MsgDTO.STATUS_ERR);
+			msgDTO.setMessage(pe.getMessage());
+			logger.error("Edit MedicalRecord ParseException: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+		}catch (Exception e) {
+			msgDTO.setStatus(MsgDTO.STATUS_ERR);
+			msgDTO.setMessage(e.getMessage());
+			logger.error("Edit MedicalRecord Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+		}
+		return msgDTO;
+	}
 }

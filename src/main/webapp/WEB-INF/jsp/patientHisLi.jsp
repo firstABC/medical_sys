@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
    	<script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
    	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
+   	<!-- demo -->
+   	<script type="text/javascript" src='<%=basePath%>/js/js.js'></script>
    	<!-- 打印 -->
    	<script type="text/javascript" src="<%=basePath%>/js/jQuery.print.js"></script>
 
@@ -194,9 +196,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 	  	<div class="clearfix"></div>	
 	</div>
-
-	<!-- demo -->
-   	<script type="text/javascript" src='js/js.js'></script>
 
    	<script type="text/javascript">
    		$(function(){

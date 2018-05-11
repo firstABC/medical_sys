@@ -3,14 +3,19 @@ package com.service;
 import java.text.ParseException;
 import java.util.List;
 
+import com.dto.MedicalRecordCons;
 import com.entity.Drug;
 import com.entity.MedicalRecord;
 
 public interface MedicalRecordService {
 	
-	public List<MedicalRecord> getMeReList(String icCardNum) throws Exception;
+	public List<MedicalRecord> getMeReList() throws Exception;
 	
-	public int addMeRe(MedicalRecord meRe) throws ParseException;
+	public List<MedicalRecord> getMeReListByCons(String icCardNum) throws Exception;
+	
+	public int addMeRe(MedicalRecordCons meReC) throws ParseException;
+	
+	public int updateMeRe(MedicalRecordCons meReC) throws ParseException;
 	
 	public MedicalRecord getMeRe(String id) throws Exception;
 }

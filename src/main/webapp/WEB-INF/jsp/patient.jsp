@@ -101,48 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                            </tr>
 				                        </thead>
 				                        <tbody>
-				                        	<!-- <tr>
-				                        		<td>0001</td>
-								                <td>刘云</td>
-								                <td>17602150333</td>
-								                <td>29</td>
-								                <td>女</td>
-								                <td>341.00</td>
-								                <td>正常</td>
-								                <td>
-								                	<a href="javascript:;">详情</a>
-								                	<a href="javascript:;">病例查询</a>
-								                	<a href="javascript:;">处方查询</a>
-								                </td>
-				                        	</tr>
-				                        	<tr>
-				                        		<td>0002</td>
-								                <td>李凯</td>
-								                <td>17602150193</td>
-								                <td>22</td>
-								                <td>男</td>
-								                <td>109.00</td>
-								                <td>正常</td>
-								                <td>
-								                	<a href="javascript:;">详情</a>
-								                	<a href="javascript:;">病例查询</a>
-								                	<a href="javascript:;">处方查询</a>
-								                </td>
-				                        	</tr>
-				                        	<tr>
-				                        		<td>0003</td>
-								                <td>赵宇</td>
-								                <td>17602150191</td>
-								                <td>26</td>
-								                <td>男</td>
-								                <td>101.00</td>
-								                <td>正常</td>
-								                <td>
-								                	<a href="javascript:;">详情</a>
-								                	<a href="javascript:;">病例查询</a>
-								                	<a href="javascript:;">处方查询</a>
-								                </td>
-				                        	</tr> -->
+				                        	
 				                        </tbody>
 						    		</table>
 
@@ -270,7 +229,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        },
 	        });
 
+	        /*编辑按钮*/
+		    $('#table tbody').on( 'click', 'a#editrow', function () {
+		        var data = t.row( $(this).parents('tr') ).data();
+		            $.ajax({
+		                url:'${pageContext.request.getContextPath()}/getUserInfoByIdAdmin',
+		                type:'get',
+		                data: {"userId": data.userId}, 
+		                timeout:"3000",
+		                cache:"false",
+		                success:function(str){
+		                	window.location.href="${pageContext.request.getContextPath()}/AdminUserEdit.jsp";
+		                },
+		                error:function(err){
+		                    // alert(url);
+		                    alert("获取数据失败");
+		                }
+		            });
+		        
+		    });
+	        /*删除按钮*/
+		    $('#table tbody').on( 'click', 'a#delrow', function () {
+		        var data = t.row( $(this).parents('tr') ).data();
+		        if(confirm("是否确认删除这条信息")){
+		            $.ajax({
+		                url:'${pageContext.request.getContextPath()}/deleteUser',
+		                type:'post',
+		                data: {"userId": data.userId}, 
+		                timeout:"3000",
+		                cache:"false",
 
+		                success:function(str){
+		                    if(str == 'success'){
+		                        t.row().remove();//删除这行的数据
+		                        window.location.href="${pageContext.request.getContextPath()}/AdminUser.jsp";
+		                    }else{
+		                    	alert("删除失败!");
+		                    }
+		                },
+		                error:function(err){
+		                    // alert(url);
+		                    alert("获取数据失败");
+		                }
+		            });
+		        }
+		    });
 	    });
 	</script>
 </body>
