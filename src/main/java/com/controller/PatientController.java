@@ -57,7 +57,11 @@ public class PatientController {
 		}
 		return msgDTO;
 	}  
-	
+	/**
+	 * 获取患者详细信息
+	 * @param patientId
+	 * @return
+	 */
 	@RequestMapping(value = "/getPatient", method = { RequestMethod.POST })
 	public @ResponseBody MsgDTO getPatient(@RequestParam("patientId")String patientId){
 		logger.info("Get Patient Start: patientId="+patientId);
