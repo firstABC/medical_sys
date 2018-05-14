@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -40,11 +41,18 @@ public class DrugController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-    public @ResponseBody MsgDTO drugList(){
-		logger.info("Get Drug List Start");
+    public @ResponseBody MsgDTO drugList(
+    		@RequestParam("drugname")String drugname,
+			@RequestParam("drugcode")String drugcode){
+		logger.info("Get Drug List Start: drugname="+drugname+",drugcode="+drugcode);
 		MsgDTO msgDTO = new MsgDTO();
+		List<Drug> dList = new ArrayList<Drug>();
 		try{
-			List<Drug> dList = drugService.getDrugList();
+			if(Utils.stringNotEmpty(drugname)||Utils.stringNotEmpty(drugcode)){
+				dList = drugService.getDrugByCons(drugname, drugcode);
+			}else{
+				dList = drugService.getDrugList();
+			}
 			if(Utils.listNotNull(dList)){
 				msgDTO = MsgDTO.success();
 				msgDTO.setTotal(dList.size());

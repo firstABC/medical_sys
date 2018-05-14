@@ -73,13 +73,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="searchList listDrug">
 										<div class="searchType ">
 											<label>药品名称</label>
-											<input type="text" name="" value="" class="form-control">
+											<input type="text" name="" value="" class="form-control" id="drugnameC">
 										</div>
 										<div class="searchType">
 											<label>药品编号</label>
-											<input type="tel" name="" value="" class="form-control">
+											<input type="tel" name="" value="" class="form-control" id="drugcodeC">
 										</div>
-										<div class="searchType"><button type="button" class="btn btn-info btn-sm">查询</button></div>
+										<div class="searchType">
+											<button type="button" class="btn btn-info btn-sm" id="selectBtn">查询</button>
+											<button type="button" class="btn btn-info btn-sm" id="selectAllBtn">查询全部</button>
+										</div>
+										
 									</div>
 
 									<table class="table-bordered table-striped table-hover" id="table" width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -240,13 +244,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script type="text/javascript" src="<%=basePath%>/dataTables/js/dataTables.bootstrap.js"></script>
    	<script type="text/javascript">
 		$(document).ready(function () {
+			var drugnameC = $('#drugnameC').val();
+ 			var drugcodeC = $('#drugcodeC').val();
+ 			var url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
+			
 	        var t = $('#table').DataTable({
 	            "processing": true,
-	            'searching': false,
+	            //'searching': false,
         		// "ajax": "dataTables/info.txt",
 				ajax: {
 	               //指定数据源
-	        	   url:'<%=basePath%>/drug/list.abc',
+	        	   url:url,
 	        	   type:'GET',
 	        	   dataType:'json',
 	           },
@@ -356,11 +364,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        }
 	        	t.ajax.reload();		//刷新datatable
 	        	$('#editDrugForm input').val('');	//手动清除form表单
-        		$('#drugremark').val();
-        		$('#drugunit').val();
-        		$('.blBox').hide();			//关闭编辑框
+        		$('#drugremark').val('');
+        		$('#drugunit').val('');
+        		$('.bg').hide();			//关闭编辑框
 			});
-		    
+	         /*查询药品（基于名称和编号）*/
+		 		$('#selectBtn').on('click', function(){
+		 			drugnameC = $('#drugnameC').val();
+		  			drugcodeC = $('#drugcodeC').val();
+		  			//url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
+		  		  	t.column(0).search(drugcodeC, false, false).draw();
+		  			t.column(1).search(drugnameC, false, false).draw();
+
+		 		});
+		 		//查询全部药品
+		 		$('#selectAllBtn').on('click', function(){
+		 			$('#drugnameC').val('');
+		  			$('#drugcodeC').val('');
+		  			drugnameC = $('#drugnameC').val();
+		  			drugcodeC = $('#drugcodeC').val();
+		  			t.column(0).search(drugcodeC, false, false).draw();
+		  			t.column(1).search(drugnameC, false, false).draw();
+		 		});
+		       
 	        // 药品补录
 	        $('.bl').on('click', function(){
 	        	$('.blBox').show();

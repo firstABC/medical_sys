@@ -25,6 +25,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 	@Override
 	public List<MedicalRecord> getMeReList() throws Exception{
 		MedicalRecordExample meExam = new MedicalRecordExample();
+		meExam.setOrderByClause("createtime desc");  
 		List<MedicalRecord> meList = medicalRecordMapper.selectByExample(meExam);
 		if(Utils.listNotNull(meList)){
 			return meList;
@@ -36,6 +37,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 	public List<MedicalRecord> getMeReListByCons(String icCardNum) throws Exception{
 		MedicalRecordExample meExam = new MedicalRecordExample();
 		meExam.createCriteria().andIccardnumEqualTo(icCardNum);
+		meExam.setOrderByClause("createtime desc");  
 		List<MedicalRecord> meList = medicalRecordMapper.selectByExample(meExam);
 		if(Utils.listNotNull(meList)){
 			return meList;

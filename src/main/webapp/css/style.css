@@ -33,6 +33,10 @@ a:hover {
   transition: all 200ms ease-in-out; 
 }
 
+#table_filter{
+    display: none;
+}
+
 /* 登录 */
 .login.modal{
   display: block;
