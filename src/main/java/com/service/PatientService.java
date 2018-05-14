@@ -13,4 +13,11 @@ public interface PatientService {
 	public PatientCardVO getPatient(String patientId) throws Exception;
 	
 	public List<PatientCardVO> getPatientByCons(PaCaCons paCaCons) throws Exception;
+	
+	/**
+	 * 开户
+	 * @param patient
+	 * @return
+	 */
+	public int createPatient(Patient patient);
 }

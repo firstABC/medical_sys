@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Date;
+
 public class Patient {
     private String patientid;
 
@@ -21,7 +23,30 @@ public class Patient {
 
     private String icid;
 
-    public String getPatientid() {
+    private Date createtime;
+
+    
+    public Patient() {
+		super();
+	}
+
+	public Patient(String patientid, String paname, String paidcard, String paphone, String paage, String pasex,
+			String pamarriage, String paaddress, String pacreator, String icid, Date createtime) {
+		super();
+		this.patientid = patientid;
+		this.paname = paname;
+		this.paidcard = paidcard;
+		this.paphone = paphone;
+		this.paage = paage;
+		this.pasex = pasex;
+		this.pamarriage = pamarriage;
+		this.paaddress = paaddress;
+		this.pacreator = pacreator;
+		this.icid = icid;
+		this.createtime = createtime;
+	}
+
+	public String getPatientid() {
         return patientid;
     }
 
@@ -99,5 +124,13 @@ public class Patient {
 
     public void setIcid(String icid) {
         this.icid = icid == null ? null : icid.trim();
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }

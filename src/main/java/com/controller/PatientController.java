@@ -1,26 +1,29 @@
 package com.controller;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.dto.MsgDTO;
 import com.dto.PaCaCons;
-import com.entity.Patient;
+import com.entity.IcCard;
 import com.entity.Patient;
 import com.entity.PatientCardVO;
+import com.service.IcCardService;
 import com.service.PatientService;
 import com.util.Utils;
 
@@ -31,7 +34,8 @@ public class PatientController {
 			.getLogger(PatientController.class);
 	@Autowired
 	private PatientService patientService;
-	
+	@Autowired
+	private IcCardService icCardService;
 	/**
 	 * 获取列表
 	 * @return
@@ -104,4 +108,54 @@ public class PatientController {
 		}
 		return msgDTO;
 	}
+	
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value = "/cratePatient", method = { RequestMethod.POST })
+	public MsgDTO toCreatePatient(HttpServletRequest request){
+		MsgDTO msgDTO =new MsgDTO();
+		try {
+			SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date=new Date();
+			String dateNow = dateFormater.format(date);
+			Date time = dateFormater.parse(dateNow);
+			
+			String patientid = UUID.randomUUID().toString();
+			//卡号
+			String num = request.getParameter("num");
+			//身份证号
+			String uiIdcardNumber = request.getParameter("uiIdcardNumber");
+			String paAge = request.getParameter("paAge");
+			String paMarriage = request.getParameter("paMarriage");
+			String paCreator = request.getParameter("paCreator");
+			String username = request.getParameter("username");
+			String phone = request.getParameter("phone");
+			String paSex = request.getParameter("paSex");
+			String paAddress = request.getParameter("paAddress");
+			Patient patient = new Patient(patientid, username, uiIdcardNumber, phone, paAge, paSex, paMarriage, paAddress, paCreator, num, time);
+			patientService.createPatient(patient);
+			
+			//医疗卡
+			String icId = UUID.randomUUID().toString();
+			IcCard icCard = new IcCard();
+			icCard.setIcid(icId);
+			icCard.setIccardnum(num);
+			icCard.setIsstatus("A");
+			icCard.setCreatetime(time);
+			icCard.setLasttime(time);
+			icCard.setIcbalance(0l);
+			icCardService.creatIcCard(icCard);
+			
+			//交易记录
+			//开户的时候无需创建交易记录 这样查询的时候查询结果为空
+		} catch (Throwable e) {
+			logger.error("开户失败："+e);
+			msgDTO.setMessage("开户失败！");
+			msgDTO.setStatus(msgDTO.STATUS_ERR);
+			return msgDTO;
+		}
+		msgDTO.setMessage("开户成功！");
+		msgDTO.setStatus(msgDTO.STATUS_OK);
+		return msgDTO;
+	} 
 }

@@ -78,4 +78,9 @@ public class PatientServiceImpl implements PatientService{
 		}
 		
 	}
+	@Override
+	public int createPatient(Patient patient) {
+		int isOk = patientMapper.insertSelective(patient);
+		return isOk;
+	}
 }
