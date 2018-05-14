@@ -247,7 +247,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var drugnameC = $('#drugnameC').val();
  			var drugcodeC = $('#drugcodeC').val();
  			var url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
-			
 	        var t = $('#table').DataTable({
 	            "processing": true,
 	            //'searching': false,
