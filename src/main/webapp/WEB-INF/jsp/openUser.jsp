@@ -20,7 +20,7 @@
 	<script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
    	<script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
    	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
-   	<script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
+   	<script src="<%=basePath%>/js/jquery.form.js"></script>
    	<script type="text/javascript">
    		function toCreater() {
    			var option = {

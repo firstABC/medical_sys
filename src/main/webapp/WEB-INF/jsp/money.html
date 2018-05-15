@@ -50,7 +50,22 @@
 					<div class="monthly-grid">
 						<div class="panel-widget">
 							<div class="panel panel-title">财务统计</div>
-							<div class="panel-body"></div>
+							<div class="panel-body">
+								<div class="tableBox tableDrug">
+
+									<div class="searchList listDrug">
+										<div class="searchType searchType2">
+											<label>日期</label>
+											<input type="date" name="" value="" class="form-control"> - <input type="date" name="" value="" class="form-control">
+										</div>
+										<div class="searchType"><button type="button" class="btn btn-info btn-sm">查询</button></div>
+									</div>
+									<!-- 柱形图 -->
+									<div id="ech"></div>
+
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
@@ -112,5 +127,78 @@
 
 	<!-- demo -->
    	<script type="text/javascript" src='js/js.js'></script>
+   	<!-- 柱形图 -->
+   	<script type="text/javascript" src="js/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="js/echarts/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="js/echarts/ecStat.min.js"></script>
+    <script type="text/javascript" src="js/echarts/dataTool.min.js"></script>
+    <script type="text/javascript" src="js/echarts/china.js"></script>
+    <script type="text/javascript" src="js/echarts/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="js/echarts/bmap.min.js"></script>
+    <script type="text/javascript" src="js/echarts/simplex.js"></script>
+    <script type="text/javascript">
+        var dom = document.getElementById("ech");
+        var myChart = echarts.init(dom);
+	  	var app = {};
+	  	option = null;
+	 	option = {
+	 		color: ['rgba(3,169,244,.7)'],
+	      	title: {
+	          	text: '',
+	      	},
+	      	tooltip : {
+	          	trigger: 'axis',
+	          	axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+	              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+	          	},
+	          	formatter: function (params) {
+	              	var tar = params[1];
+	              	return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+	          	}
+	      },
+	     	xAxis: {
+	          	type : 'category',
+	          	splitLine: {show: false},
+	          	data : ['总费用','充值','药品收入','开户收入','销户支出']
+	      	},
+	      yAxis: {
+	          type : 'value'
+	      },
+	      series: [
+	          {
+	              type: 'bar',
+	              stack:  '总量',
+	              itemStyle: {
+	                  normal: {
+	                      barBorderColor: 'rgba(0,0,0,0)',
+	                      color: 'rgba(0,0,0,0)'
+	                  },
+	                  emphasis: {
+	                      barBorderColor: 'rgba(0,0,0,0)',
+	                      color: 'rgba(0,0,0,0)'
+	                  }
+	              },
+	              data: [0, 0, 0, 0, 0]
+	          },
+	          {
+	              name: '财务统计',
+	              type: 'bar',
+	              stack: '总量',
+	              label: {
+	                  normal: {
+	                      show: true,
+	                      position: 'inside'
+	                  }
+	              },
+	              data:[2100, 2000, 300, 200, 400]
+	          }
+	      ]
+	  };
+	  ;
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+   </script>
 </body>
 </html>

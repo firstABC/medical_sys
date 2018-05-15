@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.entity.IcCard;
+import com.entity.PatientCardVO;
 import com.mapper.IcCardMapper;
 import com.service.IcCardService;
 
@@ -18,6 +19,11 @@ public class IcCardServiceImpl implements IcCardService {
 	public int creatIcCard(IcCard icCard) {
 		int isOk = icCardMapper.insertSelective(icCard);
 		return isOk;
+	}
+
+	@Override
+	public PatientCardVO selectIcCard(String icCardNum) {
+		return icCardMapper.selectIcCard(icCardNum);
 	}
 
 }

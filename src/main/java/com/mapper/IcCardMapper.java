@@ -1,9 +1,12 @@
 package com.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.entity.IcCard;
 import com.entity.IcCardExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.entity.PatientCardVO;
 
 public interface IcCardMapper {
     int countByExample(IcCardExample example);
@@ -19,4 +22,6 @@ public interface IcCardMapper {
     int updateByExampleSelective(@Param("record") IcCard record, @Param("example") IcCardExample example);
 
     int updateByExample(@Param("record") IcCard record, @Param("example") IcCardExample example);
+    
+    PatientCardVO selectIcCard(@Param("icCardNum")String icCardNum);
 }

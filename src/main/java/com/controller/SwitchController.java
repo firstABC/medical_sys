@@ -38,7 +38,7 @@ public class SwitchController {
 		return "/openUser";
 	}
 	@RequestMapping("/role")
-	public ModelAndView toRole(){
+	public ModelAndView toRole(){//到角色管理
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("role");
 		FileReadUtil ileReadUtil = new FileReadUtil();
@@ -55,7 +55,7 @@ public class SwitchController {
 	}
 	
 	@RequestMapping("/user")
-	public ModelAndView toUser(){
+	public ModelAndView toUser(){//到用户管理
 		ModelAndView mv = new ModelAndView();
 		//获取所有的用户
 		List<User> ltUser = userService.selectUserAll();
@@ -65,7 +65,7 @@ public class SwitchController {
 	}
 	
 	@RequestMapping("/addUser")
-	public ModelAndView toAddUser(){
+	public ModelAndView toAddUser(){//到新增用户
 		ModelAndView mv = new ModelAndView();
 		FileReadUtil ileReadUtil = new FileReadUtil();
 		//查询所有的角色
@@ -74,6 +74,13 @@ public class SwitchController {
 		List<Role> ltRole = ileReadUtil.fileToRole(path);
 		mv.addObject("ltRole", ltRole);
 		mv.setViewName("addUser");
+		return mv;
+	}
+	
+	public ModelAndView toCloseUser(){
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("closeUser");
 		return mv;
 	}
 	

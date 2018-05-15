@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,16 +14,16 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta name="format-detection" content="telephone=no">
 	
-    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-    <link href="${pageContext.request.contextPath}/bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
-    <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="<%=basePath%>/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <link href="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
+    <link href="<%=basePath%>/css/font-awesome.css" rel="stylesheet">
 
-    <link href="${pageContext.request.contextPath}/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="<%=basePath%>/css/style.css" rel='stylesheet' type='text/css' />
     
-    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrapValidator/bootstrapValidator.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
+    <script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
+    <script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
+    <script src="<%=basePath%>/js/jquery.form.js"></script>
     <script type="text/javascript">
 	function toLogin(){
     	var option = {
@@ -75,7 +79,7 @@
 	    </div>
     </div>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.idcode.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/js/jquery.idcode.js"></script>
     <script>
         $.idcode.setCode();
     </script>

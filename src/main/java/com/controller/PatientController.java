@@ -120,20 +120,10 @@ public class PatientController {
 			String dateNow = dateFormater.format(date);
 			Date time = dateFormater.parse(dateNow);
 			
+			
 			String patientid = UUID.randomUUID().toString();
 			//卡号
 			String num = request.getParameter("num");
-			//身份证号
-			String uiIdcardNumber = request.getParameter("uiIdcardNumber");
-			String paAge = request.getParameter("paAge");
-			String paMarriage = request.getParameter("paMarriage");
-			String paCreator = request.getParameter("paCreator");
-			String username = request.getParameter("username");
-			String phone = request.getParameter("phone");
-			String paSex = request.getParameter("paSex");
-			String paAddress = request.getParameter("paAddress");
-			Patient patient = new Patient(patientid, username, uiIdcardNumber, phone, paAge, paSex, paMarriage, paAddress, paCreator, num, time);
-			patientService.createPatient(patient);
 			
 			//医疗卡
 			String icId = UUID.randomUUID().toString();
@@ -145,6 +135,21 @@ public class PatientController {
 			icCard.setLasttime(time);
 			icCard.setIcbalance(0l);
 			icCardService.creatIcCard(icCard);
+			
+			
+			//身份证号
+			String uiIdcardNumber = request.getParameter("uiIdcardNumber");
+			String paAge = request.getParameter("paAge");
+			String paMarriage = request.getParameter("paMarriage");
+			String paCreator = request.getParameter("paCreator");
+			String username = request.getParameter("username");
+			String phone = request.getParameter("phone");
+			String paSex = request.getParameter("paSex");
+			String paAddress = request.getParameter("paAddress");
+			Patient patient = new Patient(patientid, username, uiIdcardNumber, phone, paAge, paSex, paMarriage, paAddress, paCreator, icId, time);
+			patientService.createPatient(patient);
+			
+			
 			
 			//交易记录
 			//开户的时候无需创建交易记录 这样查询的时候查询结果为空

@@ -696,6 +696,11 @@ table.dataTable td .amount_box a {
   width: 40%;
 }
 
+/* 财务统计 */
+#ech{
+  height: 65vh;
+}
+
 
 /*---responsive-----*/
 @media (max-width:1600px){

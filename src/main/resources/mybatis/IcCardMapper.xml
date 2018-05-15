@@ -9,6 +9,12 @@
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="IcCardPatient" type="com.entity.PatientCardVO" >
+    <result column="icCardNum" property="iccardnum" jdbcType="VARCHAR" />
+    <result column="icBalance" property="icbalance" jdbcType="DECIMAL" />
+    <result column="isStatus" property="isstatus" jdbcType="VARCHAR" />
+    <result column="paName" property="paname" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -185,4 +191,11 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="selectIcCard" parameterType="String" resultMap="BaseResultMap">
+  	select  pa.paName,ic.isStatus,ic.icBalance,ic.icCardNum 
+  		from patient pa,icCard ic 
+  			where pa.icId = ic.icId 
+  				and ic.icCardNum=#{icCardNum,jdbcType=VARCHAR}
+  				and ic.isStatus ='A'
+  </select>
 </mapper>
