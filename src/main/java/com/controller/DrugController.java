@@ -42,8 +42,8 @@ public class DrugController {
 	 */
 	@RequestMapping("/list")
     public @ResponseBody MsgDTO drugList(
-    		@RequestParam("drugname")String drugname,
-			@RequestParam("drugcode")String drugcode){
+    		@RequestParam(value="drugname",defaultValue="")String drugname,
+			@RequestParam(value="drugcode",defaultValue="")String drugcode){
 		logger.info("Get Drug List Start: drugname="+drugname+",drugcode="+drugcode);
 		MsgDTO msgDTO = new MsgDTO();
 		List<Drug> dList = new ArrayList<Drug>();

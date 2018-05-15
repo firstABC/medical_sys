@@ -167,8 +167,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="menu-academico active">
 						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/addCase.abc">新建病历</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/mere/list.abc">历史病历</a></li>
 						  	</ul>
 						</li>
 						<li class="menu-academico">

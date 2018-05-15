@@ -67,12 +67,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<label>卡号</label>
 											<input type="text" name="" value="" class="form-control" id="icCardNumC">
 										</div>
-										<div class="searchType"><button type="button" class="btn btn-info btn-sm" id="selectBtn">查询</button></div>
+										<div class="searchType"><button type="button" class="btn btn-info btn-sm" id="selectBtn">精确查询</button></div>
 									</div>
 									<div class="cf col-sm-12">
 										<c:choose>
-											<c:when test="${msgDTO != null && fn:length(msgDTO.data) gt 0}">
-												<c:forEach items="${msgDTO.data}" var="it" varStatus="idx">
+											<c:when test="${msgDTO.data.pageInfo.list != null && fn:length(msgDTO.data.pageInfo.list) gt 0}">
+												<c:forEach items="${msgDTO.data.pageInfo.list}" var="it" varStatus="idx">
 													
 													<div class="col-sm-4">
 														<a href="<%=basePath%>/mere/getMeRe.abc?id=${it.id}" class="col-sm-12">
@@ -95,6 +95,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<c:choose>
+								<c:when test="${msgDTO.data.pageInfo.list != null && fn:length(msgDTO.data.pageInfo.list) gt 0}">
+								<c:set var="pageInfo" value="${msgDTO.data.pageInfo}"></c:set>
+							    <div class="col-md-6">共有${pageInfo.total}条数据,共有${pageInfo.pages}页</div>
+							    	<ul class="pagination">
+								        <c:if test="${!pageInfo.isFirstPage}">
+								            <li><a href="javascript:queryDeviceRecords(${pageInfo.firstPage});">首页</a></li>
+								            <li><a href="javascript:queryDeviceRecords(${pageInfo.prePage});">上一页</a></li>
+								        </c:if>
+								        <c:forEach items="${pageInfo.navigatepageNums}" var="navigatepageNum">
+								        
+								            <c:if test="${navigatepageNum==pageInfo.pageNum}">
+								                <li class="active"><a href="javascript:queryAllDevices(${navigatepageNum});">${navigatepageNum}</a></li>
+								            </c:if>
+								            <c:if test="${navigatepageNum!=pageInfo.pageNum}">
+								                <li><a href="javascript:queryDeviceRecords(${navigatepageNum});">${navigatepageNum}</a></li>
+								            </c:if>
+								        </c:forEach>
+								        <c:if test="${!pageInfo.isLastPage}">
+								            <li><a href="javascript:queryDeviceRecords(${pageInfo.nextPage});">下一页</a></li>
+								            <li><a href="javascript:queryDeviceRecords(${pageInfo.lastPage});">最后一页</a></li>
+								        </c:if>
+								    </ul>
+							    </div>
+						    	</c:when>
+									<c:otherwise>
+									
+									</c:otherwise>
+								</c:choose>
+					    </div>
 					</div>
 				</div>
 			</div>
@@ -113,9 +144,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
 						<li class="menu-academico active">
 						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
+						     <ul class="menu-academico-sub" >
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/addCase.abc">新建病历</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/mere/list.abc">历史病历</a></li>
 						  	</ul>
 						</li>
 						<li class="menu-academico">
@@ -129,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/drug.abc">药品管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
 						  	</ul>
 						</li>
@@ -161,6 +192,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	window.location.href="<%=basePath%>/mere/list.abc?icCardNum="+icCardNumC;
 		});
 	});
+	function queryDeviceRecords(pageNum) {
+		var icCardNumC = $('#icCardNumC').val();
+		window.location.href="<%=basePath%>/mere/list.abc?icCardNum="+icCardNumC+"&pageno=" + pageNum;
+    }
 	</script>
 
 </body>

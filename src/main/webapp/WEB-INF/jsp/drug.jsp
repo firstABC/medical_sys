@@ -80,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<input type="tel" name="" value="" class="form-control" id="drugcodeC">
 										</div>
 										<div class="searchType">
-											<button type="button" class="btn btn-info btn-sm" id="selectBtn">查询</button>
-											<button type="button" class="btn btn-info btn-sm" id="selectAllBtn">查询全部</button>
+											<button type="button" class="btn btn-info btn-sm" id="selectBtn">模糊查询</button>
+											<!-- <button type="button" class="btn btn-info btn-sm" id="selectAllBtn">查询全部</button> -->
 										</div>
 										
 									</div>
@@ -195,12 +195,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <ul id="menu" >
 						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
 						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
+						<li><a href="<%=basePath %>/pa/patient.abc" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/addCase.abc">新建病历</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/mere/list.abc">历史病历</a></li>
 						  	</ul>
 						</li>
 						<li class="menu-academico">
@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="menu-academico active">
 						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/drug.abc">药品管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
 						  	</ul>
 						</li>
@@ -238,167 +238,163 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div class="clearfix"></div>	
 	</div>
 
-	<!-- demo -->
-   	<script type="text/javascript" src='<%=basePath%>/js/js.js'></script>
-   	<script type="text/javascript" src="<%=basePath%>/dataTables/js/jquery.dataTables.js"></script>
-   	<script type="text/javascript" src="<%=basePath%>/dataTables/js/dataTables.bootstrap.js"></script>
-   	<script type="text/javascript">
-		$(document).ready(function () {
-			var drugnameC = $('#drugnameC').val();
- 			var drugcodeC = $('#drugcodeC').val();
- 			var url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
- 			
-	        var t = $('#table').DataTable({
-	            "processing": true,
-	            //'searching': false,
-        		// "ajax": "dataTables/info.txt",
-				ajax: {
-	               //指定数据源
-	        	   url:url,
-	        	   type:'GET',
-	        	   dataType:'json',
-	           },
-			    columns: [
-			    	{"data": "drugcode"},
-	            	{"data": "drugname"},
-	            	{"data": "drugnum"},
-	            	{"data": "drugprice"},
-	            	{"data": "drugunit",
-	            		render:function(drugunit){
-	                        if(drugunit=="A"){
-	                            return "盒";
-	                        }else if(drugunit=="B"){
-	                            return "瓶";
-	                        }else{
-	                        	return null;
-	                        }
-                    	}
-	            	},
-	            	{"data": "drugremark"},
-	            	{"data": null}
-	            ], 
-	            "columnDefs":[{
-		            "targets": 6,
-		            "defaultContent": "<a href='#' id='editrow'>编辑</a><a href='#' id='delrow'>删除</a>" 
-		        }],
-        		//插件的汉化
-		        "oLanguage": {
-		            "sLengthMenu": "每页显示 _MENU_ 条记录",
-		            "sZeroRecords": "抱歉， 没有找到",
-		            "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-		            "sInfoEmpty": "没有数据",
-		            "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-		            "oPaginate": {
-		                "sFirst": false,
-		                "sPrevious": false,
-		                "sNext": false,
-		                "sLast": false
-		            },
-		            "sZeroRecords": "没有检索到数据",
-		            "sProcessing": "<img src='' />",
-		            "sSearch": "搜索"
-		        },
-	        });
-	        /*编辑按钮*/
-		    $('#table tbody').on( 'click', 'a#editrow', function () {
-		    	$('.blBox').show();
-		    	var data = t.row( $(this).parents('tr') ).data();
-		    	for (var key in data ){
-		    		if(key =="drugid"){
-		    			$("#"+key).hide();
-		    		}
-		    		$("#"+key).val(data[key]);
-		    	}
+   	<script type="text/javascript" >
+   	$(document).ready(function () {
+		var drugnameC = $('#drugnameC').val();
+			var drugcodeC = $('#drugcodeC').val();
+			var url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
+			
+        var t = $('#table').DataTable({
+            "processing": true,
+            //'searching': false,
+    		// "ajax": "dataTables/info.txt",
+			ajax: {
+               //指定数据源
+        	   url:url,
+        	   type:'GET',
+        	   dataType:'json',
+           },
+		    columns: [
+		    	{"data": "drugcode"},
+            	{"data": "drugname"},
+            	{"data": "drugnum"},
+            	{"data": "drugprice"},
+            	{"data": "drugunit",
+            		render:function(drugunit){
+                        if(drugunit=="A"){
+                            return "盒";
+                        }else if(drugunit=="B"){
+                            return "瓶";
+                        }else{
+                        	return null;
+                        }
+                	}
+            	},
+            	{"data": "drugremark"},
+            	{"data": null}
+            ], 
+            "columnDefs":[{
+	            "targets": 6,
+	            "defaultContent": "<a href='#' id='editrow'>编辑</a><a href='#' id='delrow'>删除</a>" 
+	        }],
+    		//插件的汉化
+	        "oLanguage": {
+	            "sLengthMenu": "每页显示 _MENU_ 条记录",
+	            "sZeroRecords": "抱歉， 没有找到",
+	            "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+	            "sInfoEmpty": "没有数据",
+	            "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+	            "oPaginate": {
+	                "sFirst": false,
+	                "sPrevious": false,
+	                "sNext": false,
+	                "sLast": false
+	            },
+	            "sZeroRecords": "没有检索到数据",
+	            "sProcessing": "<img src='' />",
+	            "sSearch": "搜索"
+	        },
+        });
+        /*编辑按钮*/
+	    $('#table tbody').on( 'click', 'a#editrow', function () {
+	    	$('.blBox').show();
+	    	var data = t.row( $(this).parents('tr') ).data();
+	    	for (var key in data ){
+	    		if(key =="drugid"){
+	    			$("#"+key).hide();
+	    		}
+	    		$("#"+key).val(data[key]);
+	    	}
 
-		    });
-	        /*删除按钮*/
-		    $('#table tbody').on( 'click', 'a#delrow', function () {
-		        var data = t.row( $(this).parents('tr') ).data();
-		        if(confirm("是否确认删除这条数据")){
-		            $.ajax({
-		                url:'<%=basePath%>/drug/delete.abc',
-		                type:'post',
-		                data: {"drugId": data.drugid}, 
-		                timeout:"3000",
-		                cache:"false",
-		                async:"false",
-		                success:function(res){
-		                    if(res.status == 0){
-		                        //t.row().remove();	//删除这行的数据
-		                        alert(res.message);
-		                    }else{
-		                    	alert(res.message);
-		                    }
-		                },
-		                error:function(err){
-		                    alert("获取数据失败");
-		                }
-		            });
-		        }
-		        t.ajax.reload();	//刷新datatable
-		    });
-	        //添加或编辑药品
-	         $('#editDrug').on('click', function(){
-	        	var params = $("#editDrugForm").serialize();
-	        	if(confirm("是否确认编辑这条数据")){
-	        		$.ajax({
-						url:'<%=basePath%>/drug/edit.abc',
-			    		type :'post',
-			    		data:params,
-			    		timeout:"3000",
-		                cache:"false",
-		                async:"false",
-			    		success:function(res){
-			    			if(res.message == '修改成功!'){
-			    				alert(res.message);
-			    			}else if(res.message =='添加成功!'){
-			    				alert(res.message);
-			    			}else{
-			    				alert(res.message);
-			    			}
-			    		},
-			    		error:function(err){
-			                alert("获取数据失败");
-			            }
-			        });
-		        }
-	        	t.ajax.reload();		//刷新datatable
-	        	$('#editDrugForm input').val('');	//手动清除form表单
-        		$('#drugremark').val('');
-        		$('#drugunit').val('');
-        		$('.bg').hide();			//关闭编辑框
-			});
-	         /*查询药品（基于名称和编号）*/
-		 		$('#selectBtn').on('click', function(){
-		 			drugnameC = $('#drugnameC').val();
-		  			drugcodeC = $('#drugcodeC').val();
-		  			//url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
-		  		  	t.column(0).search(drugcodeC, false, false).draw();
-		  			t.column(1).search(drugnameC, false, false).draw();
-
-		 		});
-		 		//查询全部药品
-		 		$('#selectAllBtn').on('click', function(){
-		 			$('#drugnameC').val('');
-		  			$('#drugcodeC').val('');
-		  			drugnameC = $('#drugnameC').val();
-		  			drugcodeC = $('#drugcodeC').val();
-		  			t.column(0).search(drugcodeC, false, false).draw();
-		  			t.column(1).search(drugnameC, false, false).draw();
-		 		});
-		       
-	        // 药品补录
-	        $('.bl').on('click', function(){
-	        	$('.blBox').show();
-	        })
-			$('.closeAdd').click(function(){
-				$('.bg').hide();
-			})
-			// 预警
-	        $('.yj').on('click', function(){
-	        	$('.yjBox').show();
-	        })
 	    });
-	</script>
+        /*删除按钮*/
+	    $('#table tbody').on( 'click', 'a#delrow', function () {
+	        var data = t.row( $(this).parents('tr') ).data();
+	        if(confirm("是否确认删除这条数据")){
+	            $.ajax({
+	                url:'<%=basePath%>/drug/delete.abc',
+	                type:'post',
+	                data: {"drugId": data.drugid}, 
+	                timeout:"3000",
+	                cache:"false",
+	                async:"false",
+	                success:function(res){
+	                    if(res.status == 0){
+	                        //t.row().remove();	//删除这行的数据
+	                        alert(res.message);
+	                    }else{
+	                    	alert(res.message);
+	                    }
+	                },
+	                error:function(err){
+	                    alert("获取数据失败");
+	                }
+	            });
+	        }
+	        t.ajax.reload();	//刷新datatable
+	    });
+        //添加或编辑药品
+         $('#editDrug').on('click', function(){
+        	var params = $("#editDrugForm").serialize();
+        	if(confirm("是否确认编辑这条数据")){
+        		$.ajax({
+					url:'<%=basePath%>/drug/edit.abc',
+		    		type :'post',
+		    		data:params,
+		    		timeout:"3000",
+	                cache:"false",
+	                async:"false",
+		    		success:function(res){
+		    			if(res.message == '修改成功!'){
+		    				alert(res.message);
+		    			}else if(res.message =='添加成功!'){
+		    				alert(res.message);
+		    			}else{
+		    				alert(res.message);
+		    			}
+		    		},
+		    		error:function(err){
+		                alert("获取数据失败");
+		            }
+		        });
+	        }
+        	t.ajax.reload();		//刷新datatable
+        	$('#editDrugForm input').val('');	//手动清除form表单
+    		$('#drugremark').val('');
+    		$('#drugunit').val('');
+    		$('.bg').hide();			//关闭编辑框
+		});
+         /*查询药品（基于名称和编号）*/
+	 		$('#selectBtn').on('click', function(){
+	 			drugnameC = $('#drugnameC').val();
+	  			drugcodeC = $('#drugcodeC').val();
+	  			//url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
+	  		  	t.column(0).search(drugcodeC, false, false).draw();
+	  			t.column(1).search(drugnameC, false, false).draw();
+
+	 		});
+	 		//查询全部药品
+	 		$('#selectAllBtn').on('click', function(){
+	 			$('#drugnameC').val('');
+	  			$('#drugcodeC').val('');
+	  			drugnameC = $('#drugnameC').val();
+	  			drugcodeC = $('#drugcodeC').val();
+	  			t.column(0).search(drugcodeC, false, false).draw();
+	  			t.column(1).search(drugnameC, false, false).draw();
+	 		});
+	       
+        // 药品补录
+        $('.bl').on('click', function(){
+        	$('.blBox').show();
+        })
+		$('.closeAdd').click(function(){
+			$('.bg').hide();
+		})
+		// 预警
+        $('.yj').on('click', function(){
+        	$('.yjBox').show();
+        })
+    });
+   	</script>
 </body>
 </html>

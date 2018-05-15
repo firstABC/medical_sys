@@ -1,7 +1,10 @@
 package com.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,8 @@ import com.dto.MsgDTO;
 import com.entity.Drug;
 import com.entity.MedicalRecord;
 import com.entity.MedicalRecord;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.MedicalRecordService;
 import com.service.MedicalRecordService;
 import com.util.Utils;
@@ -37,29 +42,33 @@ public class MedicalRecordController {
 	 * 获取列表跳转
 	 */
 	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public ModelAndView meReList(@RequestParam("icCardNum")String icCardNum,ModelMap map){
+	public ModelAndView meReList(@RequestParam(value="icCardNum",defaultValue="")String icCardNum,
+			@RequestParam(value="pageno",defaultValue="1")Integer pageno,
+			@RequestParam(value="pagesize",defaultValue="9")Integer pagesize,
+			ModelMap map
+    		){
 		logger.info("Get MedicalRecord List Start: icCardNum="+icCardNum);
 		MsgDTO msgDTO = new MsgDTO();
+		//指定查询的页码和每页的条数
+		PageHelper.startPage(pageno, pagesize);
+		List<MedicalRecord> meList = new ArrayList<MedicalRecord>();
 		try{
 			if(Utils.stringNotEmpty(icCardNum)){
-				List<MedicalRecord> meList = medicalRecordService.getMeReListByCons(icCardNum);
-				if(Utils.listNotNull(meList)){
-					msgDTO = MsgDTO.success();
-					msgDTO.setTotal(meList.size());
-					msgDTO.setData(meList);
-				}else{
-					msgDTO = MsgDTO.zero();
-				}
+				meList = medicalRecordService.getMeReListByCons(icCardNum);
 			}else{
 				//参数为空,查询全部
-				List<MedicalRecord> meList = medicalRecordService.getMeReList();
-				if(Utils.listNotNull(meList)){
-					msgDTO = MsgDTO.success();
-					msgDTO.setTotal(meList.size());
-					msgDTO.setData(meList);
-				}else{
-					msgDTO = MsgDTO.zero();
-				}
+				meList = medicalRecordService.getMeReList();
+			}
+			if(Utils.listNotNull(meList)){
+				msgDTO = MsgDTO.success();
+				msgDTO.setTotal(meList.size());
+				PageInfo<MedicalRecord> pageInfo = new PageInfo<MedicalRecord>(meList);
+				Map<String,Object> mapP = new HashMap<String,Object>();
+				mapP.put("pageInfo", pageInfo);
+				msgDTO.setData(mapP);
+				//msgDTO.setData(meList);
+			}else{
+				msgDTO = MsgDTO.zero();
 			}
 			logger.info("Get MedicalRecord List End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
 		}catch(Exception e){
