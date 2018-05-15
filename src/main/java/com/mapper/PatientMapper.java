@@ -1,14 +1,13 @@
 package com.mapper;
 
-import com.dto.PaCaCons;
-import com.entity.IcCardExample;
-import com.entity.Patient;
-import com.entity.PatientCardVO;
-import com.entity.PatientExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.dto.PaCaCons;
+import com.entity.Patient;
+import com.entity.PatientCardVO;
+import com.entity.PatientExample;
 
 public interface PatientMapper {
     int countByExample(PatientExample example);

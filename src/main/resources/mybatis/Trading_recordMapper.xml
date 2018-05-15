@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.IcCardMapper" >
-  <resultMap id="BaseResultMap" type="com.entity.IcCard" >
-    <result column="icId" property="icid" jdbcType="VARCHAR" />
-    <result column="icCardNum" property="iccardnum" jdbcType="VARCHAR" />
-    <result column="icBalance" property="icbalance" jdbcType="DECIMAL" />
-    <result column="isStatus" property="isstatus" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+<mapper namespace="com.mapper.Trading_recordMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Trading_record" >
+    <result column="trId" property="trid" jdbcType="VARCHAR" />
+    <result column="trType" property="trtype" jdbcType="VARCHAR" />
+    <result column="trMoney" property="trmoney" jdbcType="DECIMAL" />
+    <result column="trBalance" property="trbalance" jdbcType="DECIMAL" />
+    <result column="trTime" property="trtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    icId, icCardNum, icBalance, isStatus, createTime, lastTime
+    trId, trType, trMoney, trBalance, trTime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.IcCardExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.Trading_recordExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from icCard
+    from trading_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,89 +83,78 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.entity.IcCardExample" >
-    delete from icCard
+  <delete id="deleteByExample" parameterType="com.entity.Trading_recordExample" >
+    delete from trading_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.IcCard" >
-    insert into icCard (icId, icCardNum, icBalance, 
-      isStatus, createTime, lastTime
-      )
-    values (#{icid,jdbcType=VARCHAR}, #{iccardnum,jdbcType=VARCHAR}, #{icbalance,jdbcType=DECIMAL}, 
-      #{isstatus,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.entity.Trading_record" >
+    insert into trading_record (trId, trType, trMoney, 
+      trBalance, trTime)
+    values (#{trid,jdbcType=VARCHAR}, #{trtype,jdbcType=VARCHAR}, #{trmoney,jdbcType=DECIMAL}, 
+      #{trbalance,jdbcType=DECIMAL}, #{trtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.IcCard" >
-    insert into icCard
+  <insert id="insertSelective" parameterType="com.entity.Trading_record" >
+    insert into trading_record
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="icid != null" >
-        icId,
+      <if test="trid != null" >
+        trId,
       </if>
-      <if test="iccardnum != null" >
-        icCardNum,
+      <if test="trtype != null" >
+        trType,
       </if>
-      <if test="icbalance != null" >
-        icBalance,
+      <if test="trmoney != null" >
+        trMoney,
       </if>
-      <if test="isstatus != null" >
-        isStatus,
+      <if test="trbalance != null" >
+        trBalance,
       </if>
-      <if test="createtime != null" >
-        createTime,
-      </if>
-      <if test="lasttime != null" >
-        lastTime,
+      <if test="trtime != null" >
+        trTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="icid != null" >
-        #{icid,jdbcType=VARCHAR},
+      <if test="trid != null" >
+        #{trid,jdbcType=VARCHAR},
       </if>
-      <if test="iccardnum != null" >
-        #{iccardnum,jdbcType=VARCHAR},
+      <if test="trtype != null" >
+        #{trtype,jdbcType=VARCHAR},
       </if>
-      <if test="icbalance != null" >
-        #{icbalance,jdbcType=DECIMAL},
+      <if test="trmoney != null" >
+        #{trmoney,jdbcType=DECIMAL},
       </if>
-      <if test="isstatus != null" >
-        #{isstatus,jdbcType=VARCHAR},
+      <if test="trbalance != null" >
+        #{trbalance,jdbcType=DECIMAL},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lasttime != null" >
-        #{lasttime,jdbcType=TIMESTAMP},
+      <if test="trtime != null" >
+        #{trtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.entity.IcCardExample" resultType="java.lang.Integer" >
-    select count(*) from icCard
+  <select id="countByExample" parameterType="com.entity.Trading_recordExample" resultType="java.lang.Integer" >
+    select count(*) from trading_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update icCard
+    update trading_record
     <set >
-      <if test="record.icid != null" >
-        icId = #{record.icid,jdbcType=VARCHAR},
+      <if test="record.trid != null" >
+        trId = #{record.trid,jdbcType=VARCHAR},
       </if>
-      <if test="record.iccardnum != null" >
-        icCardNum = #{record.iccardnum,jdbcType=VARCHAR},
+      <if test="record.trtype != null" >
+        trType = #{record.trtype,jdbcType=VARCHAR},
       </if>
-      <if test="record.icbalance != null" >
-        icBalance = #{record.icbalance,jdbcType=DECIMAL},
+      <if test="record.trmoney != null" >
+        trMoney = #{record.trmoney,jdbcType=DECIMAL},
       </if>
-      <if test="record.isstatus != null" >
-        isStatus = #{record.isstatus,jdbcType=VARCHAR},
+      <if test="record.trbalance != null" >
+        trBalance = #{record.trbalance,jdbcType=DECIMAL},
       </if>
-      <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lasttime != null" >
-        lastTime = #{record.lasttime,jdbcType=TIMESTAMP},
+      <if test="record.trtime != null" >
+        trTime = #{record.trtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -174,13 +162,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update icCard
-    set icId = #{record.icid,jdbcType=VARCHAR},
-      icCardNum = #{record.iccardnum,jdbcType=VARCHAR},
-      icBalance = #{record.icbalance,jdbcType=DECIMAL},
-      isStatus = #{record.isstatus,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      lastTime = #{record.lasttime,jdbcType=TIMESTAMP}
+    update trading_record
+    set trId = #{record.trid,jdbcType=VARCHAR},
+      trType = #{record.trtype,jdbcType=VARCHAR},
+      trMoney = #{record.trmoney,jdbcType=DECIMAL},
+      trBalance = #{record.trbalance,jdbcType=DECIMAL},
+      trTime = #{record.trtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

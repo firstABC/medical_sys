@@ -9,7 +9,7 @@
     <generatorConfiguration>
        <!--数据库驱动包位置-->
         <classPathEntry
-		location="C:\maven_repository\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" />
+		location="E:\reps\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" />
 		<context id="DB2Tables" targetRuntime="MyBatis3"> 
             <commentGenerator>  
                 <property name="suppressAllComments" value="true" />  
@@ -45,10 +45,11 @@
        	<!--需要生成那些数据库（更改tableName和domainObjectName）-->
 		
 		<!-- <table tableName="mybatisTest" domainObjectName="MybatisTest"></table>
-		<table tableName="patient" domainObjectName="Patient"></table>
 		<table tableName="drug" domainObjectName="Drug"></table>
-		<table tableName="medical_record" domainObjectName="MedicalRecord"></table> -->
-		<table tableName="icCard" domainObjectName="IcCard"></table>
+		<table tableName="medical_record" domainObjectName="MedicalRecord"></table> 
+		<table tableName="trading_record" domainObjectName="Trading_record"></table>
+		<table tableName="icCard" domainObjectName="IcCard"></table>-->
+		<table tableName="patient" domainObjectName="Patient"></table>
         </context>  
 
     </generatorConfiguration>

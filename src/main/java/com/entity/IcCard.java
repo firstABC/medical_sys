@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Date;
+
 public class IcCard {
     private String icid;
 
@@ -9,12 +11,18 @@ public class IcCard {
 
     private String isstatus;
 
+    private Date createtime;
+
+    private Date lasttime;
+
     public String getIcid() {
         return icid;
     }
+
     public void setIcid(String icid) {
         this.icid = icid == null ? null : icid.trim();
     }
+
     public String getIccardnum() {
         return iccardnum;
     }
@@ -37,5 +45,21 @@ public class IcCard {
 
     public void setIsstatus(String isstatus) {
         this.isstatus = isstatus == null ? null : isstatus.trim();
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getLasttime() {
+        return lasttime;
+    }
+
+    public void setLasttime(Date lasttime) {
+        this.lasttime = lasttime;
     }
 }

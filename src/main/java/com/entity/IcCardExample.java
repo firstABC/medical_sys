@@ -1,6 +1,7 @@
 package com.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IcCardExample {
@@ -371,6 +372,126 @@ public class IcCardExample {
 
         public Criteria andIsstatusNotBetween(String value1, String value2) {
             addCriterion("isStatus not between", value1, value2, "isstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeIsNull() {
+            addCriterion("createTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeIsNotNull() {
+            addCriterion("createTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeEqualTo(Date value) {
+            addCriterion("createTime =", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeNotEqualTo(Date value) {
+            addCriterion("createTime <>", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeGreaterThan(Date value) {
+            addCriterion("createTime >", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("createTime >=", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeLessThan(Date value) {
+            addCriterion("createTime <", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeLessThanOrEqualTo(Date value) {
+            addCriterion("createTime <=", value, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeIn(List<Date> values) {
+            addCriterion("createTime in", values, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeNotIn(List<Date> values) {
+            addCriterion("createTime not in", values, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeBetween(Date value1, Date value2) {
+            addCriterion("createTime between", value1, value2, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatetimeNotBetween(Date value1, Date value2) {
+            addCriterion("createTime not between", value1, value2, "createtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeIsNull() {
+            addCriterion("lastTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeIsNotNull() {
+            addCriterion("lastTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeEqualTo(Date value) {
+            addCriterion("lastTime =", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeNotEqualTo(Date value) {
+            addCriterion("lastTime <>", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeGreaterThan(Date value) {
+            addCriterion("lastTime >", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("lastTime >=", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeLessThan(Date value) {
+            addCriterion("lastTime <", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeLessThanOrEqualTo(Date value) {
+            addCriterion("lastTime <=", value, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeIn(List<Date> values) {
+            addCriterion("lastTime in", values, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeNotIn(List<Date> values) {
+            addCriterion("lastTime not in", values, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeBetween(Date value1, Date value2) {
+            addCriterion("lastTime between", value1, value2, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLasttimeNotBetween(Date value1, Date value2) {
+            addCriterion("lastTime not between", value1, value2, "lasttime");
             return (Criteria) this;
         }
     }
