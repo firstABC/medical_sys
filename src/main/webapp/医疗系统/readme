@@ -1,0 +1,16 @@
+(finished)药品管理（默认drug/drug.abc）：drug/drug.abc跳转到drug.jsp页面，异步加载drug/list.abc查询列表
+		 点击列表内编辑按钮，打开弹框，获取当前行信息显示到form表单里的对应id属性
+		 					修改确定，drug/edit.abc，传入表单参数（drugid不为空），进行修改，清除表单数据
+		 点击列表内删除按钮，确认删除，drug/delete.abc，传入行信息的drugid，进行删除
+		 药品补录（添加药品），输入信息，drug/edit.abc，传入表单参数，进行添加，清除表单数据
+		 输入查询参数，进行前台筛选
+		 预警设置：默认异步加载drug/getNum.abc，获取预警数到input框，datatable根据预警数行字体为红色
+		 		点击预警设置，弹框修改预警数，确定请求drug/updateNum.abc?id='+id+'&num='+num,
+		 					修改数据库预警数，改变页面预警数，重新加载datatable样式
+患者管理（默认pa/patient.abc）：pa/patient.abc跳转到patient.jsp页面，异步加载pa/list.abc查询列表
+		
+(finished)病历管理（默认mere/list.abc）：mere/list.abc进行分页查询全部列表，获取数据跳转到patientHis.jsp页面循环显示
+		点击病历查看详情，mere/getMeRe.abc?id=查询详细信息，获取数据跳转到patientHisLi.jsp页面显示到form表单
+		输入卡号，根据卡号进行查询，mere/list.abc?icCardNum=输入框进行条件查询，获取数据跳转到patientHis.jsp页面循环显示
+		新建病历drug/addCase.abc
+		

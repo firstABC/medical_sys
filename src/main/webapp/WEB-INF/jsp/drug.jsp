@@ -173,11 +173,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="bg yjBox">
 				<div class="itemBox">
 					<div class="panel panel-title text-center">预警设置<a href="javascript:;" class="closeAdd fr"><i class="glyphicon glyphicon-remove" data-bv-icon-for="num" style=""></i></a></div>
-
+					<input class="form-control" type="tel" name="id" value="" placeholder="" id="ewId">
 					<div class="yjForm"> 
-						<div class="yjText text-center">当药品数量 < <input class="form-control" type="tel" name="" value="" placeholder=""> 时，预警</div>
+						<div class="yjText text-center">当药品数量 < 
+						<input class="form-control" type="tel" name="minnum" value="" placeholder="" id="ewNum"> 时，预警</div>
 						<div class="col-sm-12 text-center">
-							<button type="button" class="btn btn-info">确定</button>
+							<button type="button" class="btn btn-info" id="updateEWNum">确定</button>
 						</div>
 					</div>
 
@@ -240,6 +241,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
    	<script type="text/javascript" >
    	$(document).ready(function () {
+   		//初始化预警数
+   		getEW();
+   		
+   		//console.log($('#ewNum').val());
 		var drugnameC = $('#drugnameC').val();
 			var drugcodeC = $('#drugcodeC').val();
 			var url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
@@ -253,6 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	   url:url,
         	   type:'GET',
         	   dataType:'json',
+        	   
            },
 		    columns: [
 		    	{"data": "drugcode"},
@@ -277,6 +283,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            "targets": 6,
 	            "defaultContent": "<a href='#' id='editrow'>编辑</a><a href='#' id='delrow'>删除</a>" 
 	        }],
+	        "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull ) { 
+            	//改行满足的条件
+            	var n = aData['drugnum'];
+            	var ewNum = $('#ewNum').val();
+            	if(n < ewNum){
+            		//设置满足条件行的字体颜色
+            		//$(nRow).css("background", "red");		//datatable默认隔行控制
+            		$(nRow).children('td').css("color", "red");
+            	}
+            },
+           
     		//插件的汉化
 	        "oLanguage": {
 	            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -317,7 +334,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                data: {"drugId": data.drugid}, 
 	                timeout:"3000",
 	                cache:"false",
-	                async:"false",
+	                async:false,
 	                success:function(res){
 	                    if(res.status == 0){
 	                        //t.row().remove();	//删除这行的数据
@@ -343,7 +360,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		data:params,
 		    		timeout:"3000",
 	                cache:"false",
-	                async:"false",
+	                async:false,
 		    		success:function(res){
 		    			if(res.message == '修改成功!'){
 		    				alert(res.message);
@@ -390,10 +407,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('.closeAdd').click(function(){
 			$('.bg').hide();
 		})
-		// 预警
+		// 获取预警数
         $('.yj').on('click', function(){
+        	
         	$('.yjBox').show();
         })
+      	//修改预警数
+        $('#updateEWNum').on('click', function(){
+			var id=$('#ewId').val();
+			var num = $('#ewNum').val();
+     		$.ajax({
+				url:'<%=basePath%>/drug/updateNum.abc?id='+id+'&num='+num,
+	    		type :'post',
+	    		timeout:"3000",
+                cache:"false",
+                async:false,
+	    		success:function(res){
+	    			if(res.message == '修改成功!'){
+	    				$('#ewNum').val(res.total);
+	    			}
+	    		},
+	    		error:function(err){
+	                alert("获取数据失败");
+	            }
+	        }); 
+	       	t.ajax.reload();		//刷新datatable
+	   		$('.bg').hide();			//关闭编辑框
+		});
+        function getEW(){
+        	$.ajax({
+				url:'<%=basePath%>/drug/getNum.abc',
+	    		type :'get',
+	    		timeout:"3000",
+                cache:"false",
+                async:false,
+	    		success:function(res){
+	    			var ew = res.data; 
+	    			$('#ewId').val(ew.id);
+	    			$('#ewNum').val(res.total);
+	    		},
+	    		error:function(err){
+	                alert("获取数据失败");
+	            }
+	        });
+        }
     });
    	</script>
 </body>

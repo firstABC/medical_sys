@@ -8,8 +8,10 @@
 
     <generatorConfiguration>
        <!--数据库驱动包位置-->
-        <classPathEntry
-		location="E:\reps\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" />
+        <!-- <classPathEntry
+		location="E:\reps\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" /> -->
+		<classPathEntry
+		location="C:\maven_repository\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" />
 		<context id="DB2Tables" targetRuntime="MyBatis3"> 
             <commentGenerator>  
                 <property name="suppressAllComments" value="true" />  
@@ -48,8 +50,9 @@
 		<table tableName="drug" domainObjectName="Drug"></table>
 		<table tableName="medical_record" domainObjectName="MedicalRecord"></table> 
 		<table tableName="trading_record" domainObjectName="Trading_record"></table>
-		<table tableName="icCard" domainObjectName="IcCard"></table>-->
-		<table tableName="patient" domainObjectName="Patient"></table>
+		<table tableName="icCard" domainObjectName="IcCard"></table>
+		<table tableName="patient" domainObjectName="Patient"></table>-->
+		<table tableName="earlywarning" domainObjectName="Earlywarning"></table>
         </context>  
 
     </generatorConfiguration>

@@ -1,7 +1,9 @@
 package com.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dto.MsgDTO;
 import com.entity.Drug;
+import com.entity.Earlywarning;
+import com.entity.MedicalRecord;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.DrugService;
+import com.service.EWService;
 import com.util.Utils;
 
 @Controller
@@ -28,6 +35,8 @@ public class DrugController {
 			.getLogger(DrugController.class);
 	@Autowired
 	private DrugService drugService;
+	@Autowired
+	private EWService ewService;
 	
 	/**
 	 * 通用页面跳转
@@ -162,7 +171,63 @@ public class DrugController {
 		}
 		return msgDTO;
 	}
-	@RequestMapping(value = "/getDrugByCons", method = { RequestMethod.POST })
+	/**
+	 * 获取预警数
+	 */
+	@RequestMapping(value="/getNum",method=RequestMethod.GET)
+	public @ResponseBody MsgDTO getEW(){
+		logger.info("Get EarlyWarning Start:");
+		MsgDTO msgDTO = new MsgDTO();
+		int total = 0;
+		try{
+			Earlywarning warning = ewService.getEW();
+			if(warning != null &&warning.getMinnum() != null){
+				total = warning.getMinnum();
+				msgDTO = MsgDTO.success();
+				msgDTO.setData(warning);
+			}else{
+				msgDTO = MsgDTO.fail();
+			}
+			msgDTO.setTotal(total);
+			logger.info("Get EarlyWarning End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
+		}catch(Exception e){
+			msgDTO.setStatus(MsgDTO.STATUS_ERR);
+			msgDTO.setMessage(e.getMessage());
+			logger.error("Get EarlyWarning Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+		}
+		return msgDTO;
+	}
+	@RequestMapping(value = "/updateNum", method = { RequestMethod.POST })
+	public @ResponseBody MsgDTO getDrugByCons(
+			@RequestParam("id")String id,
+			@RequestParam("num")String num){
+		logger.info("Update EarlyWarning Start: id="+id+",minnum="+num);
+				MsgDTO msgDTO = new MsgDTO();
+		int total = 0;
+		Integer minnum = new Integer(num);
+		try {
+			if(Utils.stringNotEmpty(id)){
+				Earlywarning warning = new Earlywarning(id, minnum);
+				total = ewService.updateEW(warning);
+				if(Utils.numNotNull(total)){
+					msgDTO.setStatus(MsgDTO.STATUS_OK);
+					msgDTO.setMessage("修改成功!");
+					msgDTO.setTotal(minnum);
+				}else{
+					msgDTO = MsgDTO.zero();
+				}
+			}else{
+				msgDTO = MsgDTO.fail();
+			}
+			logger.info("Update EarlyWarning End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
+		} catch (Exception e) {
+			msgDTO.setStatus(MsgDTO.STATUS_ERR);
+			msgDTO.setMessage(e.getMessage());
+			logger.error("Update EarlyWarning Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
+		}
+		return msgDTO;
+	}
+	/*@RequestMapping(value = "/getDrugByCons", method = { RequestMethod.POST })
 	public @ResponseBody MsgDTO getDrugByCons(
 			@RequestParam("drugname")String drugname,
 			@RequestParam("drugcode")String drugcode){
@@ -184,5 +249,5 @@ public class DrugController {
 			logger.error("Get Drug By Condition Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
 		}
 		return msgDTO;
-	}
+	}*/
 }
