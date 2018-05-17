@@ -47,13 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<li><a href="javascript:;">病历详情</a></li>
 								</ul>
 							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
+							<jsp:include page="currentUser.jsp" flush="true"></jsp:include>
 							<div class="clearfix"></div>
 						</div>
 						
@@ -69,19 +63,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="tableBox">
 									<c:if test="${msgDTO.total == 1}">
 									<form class="form-horizontal dyForm">
-										<div class="form-group col-sm-4">
+										<div class="form-group col-sm-3">
 											<label for="" class="col-sm-4 control-label">卡号</label>
 											<div class="col-sm-8">
-												<input type="tel" class="form-control" value="${msgDTO.data.iccardnum }" disabled="disabled">
+												<input type="tel" class="form-control" value="${msgDTO.data.iccardnum }" disabled="disabled" id="icCardNum">
 											</div>
 										</div>
-										<div class="form-group col-sm-4">
+										<div class="form-group col-sm-3">
 											<label for="" class="col-sm-4 control-label">姓名</label>
 											<div class="col-sm-8">
 												<input type="text" class="form-control" value="${msgDTO.data.paname }" disabled="disabled">
 											</div>
 										</div>
-										<div class="form-group col-sm-4">
+										<div class="form-group col-sm-3">
+											<label for="" class="col-sm-4 control-label">性别</label>
+											<div class="col-sm-8">
+												<%-- <select class="form-control" disabled="disabled" value="">
+													<option value ="${msgDTO.data.pasex }">男</option>
+													<option value ="${msgDTO.data.pasex }">女</option>
+												</select> --%>
+												<input type="text" class="form-control" value="${msgDTO.data.pasex == 'A'?'男':'女' }" disabled="disabled">
+											</div>
+										</div>
+										<div class="form-group col-sm-3">
 											<label for="" class="col-sm-4 control-label">年龄</label>
 											<div class="col-sm-8">
 												<input type="tel" class="form-control" value="${msgDTO.data.paage }" disabled="disabled">
@@ -132,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 										<div class="col-sm-12 text-center btnOpen">
 											<button type="button" class="btn btn-info dy">打印</button>
-											<button type="button" class="btn btn-defalut">返回</button>
+											<button type="button" class="btn btn-defalut fh">返回</button>
 										</div>
 									</form>
 									</c:if>
@@ -145,55 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 
 		<!--/sidebar-menu-->
-		<div class="sidebar-menu">
-			<header class="logo1">
-				<a href="javascript:;" class="sidebar-icon"><span class="fa fa-bars"></span></a> 
-			</header>
-			<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-               <div class="menu">
-					<ul id="menu" >
-						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
-						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
-						<li class="menu-academico active">
-						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="rechangeCard.html">医疗卡充值</a></li>
-								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
-						  	</ul>
-						</li>
-						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="user.html">用户管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="处方管理"><i class="fa fa-envelope-open-o"></i> <span>处方管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="recipe.html">开处方</a></li>
-								<li class="menu-academico-avaliacoes"><a href="recipeHis.html">历史处方</a></li>
-						  	</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 	</div>
 
@@ -216,6 +172,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     //Log to console when printing is done via a deffered callback
                     deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
                 });
+            });
+			// 点击返回
+			$(".fh").on('click', function() {
+                var iccardnum = $('#icCardNum').val();
+                window.location.href="<%=basePath%>/mere/list.abc?icCardNum="+iccardnum;
             });
    		})
    	</script>

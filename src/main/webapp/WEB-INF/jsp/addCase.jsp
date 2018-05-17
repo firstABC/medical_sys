@@ -49,13 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<li><a href="javascript:;">新增病例</a></li>
 								</ul>
 							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
+							<jsp:include page="currentUser.jsp" flush="true"></jsp:include>
 							<div class="clearfix"></div>
 						</div>
 						
@@ -143,6 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 										<div class="col-sm-12 text-center btnOpen">
 											<button type="button" class="btn btn-info" id="editCase">确定</button>
+											<!-- <button type="button" class="btn btn-defalut fh">返回</button> -->
 										</div>
 									</form>
 								</div>
@@ -154,55 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 
 		<!--/sidebar-menu-->
-		<div class="sidebar-menu">
-			<header class="logo1">
-				<a href="javascript:;" class="sidebar-icon"><span class="fa fa-bars"></span></a> 
-			</header>
-			<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-               <div class="menu">
-					<ul id="menu" >
-						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
-						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
-						<li class="menu-academico active">
-						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug/addCase.abc">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/mere/list.abc">历史病历</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="rechangeCard.html">医疗卡充值</a></li>
-								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
-						  	</ul>
-						</li>
-						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="user.html">用户管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="处方管理"><i class="fa fa-envelope-open-o"></i> <span>处方管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="recipe.html">开处方</a></li>
-								<li class="menu-academico-avaliacoes"><a href="recipeHis.html">历史处方</a></li>
-						  	</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 	</div>
 	
@@ -219,13 +166,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		type :'post',
 			    		data:params,
 			    		timeout:"3000",
-		                cache:"false",
-		                async:"false",
+		                cache:false,
+		                async:false,
 			    		success:function(res){
 			    			if(res.message == '修改成功!'){
 			    				alert(res.message);
 			    			}else if(res.message =='添加成功!'){
 			    				alert(res.message);
+			    				var id = res.data['id']
+			    				window.location.href="<%=basePath%>/mere/getMeRe.abc?id="+id;
 			    			}else{
 			    				alert(res.message);
 			    			}
@@ -233,15 +182,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		error:function(err){
 			                alert("获取数据失败");
 			            }
-			        });
+			        }); 
 		        }
-	        	$('#editCaseForm input').val('');
-        		$('#editCaseForm textarea').val('');
-        		$('#editCaseForm select').val('');	//手动清除form表单
-        		//$('#drugremark').val();
-        		//$('#drugunit').val();
+	        	//$('#editCaseForm input').val('');
+        		//$('#editCaseForm textarea').val('');
+        		//$('#editCaseForm select').val('');	//手动清除form表单
+        		
 			});
-		    
+	      	//点击返回
+			$(".fh").on('click', function() {
+	               var iccardnum = $('#iccardnum').val();
+	               window.location.href="<%=basePath%>/mere/list.abc?icCardNum="+iccardnum;
+	        });
 	    });
 	</script>
 </body>

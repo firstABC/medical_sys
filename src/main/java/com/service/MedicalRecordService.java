@@ -13,9 +13,9 @@ public interface MedicalRecordService {
 	
 	public List<MedicalRecord> getMeReListByCons(String icCardNum) throws Exception;
 	
-	public int addMeRe(MedicalRecordCons meReC) throws ParseException;
+	public MedicalRecord addMeRe(MedicalRecordCons meReC) throws ParseException;
 	
-	public int updateMeRe(MedicalRecordCons meReC) throws ParseException;
+	public MedicalRecord updateMeRe(MedicalRecordCons meReC) throws ParseException;
 	
 	public MedicalRecord getMeRe(String id) throws Exception;
 }

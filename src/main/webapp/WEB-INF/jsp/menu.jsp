@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,12 +20,12 @@
 					<ul id="menu" >
 						<li><a href="${pageContext.request.contextPath}/switch/openUser.abc" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
 						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
+						<li><a href="<%=basePath %>/patient.abc" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/addCase.abc">新建病历</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/mere/list.abc">历史病历</a></li>
 						  	</ul>
 						</li>
 						<li class="menu-academico">
@@ -35,7 +39,7 @@
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug.abc">药品管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
 						  	</ul>
 						</li>

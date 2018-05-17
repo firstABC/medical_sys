@@ -39,13 +39,6 @@ public class DrugController {
 	private EWService ewService;
 	
 	/**
-	 * 通用页面跳转
-	 */
-	@RequestMapping(value="{page}",method=RequestMethod.GET)
-	public ModelAndView toPage(@PathVariable("page")String page){
-		return new ModelAndView(page);
-	}
-	/**
 	 * 获取列表
 	 * @return
 	 */

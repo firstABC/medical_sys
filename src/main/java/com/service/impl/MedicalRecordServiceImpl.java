@@ -46,25 +46,23 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 		}
 	}
 	@Override
-	public int addMeRe(MedicalRecordCons meReC) throws ParseException {
+	public MedicalRecord addMeRe(MedicalRecordCons meReC) throws ParseException {
 		MedicalRecord meRe = new MedicalRecord(meReC);
 		meRe.setId(Utils.getUUID());
 		meRe.setCreatetime(Utils.getNow());
-		int num = 0;
-		//插入记录
-		num = medicalRecordMapper.insert(meRe);
-		return num;
+		//添加
+		medicalRecordMapper.insert(meRe);
+		return meRe;
 	}
 	@Override
-	public int updateMeRe(MedicalRecordCons meReC) throws ParseException {
+	public MedicalRecord updateMeRe(MedicalRecordCons meReC) throws ParseException {
 		MedicalRecord meRe = new MedicalRecord(meReC);
 		meRe.setCreatetime(Utils.getNow());
 		MedicalRecordExample meExam = new MedicalRecordExample();
 		meExam.createCriteria().andIdEqualTo(meRe.getId());
-		int num = 0;
 		//根据ID修改记录
-		num = medicalRecordMapper.updateByExample(meRe, meExam);
-		return num;
+		medicalRecordMapper.updateByExample(meRe, meExam);
+		return meRe;
 	}
 	@Override
 	public MedicalRecord getMeRe(String id) throws Exception {

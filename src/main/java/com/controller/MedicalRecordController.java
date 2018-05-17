@@ -54,6 +54,7 @@ public class MedicalRecordController {
 		List<MedicalRecord> meList = new ArrayList<MedicalRecord>();
 		try{
 			if(Utils.stringNotEmpty(icCardNum)){
+				map.put("icCardNum", icCardNum);
 				meList = medicalRecordService.getMeReListByCons(icCardNum);
 			}else{
 				//参数为空,查询全部
@@ -120,23 +121,25 @@ public class MedicalRecordController {
 	public @ResponseBody MsgDTO addMedicalRecord(MedicalRecordCons meRe){
 		logger.info("Edit MedicalRecord Start: "+meRe.toString());
 		MsgDTO msgDTO = new MsgDTO();
-		int total = 0;
+		MedicalRecord res = null;
 		try {
 			if(Utils.stringNotEmpty(meRe.getId())){
-				total = medicalRecordService.updateMeRe(meRe);
-				if(Utils.numNotNull(total)){
+				res = medicalRecordService.updateMeRe(meRe);
+				if(res != null){
 					msgDTO.setStatus(MsgDTO.STATUS_OK);
 					msgDTO.setMessage("修改成功!");
-					msgDTO.setTotal(total);
+					msgDTO.setTotal(1);
+					msgDTO.setData(res);
 				}else{
 					msgDTO = MsgDTO.zero();
 				}
 			}else{
-				total = medicalRecordService.addMeRe(meRe);
-				if(Utils.numNotNull(total)){
+				res = medicalRecordService.addMeRe(meRe);
+				if(res != null){
 					msgDTO.setStatus(MsgDTO.STATUS_OK);
 					msgDTO.setMessage("添加成功!");
-					msgDTO.setTotal(total);
+					msgDTO.setTotal(1);
+					msgDTO.setData(res);
 				}else{
 					msgDTO = MsgDTO.zero();
 				}
