@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.entity.Drug;
 import com.entity.DrugExample;
 import com.mapper.DrugMapper;
+import com.mysql.jdbc.Util;
 import com.service.DrugService;
 import com.util.Utils;
 
@@ -40,6 +41,7 @@ public class DrugServiceImpl implements DrugService{
 	@Override
 	public int addDrug(Drug drug) throws Exception{
 		drug.setDrugid(Utils.getUUID());
+		drug.setCreatetime(Utils.getNow());
 		int num = 0;
 		//插入记录
 		num = drugMapper.insert(drug);
@@ -62,6 +64,7 @@ public class DrugServiceImpl implements DrugService{
 	 */
 	@Override
 	public int updateDrug(Drug drug) throws Exception{
+		drug.setCreatetime(Utils.getNow());
 		DrugExample dExam = new DrugExample();
 		dExam.createCriteria().andDrugidEqualTo(drug.getDrugid());
 		int num = 0;

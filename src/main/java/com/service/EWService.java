@@ -1,8 +1,6 @@
 package com.service;
 
 import java.util.List;
-
-import com.entity.Drug;
 import com.entity.Earlywarning;
 
 public interface EWService {

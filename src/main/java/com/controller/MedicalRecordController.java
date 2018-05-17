@@ -19,14 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dto.MedicalRecordCons;
 import com.dto.MsgDTO;
-import com.entity.Drug;
-import com.entity.MedicalRecord;
 import com.entity.MedicalRecord;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.service.MedicalRecordService;
 import com.service.MedicalRecordService;
 import com.util.Utils;
 
@@ -118,7 +114,7 @@ public class MedicalRecordController {
 	 * @return
 	 */
 	@RequestMapping(value = "/edit", method = { RequestMethod.POST })
-	public @ResponseBody MsgDTO addMedicalRecord(MedicalRecordCons meRe){
+	public @ResponseBody MsgDTO addMedicalRecord(MedicalRecord meRe){
 		logger.info("Edit MedicalRecord Start: "+meRe.toString());
 		MsgDTO msgDTO = new MsgDTO();
 		MedicalRecord res = null;

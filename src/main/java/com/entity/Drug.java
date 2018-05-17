@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Date;
+
 public class Drug {
     private String drugid;
 
@@ -14,6 +16,8 @@ public class Drug {
     private String drugremark;
 
     private String drugcode;
+
+    private Date createtime;
 
     public String getDrugid() {
         return drugid;
@@ -71,11 +75,11 @@ public class Drug {
         this.drugcode = drugcode == null ? null : drugcode.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Drug [drugid=" + drugid + ", drugname=" + drugname
-				+ ", drugnum=" + drugnum + ", drugprice=" + drugprice
-				+ ", drugunit=" + drugunit + ", drugremark=" + drugremark
-				+ ", drugcode=" + drugcode + "]";
-	}
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
 }

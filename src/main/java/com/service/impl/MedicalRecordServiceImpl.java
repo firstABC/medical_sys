@@ -7,8 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dto.MedicalRecordCons;
-import com.entity.DrugExample;
 import com.entity.MedicalRecord;
 import com.entity.MedicalRecordExample;
 import com.mapper.MedicalRecordMapper;
@@ -46,8 +44,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 		}
 	}
 	@Override
-	public MedicalRecord addMeRe(MedicalRecordCons meReC) throws ParseException {
-		MedicalRecord meRe = new MedicalRecord(meReC);
+	public MedicalRecord addMeRe(MedicalRecord meRe) throws ParseException {
 		meRe.setId(Utils.getUUID());
 		meRe.setCreatetime(Utils.getNow());
 		//添加
@@ -55,8 +52,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 		return meRe;
 	}
 	@Override
-	public MedicalRecord updateMeRe(MedicalRecordCons meReC) throws ParseException {
-		MedicalRecord meRe = new MedicalRecord(meReC);
+	public MedicalRecord updateMeRe(MedicalRecord meRe) throws ParseException {
 		meRe.setCreatetime(Utils.getNow());
 		MedicalRecordExample meExam = new MedicalRecordExample();
 		meExam.createCriteria().andIdEqualTo(meRe.getId());

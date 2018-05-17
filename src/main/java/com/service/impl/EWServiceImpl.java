@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.entity.Drug;
-import com.entity.DrugExample;
 import com.entity.Earlywarning;
 import com.entity.EarlywarningExample;
 import com.mapper.DrugMapper;

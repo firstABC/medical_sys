@@ -126,13 +126,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<input class="form-control" type="text" value="" placeholder="" name="physician" id="physician">
 													</div>
 												</div>
-												<!-- <div class="form-group col-sm-5"> -->
-													<!-- <label for="" class="col-sm-5 control-label">诊断时间</label> -->
-													<!-- <div class="col-sm-7"> -->
-														<!-- <input type="date" value="" placeholder="" name="createtime" id="createtime" hidden="hidden"> -->
-													<!-- </div> -->
-												<!-- </div> -->
-											<!-- </div> -->
+												<!-- <div class="form-group col-sm-5">
+													<label for="" class="col-sm-5 control-label">诊断时间</label>
+													<div class="col-sm-7">
+														<input class="form-control" type="datetime" name="" value="" placeholder="">
+													</div>
+												</div> -->
+
 										</div>
 
 										<div class="col-sm-12 text-center btnOpen">

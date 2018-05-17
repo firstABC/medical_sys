@@ -89,6 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                                <th>单价</th>
 				                                <th>单位</th>
 				                                <th>备注</th>
+				                                <th>时间</th>
 				                                <th>操作</th>
 				                            </tr>
 				                        </thead>
@@ -223,10 +224,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	}
             	},
             	{"data": "drugremark"},
+            	{"data": "createtime",
+            		render:function(createtime){
+            			return getMyDate(createtime);
+                	}	
+            	},
             	{"data": null}
             ], 
             "columnDefs":[{
-	            "targets": 6,
+	            "targets": 7,
 	            "defaultContent": "<a href='#' id='editrow'>编辑</a><a href='#' id='delrow'>删除</a>" 
 	        }],
 	        "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull ) { 
@@ -398,6 +404,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        });
         }
     });
+  	//将时间戳格式化 
+   	function getMyDate(time){  
+   	    if(typeof(time)=="undefined"){
+   	        return "";
+   	    }
+   	    var oDate = new Date(time),  
+   	     oYear = oDate.getFullYear(),  
+   	     oMonth = oDate.getMonth()+1,  
+   	     oDay = oDate.getDate(),  
+   	     oHour = oDate.getHours(),  
+   	     oMin = oDate.getMinutes(),  
+   	     oSen = oDate.getSeconds(),  
+   	     oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间  
+   	            
+   	     return oTime;  
+   	    };
+   	    
+ 	 //补0操作,当时间数据小于10的时候，给该数据前面加一个0  
+	 function getzf(num){  
+	     if(parseInt(num) < 10){  
+	          num = '0'+num;  
+	     }  
+	     return num;  
+	}
    	</script>
 </body>
 </html>

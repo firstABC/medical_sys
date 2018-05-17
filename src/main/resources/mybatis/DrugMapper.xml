@@ -9,6 +9,7 @@
     <result column="drugUnit" property="drugunit" jdbcType="VARCHAR" />
     <result column="drugRemark" property="drugremark" jdbcType="VARCHAR" />
     <result column="drugCode" property="drugcode" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    drugId, drugName, drugNum, drugPrice, drugUnit, drugRemark, drugCode
+    drugId, drugName, drugNum, drugPrice, drugUnit, drugRemark, drugCode, createTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.DrugExample" >
     select
@@ -94,10 +95,10 @@
   <insert id="insert" parameterType="com.entity.Drug" >
     insert into drug (drugId, drugName, drugNum, 
       drugPrice, drugUnit, drugRemark, 
-      drugCode)
+      drugCode, createTime)
     values (#{drugid,jdbcType=VARCHAR}, #{drugname,jdbcType=VARCHAR}, #{drugnum,jdbcType=INTEGER}, 
       #{drugprice,jdbcType=DECIMAL}, #{drugunit,jdbcType=VARCHAR}, #{drugremark,jdbcType=VARCHAR}, 
-      #{drugcode,jdbcType=VARCHAR})
+      #{drugcode,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.entity.Drug" >
     insert into drug
@@ -123,6 +124,9 @@
       <if test="drugcode != null" >
         drugCode,
       </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="drugid != null" >
@@ -145,6 +149,9 @@
       </if>
       <if test="drugcode != null" >
         #{drugcode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.drugcode != null" >
         drugCode = #{record.drugcode,jdbcType=VARCHAR},
       </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,12 +201,12 @@
       drugPrice = #{record.drugprice,jdbcType=DECIMAL},
       drugUnit = #{record.drugunit,jdbcType=VARCHAR},
       drugRemark = #{record.drugremark,jdbcType=VARCHAR},
-      drugCode = #{record.drugcode,jdbcType=VARCHAR}
+      drugCode = #{record.drugcode,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  
   <!-- 多条件模糊查询 -->
   <select id="selectByCons" resultMap="BaseResultMap" parameterType="com.entity.DrugExample" >
     select

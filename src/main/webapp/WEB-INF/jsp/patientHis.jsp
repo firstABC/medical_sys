@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													
 													<div class="col-sm-4">
 														<a href="<%=basePath%>/mere/getMeRe.abc?id=${it.id}" class="col-sm-12">
-															<h4>病历${idx.index+1}</h4>
+															<h4>病历${idx.index+1}-${it.paname}</h4>
 															<h5>时间<input type="text" name="" 
 																	value="<fmt:formatDate value="${it.createtime}" pattern="yyyy.MM.dd HH:mm:ss"/>" 
 																	placeholder="" disabled="disabled"></h5>

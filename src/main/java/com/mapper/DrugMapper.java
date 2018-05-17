@@ -2,9 +2,7 @@ package com.mapper;
 
 import com.entity.Drug;
 import com.entity.DrugExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface DrugMapper {
