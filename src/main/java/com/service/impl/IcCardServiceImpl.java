@@ -1,10 +1,13 @@
 package com.service.impl;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.entity.IcCard;
+import com.entity.IcCardExample;
 import com.entity.PatientCardVO;
 import com.mapper.IcCardMapper;
 import com.service.IcCardService;
@@ -24,6 +27,18 @@ public class IcCardServiceImpl implements IcCardService {
 	@Override
 	public PatientCardVO selectIcCard(String icCardNum) {
 		return icCardMapper.selectIcCard(icCardNum);
+	}
+
+	@Override
+	public int closeAccount(String icCardNum,Date lastTime) {
+		IcCard icCard = new IcCard();
+		icCard.setIcbalance(0l);
+		icCard.setIsstatus("C");
+		icCard.setLasttime(lastTime);
+		IcCardExample iExam = new IcCardExample();
+		iExam.createCriteria().andIccardnumEqualTo(icCardNum);
+		int isOk = icCardMapper.updateByExampleSelective(icCard, iExam);
+		return isOk;
 	}
 
 }

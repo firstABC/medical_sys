@@ -153,7 +153,7 @@
 		</div> 
 
 		<!--/sidebar-menu-->
-		<jsp:include page="menu.jsp"></jsp:include>
+		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 
 	</div>

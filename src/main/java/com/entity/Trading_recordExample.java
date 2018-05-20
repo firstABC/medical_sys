@@ -424,6 +424,76 @@ public class Trading_recordExample {
             addCriterion("trTime not between", value1, value2, "trtime");
             return (Criteria) this;
         }
+
+        public Criteria andIccardnumIsNull() {
+            addCriterion("icCardNum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumIsNotNull() {
+            addCriterion("icCardNum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumEqualTo(String value) {
+            addCriterion("icCardNum =", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumNotEqualTo(String value) {
+            addCriterion("icCardNum <>", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumGreaterThan(String value) {
+            addCriterion("icCardNum >", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumGreaterThanOrEqualTo(String value) {
+            addCriterion("icCardNum >=", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumLessThan(String value) {
+            addCriterion("icCardNum <", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumLessThanOrEqualTo(String value) {
+            addCriterion("icCardNum <=", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumLike(String value) {
+            addCriterion("icCardNum like", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumNotLike(String value) {
+            addCriterion("icCardNum not like", value, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumIn(List<String> values) {
+            addCriterion("icCardNum in", values, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumNotIn(List<String> values) {
+            addCriterion("icCardNum not in", values, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumBetween(String value1, String value2) {
+            addCriterion("icCardNum between", value1, value2, "iccardnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andIccardnumNotBetween(String value1, String value2) {
+            addCriterion("icCardNum not between", value1, value2, "iccardnum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

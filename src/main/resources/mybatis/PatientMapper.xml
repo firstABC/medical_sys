@@ -21,7 +21,7 @@
     <result column="paPhone" property="paphone" jdbcType="VARCHAR" />
     <result column="paAge" property="paage" jdbcType="VARCHAR" />
     <result column="paSex" property="pasex" jdbcType="VARCHAR" />
-    <result column="paMarriage" property="pamarriage" jdbcType="VARCHAR" />
+    <result column="paMarriage"  property="pamarriage" jdbcType="VARCHAR" />
     <result column="paAddress" property="paaddress" jdbcType="VARCHAR" />
     <result column="paCreator" property="pacreator" jdbcType="VARCHAR" />
     <result column="icId" property="icid" jdbcType="VARCHAR" />

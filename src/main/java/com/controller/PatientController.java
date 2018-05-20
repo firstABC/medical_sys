@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.entity.Patient;
 import com.entity.PatientCardVO;
 import com.service.IcCardService;
 import com.service.PatientService;
+import com.service.Tranding_recordService;
 import com.util.Utils;
 
 @Controller
@@ -36,6 +38,8 @@ public class PatientController {
 	private PatientService patientService;
 	@Autowired
 	private IcCardService icCardService;
+	@Autowired
+	private Tranding_recordService tranding_recordService;
 	/**
 	 * 获取列表
 	 * @return
@@ -163,4 +167,27 @@ public class PatientController {
 		msgDTO.setStatus(msgDTO.STATUS_OK);
 		return msgDTO;
 	} 
+	@ResponseBody
+	@RequestMapping(value = "/closePatient", method = { RequestMethod.POST })
+	public MsgDTO toClosePatient(HttpServletRequest request){
+		MsgDTO msgDTO = new MsgDTO();
+		msgDTO = MsgDTO.success();
+		try {
+			Date date = Utils.getNow();
+			//卡号
+			String num = request.getParameter("num");
+			String icbalance = request.getParameter("icbalance");
+//			BigDecimal bd = new BigDecimal(icbalance); 
+			long trMoney = Long.parseLong(icbalance);
+			//用卡号去改变卡状态
+			icCardService.closeAccount(num, date);
+			//修改消费记录
+			tranding_recordService.closeAccount(num, trMoney, date);
+		} catch (Throwable e) {
+			logger.error("销户失败："+e);
+			msgDTO = MsgDTO.fail();
+		}
+		
+		return msgDTO;
+	}
 }

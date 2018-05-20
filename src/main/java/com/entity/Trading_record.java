@@ -13,6 +13,8 @@ public class Trading_record {
 
     private Date trtime;
 
+    private String iccardnum;
+
     public String getTrid() {
         return trid;
     }
@@ -51,5 +53,13 @@ public class Trading_record {
 
     public void setTrtime(Date trtime) {
         this.trtime = trtime;
+    }
+
+    public String getIccardnum() {
+        return iccardnum;
+    }
+
+    public void setIccardnum(String iccardnum) {
+        this.iccardnum = iccardnum == null ? null : iccardnum.trim();
     }
 }

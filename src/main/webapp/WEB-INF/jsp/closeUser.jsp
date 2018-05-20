@@ -22,6 +22,23 @@
    	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
    	<script src="<%=basePath%>/js/jquery.form.js"></script>
    	<script type="text/javascript">
+   		function toClose() {
+   			var option = {
+   		    		url:'<%=basePath%>/pa/closePatient.abc',
+   		    		type :"post",
+   		    		dataType:'json',
+   		    		headers:{"ClientCallMode" : "ajax"}, 
+   		    		success : function(data) {
+   		    			if(data.status == '-1'){
+   							alert(data.message);
+   						}else{
+   							alert(data.message);
+   						}
+   		            },
+   		         };
+   		   	 	$("#closeForm").ajaxSubmit(option);
+   		   	 	return false;
+		}
    		function toSearchInfo() {
    			var option = {
    		    		url:'<%=basePath%>/ic/search.abc',
@@ -31,6 +48,8 @@
    		    		success : function(data) {
    		    			if(data.status == '-2'){
    							alert(data.message);
+   							$("#icbalance").val("");
+   							$("#paName").val("");
    						}else{
    							//将数据填充到标签里
    							$("#icbalance").val(data.data.icbalance);
@@ -38,7 +57,7 @@
    						}
    		            },
    		         };
-   		   	 	$("#createrForm").ajaxSubmit(option);
+   		   	 	$("#closeForm").ajaxSubmit(option);
    		   	 	return false;
 		}
    	</script>
@@ -73,7 +92,7 @@
 							<div class="panel panel-title">销户信息</div>
 							<div class="panel-body">
 								<div class="content-user">
-									<form class="form-horizontal closeForm">
+									<form class="form-horizontal closeForm" id="closeForm" name="closeForm">
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">卡号<span class="text-muted">*</span></label>
@@ -111,7 +130,7 @@
 											</div>
 										</div>
 										<div class="col-sm-12 text-center btnOpen">
-											<button type="button" class="btn btn-info" id="sureBtn">销户</button>
+											<button type="button" class="btn btn-info" id="sureBtn" onclick="toClose();">销户</button>
 											<button type="button" class="btn btn-default" id="closeBtn">重置</button>
 										</div>
 										<!-- 销户的提示信息 出现：display: block; -->

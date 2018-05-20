@@ -7,6 +7,7 @@
     <result column="trMoney" property="trmoney" jdbcType="DECIMAL" />
     <result column="trBalance" property="trbalance" jdbcType="DECIMAL" />
     <result column="trTime" property="trtime" jdbcType="TIMESTAMP" />
+    <result column="icCardNum" property="iccardnum" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    trId, trType, trMoney, trBalance, trTime
+    trId, trType, trMoney, trBalance, trTime, icCardNum
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.Trading_recordExample" >
     select
@@ -91,9 +92,11 @@
   </delete>
   <insert id="insert" parameterType="com.entity.Trading_record" >
     insert into trading_record (trId, trType, trMoney, 
-      trBalance, trTime)
+      trBalance, trTime, icCardNum
+      )
     values (#{trid,jdbcType=VARCHAR}, #{trtype,jdbcType=VARCHAR}, #{trmoney,jdbcType=DECIMAL}, 
-      #{trbalance,jdbcType=DECIMAL}, #{trtime,jdbcType=TIMESTAMP})
+      #{trbalance,jdbcType=DECIMAL}, #{trtime,jdbcType=TIMESTAMP}, #{iccardnum,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.entity.Trading_record" >
     insert into trading_record
@@ -113,6 +116,9 @@
       <if test="trtime != null" >
         trTime,
       </if>
+      <if test="iccardnum != null" >
+        icCardNum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="trid != null" >
@@ -129,6 +135,9 @@
       </if>
       <if test="trtime != null" >
         #{trtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccardnum != null" >
+        #{iccardnum,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +165,9 @@
       <if test="record.trtime != null" >
         trTime = #{record.trtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.iccardnum != null" >
+        icCardNum = #{record.iccardnum,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -167,7 +179,8 @@
       trType = #{record.trtype,jdbcType=VARCHAR},
       trMoney = #{record.trmoney,jdbcType=DECIMAL},
       trBalance = #{record.trbalance,jdbcType=DECIMAL},
-      trTime = #{record.trtime,jdbcType=TIMESTAMP}
+      trTime = #{record.trtime,jdbcType=TIMESTAMP},
+      icCardNum = #{record.iccardnum,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

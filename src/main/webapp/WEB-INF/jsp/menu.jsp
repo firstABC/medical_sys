@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <div class="menu">
 					<ul id="menu" >
 						<li><a href="${pageContext.request.contextPath}/switch/openUser.abc" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
-						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/switch/closeUser.abc" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
 						<li><a href="<%=basePath %>/patient.abc" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="rechangeCard.html">医疗卡充值</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/switch/rechangeCard.abc">医疗卡充值</a></li>
 								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
 						  	</ul>
 						</li>

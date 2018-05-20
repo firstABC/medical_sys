@@ -77,10 +77,18 @@ public class SwitchController {
 		return mv;
 	}
 	
-	public ModelAndView toCloseUser(){
+	@RequestMapping("/closeUser")
+	public ModelAndView toCloseUser(){//销户
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("closeUser");
+		return mv;
+	}
+	
+	@RequestMapping("/rechangeCard")
+	public ModelAndView toRecharge(){//充值
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("rechangeCard");
 		return mv;
 	}
 	
