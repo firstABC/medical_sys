@@ -17,7 +17,7 @@
 
 	<link href="<%=basePath%>/css/style.css" rel='stylesheet' type='text/css' />
 	
-	<script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
+	 <script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script> 
    	<script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
    	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
    	<script src="<%=basePath%>/js/jquery.form.js"></script>
@@ -35,7 +35,7 @@
 							$("#paName").val("");
 						}else{
 							//将数据填充到标签里
-							$("#icbalance").val(data.data.icbalance);
+							$("#icBalance").val(data.data.icbalance);
 							$("#paName").val(data.data.paname);
 						}
 		            },
@@ -43,22 +43,20 @@
 		   	 	$("#reChargeForm").ajaxSubmit(option);
 		   	 	return false;
 	}
-   	
-   	function toReCharge() {
+   	</script>
+   	<script type="text/javascript">
+   	function toReCharge12() {
 		var option = {
-	    		url:'<%=basePath%>/ic/search.abc',
+	    		url:'<%=basePath%>/ic/reCharge.abc',
 	    		type :"post",
 	    		dataType:'json',
 	    		headers:{"ClientCallMode" : "ajax"}, 
 	    		success : function(data) {
-	    			if(data.status == '-2'){
+	    			if(data.status == '-1'){
 						alert(data.message);
-						$("#icbalance").val("");
-						$("#paName").val("");
 					}else{
 						//将数据填充到标签里
-						$("#icbalance").val(data.data.icbalance);
-						$("#paName").val(data.data.paname);
+						alert(data.message);
 					}
 	            },
 	         };
@@ -103,7 +101,7 @@
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">卡号<span class="text-muted">*</span></label>
 												<div class="col-sm-4">
-													<input type="tel" class="form-control" placeholder="" name="num" onchange="toSearchInfo();" data-bv-trigger="blur" data-bv-message="卡号不能为空" required data-bv-notempty-message="卡号不能为空">
+													<input type="tel" class="form-control" placeholder="" name="num" id="num" onchange="toSearchInfo();" data-bv-trigger="blur" data-bv-message="卡号不能为空" required data-bv-notempty-message="卡号不能为空">
 												</div>
 											</div>
 											<div class="form-group">
@@ -125,7 +123,7 @@
 												<label for="" class="col-sm-4 control-label">充值数额</label>
 												<div class="col-sm-4">
 													<div class=" input-group">
-														<input type="tel" class="form-control" id="trMoney" name="trMoney ">
+														<input type="tel" class="form-control" id="trMoney" name="trMoney">
 														<span class="input-group-addon">元</span>
 													</div>
 												</div>
@@ -133,7 +131,7 @@
 										</div>
 
 										<div class="col-sm-12 text-center btnOpen">
-											<button type="button" class="btn btn-info" id="sureBtn" onclick="toRecharge();">确认充值</button>
+											<button type="button" class="btn btn-info" id="sureBtn" onclick="toReCharge12();">确认充值</button>
 											<button type="button" class="btn btn-default" id="closeBtn">取消</button>
 										</div>
 

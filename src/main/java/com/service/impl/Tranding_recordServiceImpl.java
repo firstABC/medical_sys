@@ -10,6 +10,7 @@ import com.entity.Trading_record;
 import com.entity.Trading_recordExample;
 import com.mapper.Trading_recordMapper;
 import com.service.Tranding_recordService;
+import com.util.Utils;
 @Service("tranding_recordService")
 public class Tranding_recordServiceImpl implements Tranding_recordService{
 
@@ -26,6 +27,18 @@ public class Tranding_recordServiceImpl implements Tranding_recordService{
 		trading_record.setTrbalance(0l);
 		trading_record.setIccardnum(icCardNum);
 		int isOk = tranding_recordMapper.insert(trading_record);
+		return isOk;
+	}
+	@Override
+	public int toReCharge(String icCardNum, long icBalance, long trMoney, Date time) {
+		Trading_record record = new Trading_record();
+		record.setTrid(Utils.getUUID());
+		record.setTrtype("A");
+		record.setTrbalance(icBalance);
+		record.setTrmoney(trMoney);
+		record.setTrtime(time);
+		record.setIccardnum(icCardNum);
+		int isOk = tranding_recordMapper.insert(record);
 		return isOk;
 	}
 

@@ -26,5 +26,14 @@ public interface IcCardService {
 	 * @return
 	 */
 	public int closeAccount(String icCardNum,Date lastTime);
+	
+	/**
+	 * 医疗卡充值
+	 * @param icCardNum
+	 * @param icBalance
+	 * @param trMoney
+	 * @return
+	 */
+	public int toRecharge(String icCardNum,long icBalance,long trMoney,Date time);
 
 }

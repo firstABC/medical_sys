@@ -41,4 +41,15 @@ public class IcCardServiceImpl implements IcCardService {
 		return isOk;
 	}
 
+	@Override
+	public int toRecharge(String icCardNum, long icBalance, long trMoney,Date time) {
+		IcCardExample iExam = new IcCardExample();
+		iExam.createCriteria().andIccardnumEqualTo(icCardNum);
+		IcCard icCard = new IcCard();
+		icCard.setLasttime(time);
+		icCard.setIcbalance(icBalance);
+		int isOk = icCardMapper.updateByExampleSelective(icCard, iExam);
+		return isOk;
+	}
+
 }
