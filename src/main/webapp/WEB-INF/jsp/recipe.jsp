@@ -1,25 +1,67 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title>医疗系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<link href="bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-	<link href="bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="<%=basePath%>/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/css/font-awesome.css" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="dataTables/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href="dataTables/css/dataTables.tableTools.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/dataTables/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/dataTables/css/dataTables.tableTools.min.css">
 
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/css/style.css" rel='stylesheet' type='text/css' />
 	
-	<script src="js/jquery-1.10.2.min.js"></script>
-   	<script src="bootstrap/js/bootstrap.min.js"></script>
-   	<script src="bootstrapValidator/bootstrapValidator.min.js"></script>
+	<script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
+   	<script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
+   	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
    	<!-- 打印 -->
-   	<script type="text/javascript" src="js/jQuery.print.js"></script>
+   	<script type="text/javascript" src="<%=basePath%>/js/jQuery.print.js"></script>
+	<link href="<%=basePath%>/css/print.css" rel='stylesheet' type='text/css' media='print' />
+	<script type="text/javascript">
+	$(document).ready(function () {
+		//查询卡号患者信息
+         $('#searchButton').on('click', function(){
+        	var icCardNum = $('#icCardNum').val();
+        	//var icCardNum = document.getElementById("icCardNum").value
+        	alert(icCardNum);
+        	$.ajax({
+        		url:"<%=basePath%>/ic/search.abc",
+        		type:"post",
+        		data:{num:icCardNum},
+        		dataType:"json",
+        		headers:{"ClientCallMode" : "ajax"}, 
+        		success:function(data){
+        			if(data.status == '-2'){
+						alert(data.message);
+						$("#paName").val("");
+						$("#paSex").val("");
+						$("#paAge").val("");
+					}else{
+						//将数据填充到标签里
+						//$("#paSex").val(data.data.icbalance);
+						$("#paName").val(data.data.paname);
+						$("#paAge").val(data.data.paage);
+						alert(data.data.pasex);
+						if(data.data.pasex=='A'){
+							$("#paSex").val("男");
+						}else{
+							$("#paSex").val("女");
+						}
+					}
+        		}
+        	});
+		});
+	})
+	</script>
 
 </head> 
 <body>
@@ -38,13 +80,7 @@
 									<li><a href="javascript:;">开处方</a></li>
 								</ul>
 							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
+							<jsp:include page="currentUser.jsp" flush="true"></jsp:include>
 							<div class="clearfix"></div>
 						</div>
 						
@@ -58,35 +94,37 @@
 							<div class="panel panel-title">开处方</div>
 							<div class="panel-body">
 								<div class="tableBox tableCf">
+								<form id="searchForm" name="searchForm">
 									<div class="searchList">
 										<div class="searchType">
-											<label>长号</label>
-											<input type="tel" name="" value="" class="form-control">
+											<label>卡号</label>
+											<input type="tel" name="icCardNum" id="icCardNum"  class="form-control">
 										</div>
-										<div class="searchType"><button type="button" class="btn btn-info btn-sm">查询</button></div>
+										<div class="searchType"><button type="button" id="searchButton" class="btn btn-info btn-sm" onc>查询</button></div>
 										<div class="fr dy"><button type="button" class="btn btn-default btn-sm">打印</button></div>
 									</div>
+								</form>
 									<div class="cfd">
-										<!-- 根据长号查到的患者信息 -->
+										<!-- 根据卡号查到的患者信息 -->
 										<div class="info">
 											<h4 class="text-center">北京东城宗喀藏医诊所<br/>处方单</h4>
 											<form class="form-horizontal">
 												<div class="form-group col-sm-3">
 													<label for="" class="col-sm-4 control-label">姓名</label>
 													<div class="col-sm-8">
-														<input type="text" class="form-control" value="张三" disabled="disabled">
+														<input type="text" class="form-control" value="" id="paName" disabled="disabled">
 													</div>
 												</div>
 												<div class="form-group col-sm-3">
 													<label for="" class="col-sm-4 control-label" id="uiIdcardNumber">性别</label>
 													<div class="col-sm-8">
-														<input type="text" class="form-control" value="男" disabled="disabled">
+														<input type="text" class="form-control" value="" id="paSex" disabled="disabled">
 													</div>
 												</div>
 												<div class="form-group col-sm-3">
 													<label for="" class="col-sm-4 control-label">年龄</label>
 													<div class="col-sm-8">
-														<input type="tel" class="form-control" value="26" disabled="disabled">
+														<input type="tel" class="form-control" value="" id="paAge" disabled="disabled">
 													</div>
 												</div>
 												<div class="form-group col-sm-3">
@@ -112,15 +150,6 @@
 						                        <tbody>
 						                        	<tr>
 										                <td>头孢颗粒</td>
-										                <td>2</td>
-										                <td>盒</td>
-										                <td><input type="text" class="form-control" name="" value="" placeholder="一日三次，每次两粒"></td>
-										                <td>
-										                	<a href="javascript:;">删除</a>
-										                </td>
-						                        	</tr>
-						                        	<tr>
-										                <td>阿莫西林</td>
 										                <td>2</td>
 										                <td>盒</td>
 										                <td><input type="text" class="form-control" name="" value="" placeholder="一日三次，每次两粒"></td>
@@ -160,7 +189,7 @@
 											<div class="form-group col-sm-4">
 												<label for="" class="col-sm-4 control-label">编号</label>
 												<div class="col-sm-8">
-													<input type="tel" class="form-control" value="">
+													<input type="tel" disabled="disabled" class="form-control" value="${prescriptionCode }">
 												</div>
 											</div>
 											<div class="form-group col-sm-4">
@@ -199,6 +228,8 @@
 	                        <tr>
 	                            <th>药名</th>
 	                            <th>编号</th>
+	                            <th>单位</th>
+	                            <th>单价</th>
 	                            <th>操作</th>
 	                        </tr>
 	                    </thead>
@@ -206,6 +237,8 @@
 	                    	<tr>
 				                <td>头孢颗粒</td>
 				                <td>0001</td>
+				                <td>盒</td>
+				                <td>43</td>
 				                <td>
 				                	<div class="amount_box">
 		                            	<a href="javascript:;" class="reduce">-</a><input class="sum" name="" type="text" value="1" disabled="disabled"><a href="javascript:;" class="plus">+</a>
@@ -216,6 +249,8 @@
 	                    	<tr>
 				                <td>阿莫西林</td>
 				                <td>0002</td>
+				                 <td>盒</td>
+				                <td>43</td>
 				                <td>
 				                	<div class="amount_box">
 		                            	<a href="javascript:;" class="reduce">-</a><input class="sum" name="" type="text" value="1" disabled="disabled"><a href="javascript:;" class="plus">+</a>
@@ -232,63 +267,15 @@
 		</div> 
 
 		<!--/sidebar-menu-->
-		<div class="sidebar-menu">
-			<header class="logo1">
-				<a href="javascript:;" class="sidebar-icon"><span class="fa fa-bars"></span></a> 
-			</header>
-			<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-               <div class="menu">
-					<ul id="menu" >
-						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
-						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="rechangeCard.html">医疗卡充值</a></li>
-								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
-						  	</ul>
-						</li>
-						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="user.html">用户管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico active">
-						 	<a href="javascript:;" title="处方管理"><i class="fa fa-envelope-open-o"></i> <span>处方管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="recipe.html">开处方</a></li>
-								<li class="menu-academico-avaliacoes"><a href="recipeHis.html">历史处方</a></li>
-						  	</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 	</div>
 
 	<!-- demo -->
-   	<script type="text/javascript" src='js/js.js'></script>
+   	<script type="text/javascript" src='<%=basePath%>/js/js.js'></script>
    	
-   	<script type="text/javascript" src="dataTables/js/jquery.dataTables.js"></script>
-   	<script type="text/javascript" src="dataTables/js/dataTables.bootstrap.js"></script>
+   	<script type="text/javascript" src="<%=basePath%>/dataTables/js/jquery.dataTables.js"></script>
+   	<script type="text/javascript" src="<%=basePath%>/dataTables/js/dataTables.bootstrap.js"></script>
    	<script type="text/javascript">
 		$(document).ready(function () {
 	        var t = $('#table').DataTable({
@@ -372,7 +359,7 @@
                     //Print in a hidden iframe
                     iframe : false,
                     //Don't print this
-                    noPrintSelector : ".addBtn, .dataTables_length, .dataTables_info, .paging_simple_numbers",
+                    noPrintSelector : ".addBtn, .dataTables_length, .dataTables_info, .paging_simple_numbers, #table tr th:last-child, #table tr td:last-child",
                     //Add this at top
                     //Log to console when printing is done via a deffered callback
                     deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })

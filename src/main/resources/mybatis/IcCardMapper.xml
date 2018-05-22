@@ -14,6 +14,8 @@
     <result column="icBalance" property="icbalance" jdbcType="DECIMAL" />
     <result column="isStatus" property="isstatus" jdbcType="VARCHAR" />
     <result column="paName" property="paname" jdbcType="VARCHAR" />
+    <result column="paAge" property="paage" jdbcType="VARCHAR" />
+    <result column="paSex" property="pasex" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -192,7 +194,7 @@
     </if>
   </update>
   <select id="selectIcCard" parameterType="String" resultMap="IcCardPatient">
-  	select  pa.paName,ic.isStatus,ic.icBalance,ic.icCardNum 
+  	select  pa.paName,pa.paSex,pa.paAge,ic.isStatus,ic.icBalance,ic.icCardNum 
   		from patient pa,icCard ic 
   			where pa.icId = ic.icId 
   				and ic.icCardNum=#{icCardNum,jdbcType=VARCHAR}

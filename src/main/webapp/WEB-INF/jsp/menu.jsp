@@ -46,14 +46,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="${pageContext.request.contextPath}/switch/user.abc">用户管理</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/switch/user.abc">用户管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
 						  	</ul>
 						</li>
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="处方管理"><i class="fa fa-envelope-open-o"></i> <span>处方管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="recipe.html">开处方</a></li>
+							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/switch/recipe.abc">开处方</a></li>
 								<li class="menu-academico-avaliacoes"><a href="recipeHis.html">历史处方</a></li>
 						  	</ul>
 						</li>
