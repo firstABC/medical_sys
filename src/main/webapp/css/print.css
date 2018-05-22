@@ -1,0 +1,59 @@
+.panel-title{
+  text-align: center;
+  padding-top: 10px;
+  color: #333;
+}
+.cfd{
+  border: none;
+}
+.info, .other, .dyForm{
+  text-align: center;
+}
+.form-group.col-sm-3{
+  margin: 0;
+  float: left;
+  width: 25%;
+}
+.form-group.col-sm-4{
+  float: left;
+  width: 33.3%;
+}
+.form-group.col-sm-5{
+  float: left;
+  width: 50%;
+}
+.form-group.col-sm-3>label, .form-group.col-sm-3>div, 
+.form-group.col-sm-4>label, .form-group.col-sm-4>div,
+.form-group.col-sm-5>label, .form-group.col-sm-5>div,
+.dyForm .form-group>label.col-sm-2.control-label, .dyForm .form-group>div.col-sm-9{
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
+}
+.form-group.col-sm-3>div, .form-group.col-sm-4>div{
+  width: 64%;
+  padding-left: 10px;
+}
+.form-group.col-sm-5>div{
+  width: 80%;
+  padding-left: 10px;
+}
+.dyForm .col-sm-12, .dyForm .col-sm-12>div{
+  margin-top: 15px;
+}
+.col-sm-12{
+  width: 100%;
+  display: inline-block;
+}
+.dyForm .form-group>label.col-sm-2.control-label{
+  position: relative;
+  top: -40px;
+  width: 16%;
+  text-align: center;
+}
+.dyForm .form-group>div.col-sm-9{
+  width: 80%;
+}
+#table tr td{
+  text-align: center;
+}

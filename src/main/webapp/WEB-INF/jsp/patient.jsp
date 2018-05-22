@@ -44,13 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<li><a href="javascript:;">患者管理</a></li>
 								</ul>
 							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
+							<jsp:include page="currentUser.jsp" flush="true"></jsp:include>
 							<div class="clearfix"></div>
 						</div>
 						
@@ -67,24 +61,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="searchList">
 										<div class="searchType ">
 											<label>卡号</label>
-											<input type="tel" name="" value="" class="form-control">
+											<input type="tel" name="" value="" class="form-control" id="iccardnumC">
 										</div>
 										<div class="searchType">
 											<label>姓名</label>
-											<input type="text" name="" value="" class="form-control">
+											<input type="text" name="" value="" class="form-control" id="panameC">
 										</div>
 										<div class="searchType">
 											<label>手机号</label>
-											<input type="tel" name="" value="" class="form-control">
+											<input type="tel" name="" value="" class="form-control" id="paphoneC">
 										</div>
 										<div class="searchType">
 											<label>状态</label>
-											<select class="form-control">
+											<select class="form-control" id="isstatusC">
+												<option></option>
 												<option>正常</option>
 												<option>冻结</option>
 											</select>
 										</div>
-										<div class="cx"><button type="button" class="btn btn-info btn-sm">查询</button></div>
+										<div class="cx"><button type="button" class="btn btn-info btn-sm" id="selectBtn">查询</button></div>
 									</div>
 
 									<table class="table-bordered table-striped table-hover" id="table" width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -114,55 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 
 		<!--/sidebar-menu-->
-		<div class="sidebar-menu">
-			<header class="logo1">
-				<a href="javascript:;" class="sidebar-icon"><span class="fa fa-bars"></span></a> 
-			</header>
-			<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-               <div class="menu">
-					<ul id="menu" >
-						<li><a href="openUser.html" title="开户"><i class="fa fa-tachometer"></i> <span>开户</span></a></li>
-						<li><a href="closeUser.html" title="销户"><i class="fa fa-file-text-o"></i> <span>销户</span></a></li>
-						<li class="active"><a href="patient.html" title="患者管理"><i class="fa fa-user-md"></i> <span>患者管理</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="病历管理"><i class="fa fa-medkit"></i> <span>病历管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="addCase.html">新建病历</a></li>
-								<li class="menu-academico-avaliacoes"><a href="patientHis.html">历史病历</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="rechangeCard.html">医疗卡充值</a></li>
-								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
-						  	</ul>
-						</li>
-						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="drug.html">药品管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="权限管理"><i class="fa fa-address-book"></i> <span>权限管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="user.html">用户管理</a></li>
-								<li class="menu-academico-avaliacoes"><a href="role.html">角色管理</a></li>
-						  	</ul>
-						</li>
-						<li class="menu-academico">
-						 	<a href="javascript:;" title="处方管理"><i class="fa fa-envelope-open-o"></i> <span>处方管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
-						    <ul class="menu-academico-sub" >
-							    <li class="menu-academico-avaliacoes"><a href="recipe.html">开处方</a></li>
-								<li class="menu-academico-avaliacoes"><a href="recipeHis.html">历史处方</a></li>
-						  	</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 	</div>
 
@@ -170,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(document).ready(function () {
 	        var t = $('#table').DataTable({
 	            "processing": true,
-	            'searching': false,
+	            //'searching': false,
         		// "ajax": "dataTables/info.txt",
 				ajax: {
 	               //指定数据源
@@ -208,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            ], 
 	            "columnDefs":[{
 		            "targets": 7,
-		            "defaultContent": "<a href='#' id='info'>详情</a><a href='#' id='record'>病例查询</a><a href='#' id='prescription'>处方查询</a>" 
+		            "defaultContent": "<a href='#' id='info'>详情</a><a href='#' id='record'>病历查询</a><a href='#' id='prescription'>处方查询</a>" 
 		        }],
         		//插件的汉化
 		        "oLanguage": {
@@ -228,53 +175,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            "sSearch": "搜索"
 		        },
 	        });
+	        /*详情*/
+		    $('#table tbody').on( 'click', 'a#info', function () {
+		    	var data = t.row( $(this).parents('tr') ).data();
 
-	        /*编辑按钮*/
-		    $('#table tbody').on( 'click', 'a#editrow', function () {
-		        var data = t.row( $(this).parents('tr') ).data();
-		            $.ajax({
-		                url:'${pageContext.request.getContextPath()}/getUserInfoByIdAdmin',
-		                type:'get',
-		                data: {"userId": data.userId}, 
-		                timeout:"3000",
-		                cache:"false",
-		                success:function(str){
-		                	window.location.href="${pageContext.request.getContextPath()}/AdminUserEdit.jsp";
-		                },
-		                error:function(err){
-		                    // alert(url);
-		                    alert("获取数据失败");
-		                }
-		            });
-		        
 		    });
-	        /*删除按钮*/
-		    $('#table tbody').on( 'click', 'a#delrow', function () {
-		        var data = t.row( $(this).parents('tr') ).data();
-		        if(confirm("是否确认删除这条信息")){
-		            $.ajax({
-		                url:'${pageContext.request.getContextPath()}/deleteUser',
-		                type:'post',
-		                data: {"userId": data.userId}, 
-		                timeout:"3000",
-		                cache:"false",
-
-		                success:function(str){
-		                    if(str == 'success'){
-		                        t.row().remove();//删除这行的数据
-		                        window.location.href="${pageContext.request.getContextPath()}/AdminUser.jsp";
-		                    }else{
-		                    	alert("删除失败!");
-		                    }
-		                },
-		                error:function(err){
-		                    // alert(url);
-		                    alert("获取数据失败");
-		                }
-		            });
-		        }
+		    /*病历查询*/
+		    $('#table tbody').on( 'click', 'a#record', function () {
+		    	var data = t.row( $(this).parents('tr') ).data();
+		    	var iccardnum = data['iccardnum'];
+	            window.location.href="<%=basePath%>/mere/list.abc?icCardNum="+iccardnum;
 		    });
-	    });
+		    /*处方查询*/
+		    $('#table tbody').on( 'click', 'a#prescription', function () {
+		    	var data = t.row( $(this).parents('tr') ).data();
+		    	
+		    });
+		    /*查询信息（基于卡号姓名手机号状态）*/
+	 		$('#selectBtn').on('click', function(){
+	 			var iccardnumC = $('#iccardnumC').val();
+	 			var panameC = $('#panameC').val();
+	 			var paphoneC = $('#paphoneC').val();
+	 			var isstatusC = $('#isstatusC').val();
+	  		  	t.column(0).search(iccardnumC, false, false).draw();
+	  			t.column(1).search(panameC, false, false).draw();
+	  			t.column(2).search(paphoneC, false, false).draw();
+	  			t.column(6).search(isstatusC, false, false).draw();
+	 		});
+		});
 	</script>
 </body>
 </html>

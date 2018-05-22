@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script type="text/javascript" src='<%=basePath%>/js/js.js'></script>
    	<!-- 打印 -->
    	<script type="text/javascript" src="<%=basePath%>/js/jQuery.print.js"></script>
+   	<link href="<%=basePath%>/css/print.css" rel='stylesheet' type='text/css' media='print' />
 
 </head> 
 <body>
@@ -63,32 +64,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="tableBox">
 									<c:if test="${msgDTO.total == 1}">
 									<form class="form-horizontal dyForm">
+										<div class="col-sm-12">
 										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">卡号</label>
-											<div class="col-sm-8">
-												<input type="tel" class="form-control" value="${msgDTO.data.iccardnum }" disabled="disabled" id="icCardNum">
+												<label for="" class="col-sm-4 control-label">卡号</label>
+												<div class="col-sm-8">
+													<input type="tel" class="form-control" value="${msgDTO.data.iccardnum }" disabled="disabled" id="icCardNum">
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">姓名</label>
-											<div class="col-sm-8">
-												<input type="text" class="form-control" value="${msgDTO.data.paname }" disabled="disabled">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">姓名</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" value="${msgDTO.data.paname }" disabled="disabled">
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">性别</label>
-											<div class="col-sm-8">
-												<%-- <select class="form-control" disabled="disabled" value="">
-													<option value ="${msgDTO.data.pasex }">男</option>
-													<option value ="${msgDTO.data.pasex }">女</option>
-												</select> --%>
-												<input type="text" class="form-control" value="${msgDTO.data.pasex == 'A'?'男':'女' }" disabled="disabled">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">性别</label>
+												<div class="col-sm-8">
+													<%-- <select class="form-control" disabled="disabled" value="">
+														<option value ="${msgDTO.data.pasex }">男</option>
+														<option value ="${msgDTO.data.pasex }">女</option>
+													</select> --%>
+													<input type="text" class="form-control" value="${msgDTO.data.pasex == 'A'?'男':'女' }" disabled="disabled">
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">年龄</label>
-											<div class="col-sm-8">
-												<input type="tel" class="form-control" value="${msgDTO.data.paage }" disabled="disabled">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">年龄</label>
+												<div class="col-sm-8">
+													<input type="tel" class="form-control" value="${msgDTO.data.paage }" disabled="disabled">
+												</div>
 											</div>
 										</div>
 										<div class="col-sm-12">
@@ -157,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		$(function(){
    			// 点击打印
 			$(".dy").on('click', function() {
-                $(".panel-body").print({
+				$(".panel-widget").print({
                     //Use Global styles
                     globalStyles : true,
                     //Add link with attrbute media=print

@@ -17,6 +17,7 @@
    	<script src="bootstrapValidator/bootstrapValidator.min.js"></script>
    	<!-- 打印 -->
    	<script type="text/javascript" src="js/jQuery.print.js"></script>
+	<link href="css/print.css" rel='stylesheet' type='text/css' media='print' />
 
 </head> 
 <body>
@@ -56,31 +57,33 @@
 							<div class="panel-body">
 								<div class="tableBox">
 									<form class="form-horizontal dyForm">
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">卡号</label>
-											<div class="col-sm-8">
-												<input type="tel" class="form-control" value="001" disabled="disabled">
+										<div class="col-sm-12">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">卡号</label>
+												<div class="col-sm-8">
+													<input type="tel" class="form-control" value="001" disabled="disabled">
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">姓名</label>
-											<div class="col-sm-8">
-												<input type="text" class="form-control" value="李四" disabled="disabled">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">姓名</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" value="李四" disabled="disabled">
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">性别</label>
-											<div class="col-sm-8">
-												<select class="form-control" disabled="disabled">
-													<option>男</option>
-													<option>女</option>
-												</select>
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">性别</label>
+												<div class="col-sm-8">
+													<select class="form-control" disabled="disabled">
+														<option>男</option>
+														<option>女</option>
+													</select>
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-sm-3">
-											<label for="" class="col-sm-4 control-label">年龄</label>
-											<div class="col-sm-8">
-												<input type="tel" class="form-control" value="40" disabled="disabled">
+											<div class="form-group col-sm-3">
+												<label for="" class="col-sm-4 control-label">年龄</label>
+												<div class="col-sm-8">
+													<input type="tel" class="form-control" value="40" disabled="disabled">
+												</div>
 											</div>
 										</div>
 										<div class="col-sm-12">
@@ -197,7 +200,7 @@
    		$(function(){
    			// 点击打印
 			$(".dy").on('click', function() {
-                $(".panel-body").print({
+                $(".panel-widget").print({
                     //Use Global styles
                     globalStyles : true,
                     //Add link with attrbute media=print
