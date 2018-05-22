@@ -37,4 +37,14 @@ public class Utils {
 		String dateNow = dateFormater.format(new Date());
 		return dateFormater.parse(dateNow);
 	}
+	/**
+	 * 将字符串转换成时间
+	 * @param dateStr
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date toDate(String dateStr) throws ParseException{
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormater.parse(dateStr);
+	}
 }

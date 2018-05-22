@@ -185,4 +185,21 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="selectExpenseRecord" parameterType="String" resultMap="BaseResultMap" >
+  	select 
+  	 <include refid="Base_Column_List" />
+  	 from trading_record where 1 = 1
+  	 <if test="icCardNum!=null and icCardNum!=''">
+  	 	and icCardNum=#{icCardNum}
+  	 </if>
+  	 <if test="beginTime!=null">
+  	 	and trTime >=#{beginTime}
+  	 </if>
+  	 <if test="endTime!=null">
+  	 	<![CDATA[
+  		 and trTime <= #{endTime}
+  		]]>
+  	 </if>
+  	 
+  </select>
 </mapper>

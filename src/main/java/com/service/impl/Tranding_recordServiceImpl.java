@@ -1,13 +1,13 @@
 package com.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entity.Trading_record;
-import com.entity.Trading_recordExample;
 import com.mapper.Trading_recordMapper;
 import com.service.Tranding_recordService;
 import com.util.Utils;
@@ -40,6 +40,11 @@ public class Tranding_recordServiceImpl implements Tranding_recordService{
 		record.setIccardnum(icCardNum);
 		int isOk = tranding_recordMapper.insert(record);
 		return isOk;
+	}
+	@Override
+	public List<Trading_record> selectExpenseRecord(String icCardNum, Date beginTime, Date endTime) {
+		List<Trading_record> ltExpenseRecord = tranding_recordMapper.selectExpenseRecord(icCardNum, beginTime, endTime);
+		return ltExpenseRecord;
 	}
 
 }

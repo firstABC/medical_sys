@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 	<a href="javascript:;" title="医疗卡"><i class="fa fa-address-card-o"></i> <span>医疗卡</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >
 							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/switch/rechangeCard.abc">医疗卡充值</a></li>
-								<li class="menu-academico-avaliacoes"><a href="consumeCard.html">医疗卡消费记录</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/tr/consumeCard.abc">医疗卡消费记录</a></li>
 						  	</ul>
 						</li>
 						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>

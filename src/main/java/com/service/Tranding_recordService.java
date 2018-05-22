@@ -1,6 +1,9 @@
 package com.service;
 
 import java.util.Date;
+import java.util.List;
+
+import com.entity.Trading_record;
 
 public interface Tranding_recordService {
 	/**
@@ -20,5 +23,14 @@ public interface Tranding_recordService {
 	 * @return
 	 */
 	public int toReCharge(String icCardNum, long icBalance, long trMoney,Date time);
+	
+	/**
+	 * 查询医疗卡消费记录
+	 * @param icCardNum
+	 * @param beginTime
+	 * @param endTime
+	 * @return
+	 */
+	public List<Trading_record> selectExpenseRecord(String icCardNum,Date beginTime,Date endTime);
 
 }
