@@ -47,4 +47,27 @@ public class Utils {
 		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormater.parse(dateStr);
 	}
+	
+	/**
+	 * 产生随机ABC
+	 * @return
+	 */
+	public static String getRandomAB(){
+		String[] a= {"A","B","C","D","E","F","G","H","I","G","K","M","L","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		String[] b= {"A","B","C","D","E","F","G","H","I","G","K","M","L","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		String[] c= {"A","B","C","D","E","F","G","H","I","G","K","M","L","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		int x = (int)(Math.random()*26);
+		int y =  (int)(Math.random()*26);
+		int z =  (int)(Math.random()*26);
+		String a1 = a[x];
+		String a2 = a[y];
+		String a3 = a[z];
+		String str = a1+a2+a3;
+		SimpleDateFormat dateFormater = new SimpleDateFormat("ddHHmmss");
+		String dateNow = dateFormater.format(new Date());
+		String prescriptionCode = str+dateNow;
+		return prescriptionCode;
+	}
+	
+	
 }

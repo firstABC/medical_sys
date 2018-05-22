@@ -1,16 +1,63 @@
+select{
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+}
 .panel-title{
   text-align: center;
-  padding-top: 10px;
   color: #333;
 }
-.cfd{
+.cfd, .dyForm input, .dyForm select{
+  border: none;
+}
+.tableCf .cfItem,
+.tableCf .dataTables_wrapper,
+.panel-title, .panel-body,
+.form-group.col-sm-3, .dyForm > .col-lg-12,
+h4, .h4, h5, .h5, h6, .h6,
+h1, h2, h3, h4, h5,
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, 
+.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, 
+.col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, 
+.col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, 
+.col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, 
+.col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, 
+.col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, 
+.col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, 
+.col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, 
+.col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, 
+.col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,
+.form-horizontal .control-label, .form-control, .form-group{
+  padding: 0;
+  margin: 0;
+}
+table.dataTable thead th, table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td{
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+table.dataTable thead th, table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td{
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 14px;
+}
+table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td{
+  font-size: 12px;
+}
+.info>h4{
+  height: 48px;
+  line-height: 24px;
+}
+.info input.form-control, table td input.form-control{
   border: none;
 }
 .info, .other, .dyForm{
   text-align: center;
+  font-size: .9rem;
 }
 .form-group.col-sm-3{
-  margin: 0;
   float: left;
   width: 25%;
 }
@@ -27,19 +74,14 @@
 .form-group.col-sm-5>label, .form-group.col-sm-5>div,
 .dyForm .form-group>label.col-sm-2.control-label, .dyForm .form-group>div.col-sm-9{
   display: inline-block;
-  padding-left: 0;
-  padding-right: 0;
 }
 .form-group.col-sm-3>div, .form-group.col-sm-4>div{
   width: 64%;
   padding-left: 10px;
 }
 .form-group.col-sm-5>div{
-  width: 80%;
+  width: 72%;
   padding-left: 10px;
-}
-.dyForm .col-sm-12, .dyForm .col-sm-12>div{
-  margin-top: 15px;
 }
 .col-sm-12{
   width: 100%;
@@ -54,6 +96,15 @@
 .dyForm .form-group>div.col-sm-9{
   width: 80%;
 }
-#table tr td{
-  text-align: center;
+
+.dyForm textarea.form-control{
+  padding: 5px 10px;
+}
+.dyForm .col-sm-12, .dyForm .col-sm-12>div{
+  margin-top: 5px;
+}
+
+.cfItem th{
+  position: relative;
+  top: 0;
 }

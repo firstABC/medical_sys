@@ -52,7 +52,7 @@
 		<table tableName="icCard" domainObjectName="IcCard"></table>
 		<table tableName="earlywarning" domainObjectName="Earlywarning"></table>
 		<table tableName="patient" domainObjectName="Patient"></table>-->
-		<table tableName="trading_record" domainObjectName="Trading_record"></table>
+		<table tableName="prescription" domainObjectName="Prescription"></table>
         </context>  
 
     </generatorConfiguration>
