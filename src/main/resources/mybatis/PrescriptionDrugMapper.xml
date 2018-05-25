@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PrescriptionDrugMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.PrescriptionDrug" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="prescriptionId" property="prescriptionid" jdbcType="VARCHAR" />
+    <result column="drugCode" property="drugcode" jdbcType="VARCHAR" />
+    <result column="drugName" property="drugname" jdbcType="VARCHAR" />
+    <result column="drugNum" property="drugnum" jdbcType="INTEGER" />
+    <result column="drugPrice" property="drugprice" jdbcType="DECIMAL" />
+    <result column="drugUnit" property="drugunit" jdbcType="VARCHAR" />
+    <result column="usageText" property="usagetext" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, prescriptionId, drugCode, drugName, drugNum, drugPrice, drugUnit, usageText
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.PrescriptionDrugExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prescription_drug_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.PrescriptionDrugExample" >
+    delete from prescription_drug_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.PrescriptionDrug" >
+    insert into prescription_drug_list (id, prescriptionId, drugCode, 
+      drugName, drugNum, drugPrice, 
+      drugUnit, usageText)
+    values (#{id,jdbcType=VARCHAR}, #{prescriptionid,jdbcType=VARCHAR}, #{drugcode,jdbcType=VARCHAR}, 
+      #{drugname,jdbcType=VARCHAR}, #{drugnum,jdbcType=INTEGER}, #{drugprice,jdbcType=DECIMAL}, 
+      #{drugunit,jdbcType=VARCHAR}, #{usagetext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.PrescriptionDrug" >
+    insert into prescription_drug_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="prescriptionid != null" >
+        prescriptionId,
+      </if>
+      <if test="drugcode != null" >
+        drugCode,
+      </if>
+      <if test="drugname != null" >
+        drugName,
+      </if>
+      <if test="drugnum != null" >
+        drugNum,
+      </if>
+      <if test="drugprice != null" >
+        drugPrice,
+      </if>
+      <if test="drugunit != null" >
+        drugUnit,
+      </if>
+      <if test="usagetext != null" >
+        usageText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="prescriptionid != null" >
+        #{prescriptionid,jdbcType=VARCHAR},
+      </if>
+      <if test="drugcode != null" >
+        #{drugcode,jdbcType=VARCHAR},
+      </if>
+      <if test="drugname != null" >
+        #{drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="drugnum != null" >
+        #{drugnum,jdbcType=INTEGER},
+      </if>
+      <if test="drugprice != null" >
+        #{drugprice,jdbcType=DECIMAL},
+      </if>
+      <if test="drugunit != null" >
+        #{drugunit,jdbcType=VARCHAR},
+      </if>
+      <if test="usagetext != null" >
+        #{usagetext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.PrescriptionDrugExample" resultType="java.lang.Integer" >
+    select count(*) from prescription_drug_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update prescription_drug_list
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prescriptionid != null" >
+        prescriptionId = #{record.prescriptionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugcode != null" >
+        drugCode = #{record.drugcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugname != null" >
+        drugName = #{record.drugname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugnum != null" >
+        drugNum = #{record.drugnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.drugprice != null" >
+        drugPrice = #{record.drugprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.drugunit != null" >
+        drugUnit = #{record.drugunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usagetext != null" >
+        usageText = #{record.usagetext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update prescription_drug_list
+    set id = #{record.id,jdbcType=VARCHAR},
+      prescriptionId = #{record.prescriptionid,jdbcType=VARCHAR},
+      drugCode = #{record.drugcode,jdbcType=VARCHAR},
+      drugName = #{record.drugname,jdbcType=VARCHAR},
+      drugNum = #{record.drugnum,jdbcType=INTEGER},
+      drugPrice = #{record.drugprice,jdbcType=DECIMAL},
+      drugUnit = #{record.drugunit,jdbcType=VARCHAR},
+      usageText = #{record.usagetext,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

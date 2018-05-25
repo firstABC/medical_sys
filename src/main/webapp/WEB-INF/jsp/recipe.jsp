@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.util.Utils" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
@@ -92,6 +93,7 @@
 					<div class="monthly-grid">
 						<div class="panel-widget">
 							<div class="panel panel-title">开处方</div>
+							<input type="text" name="prescription" id="prescriptionId"  class="form-control" value="<%=Utils.getUUID() %>">
 							<div class="panel-body">
 								<div class="tableBox tableCf">
 								<form id="searchForm" name="searchForm">
@@ -148,7 +150,7 @@
 						                            </tr>
 						                        </thead>
 						                        <tbody>
-						                        	<tr>
+						                        	<!-- <tr>
 										                <td>头孢颗粒</td>
 										                <td>2</td>
 										                <td>盒</td>
@@ -156,7 +158,7 @@
 										                <td>
 										                	<a href="javascript:;">删除</a>
 										                </td>
-						                        	</tr>
+						                        	</tr> -->
 						                        </tbody>
 								    		</table>
 											<div class="tj"><button type="button" class="btn btn-info btn-sm addBtn">添加药品</button></div>
@@ -214,13 +216,14 @@
 					<div class="searchList listDrug">
 						<div class="searchType ">
 							<label>药名</label>
-							<input type="text" name="" value="" class="form-control">
+							<input type="text" name="" value="" class="form-control" id="drugnameC">
 						</div>
 						<div class="searchType">
 							<label>编号</label>
-							<input type="tel" name="" value="" class="form-control">
+							<input type="tel" name="" value="" class="form-control" id="drugcodeC">
 						</div>
-						<div class="searchType"><button type="button" class="btn btn-info btn-sm">查询</button></div>
+						<div class="searchType"><button type="button" class="btn btn-info btn-sm" id="selectBtn">查询</button></div>
+
 					</div>
 
 					<table class="table-bordered table-striped table-hover" id="table2" width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -234,30 +237,7 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                    	<tr>
-				                <td>头孢颗粒</td>
-				                <td>0001</td>
-				                <td>盒</td>
-				                <td>43</td>
-				                <td>
-				                	<div class="amount_box">
-		                            	<a href="javascript:;" class="reduce">-</a><input class="sum" name="" type="text" value="1" disabled="disabled"><a href="javascript:;" class="plus">+</a>
-			                        </div>
-				                	<a href="javascript:;">添加</a>
-				                </td>
-	                    	</tr>
-	                    	<tr>
-				                <td>阿莫西林</td>
-				                <td>0002</td>
-				                 <td>盒</td>
-				                <td>43</td>
-				                <td>
-				                	<div class="amount_box">
-		                            	<a href="javascript:;" class="reduce">-</a><input class="sum" name="" type="text" value="1" disabled="disabled"><a href="javascript:;" class="plus">+</a>
-			                        </div>
-				                	<a href="javascript:;">添加</a>
-				                </td>
-	                    	</tr>
+	                    	
 	                    </tbody>
 		    		</table>
 
@@ -278,12 +258,46 @@
    	<script type="text/javascript" src="<%=basePath%>/dataTables/js/dataTables.bootstrap.js"></script>
    	<script type="text/javascript">
 		$(document).ready(function () {
+			var prescriptionId = $('#prescriptionId').val();
+			
 	        var t = $('#table').DataTable({
-	            "processing": true,
-	            'searching': false,
-	            "paging": false,
+	            'processing': true,
+	            //'searching': false,
+	            'paging': false,
         		// "ajax": "dataTables/info.txt",
-
+				ajax: {
+               //指定数据源
+        	   url:'<%=basePath%>/predrug/list.abc?prescriptionId='+prescriptionId,
+        	   type:'GET',
+        	   dataType:'json',
+        	   
+           },
+		    columns: [
+				{"data": "drugname"},
+		    	{"data": "drugnum"},
+            	{"data": "drugunit",
+            		render:function(drugunit){
+                        if(drugunit=="A"){
+                            return "盒";
+                        }else if(drugunit=="B"){
+                            return "瓶";
+                        }else{
+                        	return null;
+                        }
+                	}
+            	},
+            	{"data": "usagetext",
+            		render:function(usage){	
+            			return "<input type='text' class='form-control' name='' value='' placeholder='"+usage+"'>"
+            		}
+            	},
+            	{"data": null}
+            ], 
+            "columnDefs":[{
+	            "targets": 4,
+	            "defaultContent": "<a href='javascript:;' id='delPre'>删除</a>"
+    
+            }],
         		//插件的汉化
 		        "oLanguage": {
 		            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -303,10 +317,39 @@
 		        },
 	        });
 	        var t2 = $('#table2').DataTable({
-	            "processing": true,
-	            'searching': false,
+	            'processing': true,
+	            //'searching': false,
         		// "ajax": "dataTables/info.txt",
-
+				ajax: {
+               //指定数据源
+        	   url:'<%=basePath%>/drug/list.abc?drugname=&drugcode=',
+        	   type:'GET',
+        	   dataType:'json',
+        	   
+           },
+		    columns: [
+				{"data": "drugname"},
+		    	{"data": "drugcode"},
+            	{"data": "drugunit",
+            		render:function(drugunit){
+                        if(drugunit=="A"){
+                            return "盒";
+                        }else if(drugunit=="B"){
+                            return "瓶";
+                        }else{
+                        	return null;
+                        }
+                	}
+            	},
+            	{"data": "drugprice"},
+            	{"data": null}
+            ], 
+            "columnDefs":[{
+	            "targets": 4,
+	            "defaultContent": "<div class='amount_box'><a href='javascript:;' class='reduce'>-</a><input class='sum' name='' type='text' value='1' disabled='disabled'>"
+	            +"<a href='javascript:;' class='plus'>+</a></div><a href='javascript:;' id='addPre'>添加</a>"
+    
+            }],
         		//插件的汉化
 		        "oLanguage": {
 		            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -332,21 +375,95 @@
 			})
 			$('.closeAdd').click(function(){
 				$('.bg.addDrug').hide();
+				t.ajax.reload();
 			})
 
 			// 药品数量加减
-			$(".plus").click(function() {
-				var t = $(this).parent().find('input[class*=sum]');
-				t.val(parseInt(t.val()) + 1);
+			$('#table2 tbody').on( 'click', '.plus', function () {
+			//$(".plus").click(function() {
+				var num = $(this).parent().find('input[class*=sum]');
+				num.val(parseInt(num.val()) + 1);
 			})
-			$(".reduce").click(function() {
-				var t = $(this).parent().find('input[class*=sum]');
-				t.val(parseInt(t.val()) - 1)
-				if(parseInt(t.val()) < 1) {
-					t.val(1);
+			$('#table2 tbody').on( 'click', '.reduce', function () {
+			//$(".reduce").click(function() {
+				var num = $(this).parent().find('input[class*=sum]');
+				num.val(parseInt(num.val()) - 1)
+				if(parseInt(num.val()) < 1) {
+					num.val(1);
 				}
 			})
+			
+			/*删除按钮*/
+		    $('#table tbody').on( 'click', 'a#delPre', function () {
+		        var data = t.row( $(this).parents('tr') ).data();
+		        if(confirm("是否确认删除这条数据")){
+		            $.ajax({
+		                url:'<%=basePath%>/predrug/delete.abc',
+		                type:'post',
+		                data: {"id": data.id}, 
+		                timeout:"3000",
+		                cache:false,
+		                async:false,
+		                success:function(res){
+		                    if(res.status == 0){
+		                        t.row().remove();	//删除这行的数据
+		                        alert(res.message);
+		                    }else{
+		                    	alert(res.message);
+		                    }
+		                },
+		                error:function(err){
+		                    alert("获取数据失败");
+		                }
+		            });
+		        }
+		        t.ajax.reload();	//刷新datatable
+		    });
+	        //添加药品
+	         $('#table2 tbody').on( 'click', 'a#addPre', function () {
+	        	var params = t2.row( $(this).parents('tr') ).data();
+	        	var inp = $(this).parent().find('input[class*=sum]');
+	        	var drugnum=inp.val();
+	        	var prescriptionId=$('#prescriptionId').val();
+        		$.ajax({
+					url:'<%=basePath%>/predrug/add.abc',
+		    		type :'post',
+		    		data:{
+		    			"id":'',
+		    			"prescriptionid":prescriptionId,
+		    			"drugcode":params['drugcode'],
+		    			"drugname":params['drugname'],
+		    			"drugnum":drugnum,
+		    			"drugprice":params['drugprice'],
+		    			"drugunit":params['drugunit'],
+		    			"usagetext":'',
+		    		},
+		    		timeout:"3000",
+	                cache:false,
+	                async:false,
+		    		success:function(res){
+		    			if(res.message =='添加成功!'){
+		    				//t2.row($(this).parents('tr')).remove();
+		    				alert(res.message);
+		    			}else{
+		    				alert(res.message);
+		    			}
+		    		},
+		    		error:function(err){
+		                alert("获取数据失败");
+		            }
+		        });
+	        	//t2.ajax.reload();		//刷新datatable
+			});
+	        /*查询药品（基于名称和编号）*/
+	  		$('#selectBtn').on('click', function(){
+	  			drugnameC = $('#drugnameC').val();
+	   			drugcodeC = $('#drugcodeC').val();
+	   			//url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
+	   		  	t2.column(1).search(drugcodeC, false, false).draw();
+	   			t2.column(0).search(drugnameC, false, false).draw();
 
+	  		});
 	        // 点击打印
 			$(".dy").on('click', function() {
                 $(".cfd").print({
