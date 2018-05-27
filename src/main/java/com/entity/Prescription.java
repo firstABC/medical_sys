@@ -1,6 +1,7 @@
 package com.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Prescription {
     private String prscriptionid;
@@ -30,8 +31,20 @@ public class Prescription {
     private String status;
 
     private Date lasttime;
+    
+    private List<PrescriptionDrug> ltPrDList;
+    
+    
 
-    public String getPrscriptionid() {
+    public List<PrescriptionDrug> getLtPrDList() {
+		return ltPrDList;
+	}
+
+	public void setLtPrDList(List<PrescriptionDrug> ltPrDList) {
+		this.ltPrDList = ltPrDList;
+	}
+
+	public String getPrscriptionid() {
         return prscriptionid;
     }
 

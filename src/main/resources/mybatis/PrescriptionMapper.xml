@@ -17,6 +17,22 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="BaseResultMapAndDrugList" type="com.entity.Prescription" >
+    <result column="prscriptionId" property="prscriptionid" jdbcType="VARCHAR" />
+    <result column="icCardNum" property="iccardnum" jdbcType="VARCHAR" />
+    <result column="paName" property="paname" jdbcType="VARCHAR" />
+    <result column="paSex" property="pasex" jdbcType="VARCHAR" />
+    <result column="paAge" property="paage" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="druggist" property="druggist" jdbcType="VARCHAR" />
+    <result column="physician" property="physician" jdbcType="VARCHAR" />
+    <result column="drugPrice" property="drugprice" jdbcType="DECIMAL" />
+    <result column="registrationCode" property="registrationcode" jdbcType="VARCHAR" />
+    <result column="prescriptionCode" property="prescriptioncode" jdbcType="VARCHAR" />
+    <result column="payee" property="payee" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -92,6 +108,9 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="selectPrescriptionById" resultMap="BaseResultMapAndDrugList" parameterType="String">
+  
   </select>
   <delete id="deleteByExample" parameterType="com.entity.PrescriptionExample" >
     delete from prescription

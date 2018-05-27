@@ -19,4 +19,6 @@ public interface PrescriptionMapper {
     int updateByExampleSelective(@Param("record") Prescription record, @Param("example") PrescriptionExample example);
 
     int updateByExample(@Param("record") Prescription record, @Param("example") PrescriptionExample example);
+    
+    Prescription selectPrescriptionById(@Param("prescriptionId")String prescriptionId);
 }

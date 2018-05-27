@@ -51,8 +51,9 @@
 		<table tableName="medical_record" domainObjectName="MedicalRecord"></table> 
 		<table tableName="icCard" domainObjectName="IcCard"></table>
 		<table tableName="earlywarning" domainObjectName="Earlywarning"></table>
-		<table tableName="patient" domainObjectName="Patient"></table>-->
 		<table tableName="prescription" domainObjectName="Prescription"></table>
+		<table tableName="patient" domainObjectName="Patient"></table>-->
+		<table tableName="prescription_drug_list" domainObjectName="Prescription_drug_list"></table>
         </context>  
 
     </generatorConfiguration>

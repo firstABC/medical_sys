@@ -93,7 +93,7 @@
 					<div class="monthly-grid">
 						<div class="panel-widget">
 							<div class="panel panel-title">开处方</div>
-							<input type="text" name="prescription" id="prescriptionId"  class="form-control" value="<%=Utils.getUUID() %>">
+							 <input type="text" name="prescription" id="prescriptionId"  class="form-control" value="<%=Utils.getUUID() %>"> 
 							<div class="panel-body">
 								<div class="tableBox tableCf">
 								<form id="searchForm" name="searchForm">

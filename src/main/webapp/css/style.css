@@ -24,6 +24,9 @@ body p{
 h1, h2, h3, h4, h5 {
 	font-family: 'Montserrat', sans-serif;
 }
+ul, li{
+  list-style-type: none;
+}
 a {
   background: none;
   color: #008DE7;
@@ -640,10 +643,29 @@ table.dataTable td .amount_box a {
 }
 /* 权限管理 */
 .roleTable .table{
-  border: 1px solid #ebebeb;
+  /* border: 1px solid #ebebeb; */
 }
-.table td{
+.roleTable .title{
+  width: 100%;
+  font-size: 20px;
+  border: 1px solid #ebebeb; 
+  padding: 5px 0;
+  text-align: center;
+}
+.roleTable .title li, .roleTable .table{
   width: 50%;
+  float: left;
+}
+.roleTable .table ul{
+  padding: 0;
+}
+.roleTable .nav li>a{
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ebebeb;
+  border-top: none;
+  text-align: center;
 }
 .selRole{
   color: #333;
@@ -652,16 +674,24 @@ table.dataTable td .amount_box a {
 .selRole.active{
   color: #00a1cb;
 }
+.roleBox{
+  padding-top: 1em;
+}
 .roleList .checkbox input[type="checkbox"]{
   margin: 0 1em;
 }
 .roleList{
-  border-left: 1px solid #ebebeb;
+  width: 90%;
+  margin: 0 5%;
+  display: none;
+}
+.roleList.curren{
+  display: block;
 }
 .roleList .checkbox{
-  padding-bottom: 1em;
-  width: 40%;
+  width: 48%;
   display: inline-block;
+  padding-left: 0;
 }
 .exRole{
   padding-top: 2em;
