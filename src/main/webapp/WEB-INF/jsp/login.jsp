@@ -67,7 +67,7 @@
                                     </select> -->
                                     <input class="form-control" type="text" placeholder="用户名" name="userAccount" id="userAccount">
                                     <input class="form-control" type="password" placeholder="密码" name="userPwd" id="userPwd">
-                                    <input class="form-control yz" type="text" placeholder="验证码" name=""><span class="code" id="idcode"></span>
+                                 <!--    <input class="form-control yz" type="text" placeholder="验证码" name=""><span class="code" id="idcode"></span> -->
                                     <input class="btn btn-default btn-login" type="button" value="登录" onclick="toLogin();">
                                 </form>
                             </div>

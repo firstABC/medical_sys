@@ -467,6 +467,10 @@ li.menu-academico{
 .searchList button{
   margin-top: 2px;
 }
+.dy2{
+  margin-top: 20px;
+  float: right;
+}
 .searchList .form-control{
   display: inline-block;
   width: 70%;
@@ -528,6 +532,9 @@ table.dataTable td a:hover{
   display: inline-block;
   border: 1px solid #ebebeb;
   margin-bottom: 15px;
+}
+.cf a input:disabled{
+  cursor: pointer;
 }
 .cf input{
   border: none;
@@ -652,12 +659,13 @@ table.dataTable td .amount_box a {
   padding: 5px 0;
   text-align: center;
 }
+.roleTable .title>ul,
+.roleTable .table ul{
+  padding: 0;
+}
 .roleTable .title li, .roleTable .table{
   width: 50%;
   float: left;
-}
-.roleTable .table ul{
-  padding: 0;
 }
 .roleTable .nav li>a{
   display: block;
