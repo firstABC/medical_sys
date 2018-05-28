@@ -93,6 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                                <th>卡余额</th>
 				                                <th>状态</th>
 				                                <th>操作</th>
+				                                <th style="hidden:'hidden'">编号</th>
 				                            </tr>
 				                        </thead>
 				                        <tbody>
@@ -151,12 +152,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        }
                     	}
 	            	},
-	            	{"data": null}
+	            	{"data": null},
+	            	{"data": "patientid"},
 	            ], 
-	            "columnDefs":[{
-		            "targets": 7,
-		            "defaultContent": "<a href='#' id='info'>详情</a><a href='#' id='record'>病历查询</a><a href='#' id='prescription'>处方查询</a>" 
-		        }],
+	            "columnDefs":[
+	                {
+		            	"targets": 7,
+		            	"defaultContent": "<a href='#' id='info'>详情</a><a href='#' id='record'>病历查询</a><a href='#' id='prescription'>处方查询</a>" 
+		        	},
+	                {
+		            	"targets": 8,
+		            	"visible": false
+		        	}
+	            ],
         		//插件的汉化
 		        "oLanguage": {
 		            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -178,7 +186,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        /*详情*/
 		    $('#table tbody').on( 'click', 'a#info', function () {
 		    	var data = t.row( $(this).parents('tr') ).data();
-
+		    	var patientid = data['patientid'];
+	            window.location.href="<%=basePath%>/pa/getPatient.abc?patientId="+patientid;
 		    });
 		    /*病历查询*/
 		    $('#table tbody').on( 'click', 'a#record', function () {
@@ -189,7 +198,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    /*处方查询*/
 		    $('#table tbody').on( 'click', 'a#prescription', function () {
 		    	var data = t.row( $(this).parents('tr') ).data();
-		    	
+		    	var iccardnum = data['iccardnum'];
+		    	window.location.href="<%=basePath%>/pp/pr.abc?icCardNum="+iccardnum+"&physician="
 		    });
 		    /*查询信息（基于卡号姓名手机号状态）*/
 	 		$('#selectBtn').on('click', function(){

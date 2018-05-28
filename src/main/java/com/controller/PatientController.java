@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dto.MsgDTO;
 import com.dto.PaCaCons;
@@ -65,9 +67,11 @@ public class PatientController {
 		}
 		return msgDTO;
 	}  
-	
-	@RequestMapping(value = "/getPatient", method = { RequestMethod.POST })
-	public @ResponseBody MsgDTO getPatient(@RequestParam("patientId")String patientId){
+	/**
+	 * 获取患者详情
+	 */
+	@RequestMapping(value = "/getPatient", method = { RequestMethod.GET })
+	public ModelAndView getPatient(@RequestParam(value="patientId",defaultValue="")String patientId,ModelMap map){
 		logger.info("Get Patient Start: patientId="+patientId);
 		MsgDTO msgDTO = new MsgDTO();
 		try {
@@ -89,9 +93,10 @@ public class PatientController {
 			msgDTO.setMessage(e.getMessage());
 			logger.error("Get Patient Exception: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage());
 		}
-		return msgDTO;
+		map.put("msgDTO", msgDTO);
+		return new ModelAndView("patientXq");
 	}
-	@RequestMapping(value = "/getPatientByCons", method = { RequestMethod.POST })
+	/*@RequestMapping(value = "/getPatientByCons", method = { RequestMethod.POST })
 	public @ResponseBody MsgDTO getPatientByCons(@RequestBody PaCaCons paCaCons){
 		logger.info("Get Patient By Condition Start: "+paCaCons.toString());
 		MsgDTO msgDTO = new MsgDTO();
@@ -112,7 +117,7 @@ public class PatientController {
 		}
 		return msgDTO;
 	}
-	
+	*/
 	@ResponseBody
 	@Transactional
 	@RequestMapping(value = "/cratePatient", method = { RequestMethod.POST })

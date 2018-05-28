@@ -103,7 +103,10 @@
 											<input type="tel" name="icCardNum" id="icCardNum"  class="form-control">
 										</div>
 										<div class="searchType"><button type="button" id="searchButton" class="btn btn-info btn-sm" onc>查询</button></div>
-										<div class="fr dy"><button type="button" class="btn btn-default btn-sm">打印</button></div>
+										<div class="fr">
+											<button type="button" class="btn btn-info btn-sm" id="submitPre">确定</button>
+											<button type="button" class="btn btn-default btn-sm dy">打印</button>
+										</div>
 									</div>
 								</form>
 									<div class="cfd">
@@ -143,6 +146,7 @@
 								    			<thead>
 						                            <tr>
 						                                <th>名称</th>
+						                                <th>单价</th>
 						                                <th>数量</th>
 						                                <th>单位</th>
 						                                <th>用法</th>
@@ -176,10 +180,10 @@
 													<input type="text" class="form-control" value="">
 												</div>
 											</div>
-											<div class="form-group col-sm-4">
+											<div class="form-group col-sm-4 yj">
 												<label for="" class="col-sm-4 control-label">药价</label>
 												<div class="col-sm-8">
-													<input type="tel" class="form-control" value="">
+													<input type="tel" class="form-control" value="0.00" disabled="disabled">
 												</div>
 											</div>
 											<div class="form-group col-sm-4">
@@ -191,7 +195,7 @@
 											<div class="form-group col-sm-4">
 												<label for="" class="col-sm-4 control-label">编号</label>
 												<div class="col-sm-8">
-													<input type="tel" disabled="disabled" class="form-control" value="${prescriptionCode }">
+													<input type="tel" class="form-control" value="">
 												</div>
 											</div>
 											<div class="form-group col-sm-4">
@@ -260,44 +264,28 @@
 		$(document).ready(function () {
 			var prescriptionId = $('#prescriptionId').val();
 			
-	        var t = $('#table').DataTable({
-	            'processing': true,
-	            //'searching': false,
-	            'paging': false,
+			var t = $('#table').DataTable({
+	            "processing": true,
+	            'searching': false,
+	            "paging": false,
         		// "ajax": "dataTables/info.txt",
-				ajax: {
-               //指定数据源
-        	   url:'<%=basePath%>/predrug/list.abc?prescriptionId='+prescriptionId,
-        	   type:'GET',
-        	   dataType:'json',
-        	   
-           },
-		    columns: [
-				{"data": "drugname"},
-		    	{"data": "drugnum"},
-            	{"data": "drugunit",
-            		render:function(drugunit){
-                        if(drugunit=="A"){
-                            return "盒";
-                        }else if(drugunit=="B"){
-                            return "瓶";
-                        }else{
-                        	return null;
-                        }
-                	}
-            	},
-            	{"data": "usagetext",
-            		render:function(usage){	
-            			return "<input type='text' class='form-control' name='' value='' placeholder='"+usage+"'>"
-            		}
-            	},
-            	{"data": null}
-            ], 
-            "columnDefs":[{
-	            "targets": 4,
-	            "defaultContent": "<a href='javascript:;' id='delPre'>删除</a>"
-    
-            }],
+
+        		// 输入框和删除按钮
+        		"aoColumnDefs":[
+        			{
+                        "targets": 4,
+                        "data": null,
+                        "bSortable": false,
+                        "defaultContent": "<input type=\"text\" class=\"form-control\" name=\"\" value=\"\" placeholder=\"一日三次，每次两粒\">"
+                    },
+                    {
+                        "targets": 5,
+                        "data": null,
+                        "bSortable": false,
+                        "defaultContent": "<a href='javascript:;' id='delPre'>删除</a>"
+                    } 
+                ],
+
         		//插件的汉化
 		        "oLanguage": {
 		            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -350,6 +338,7 @@
 	            +"<a href='javascript:;' class='plus'>+</a></div><a href='javascript:;' id='addPre'>添加</a>"
     
             }],
+            "aLengthMenu" : [5, 10, 20], //更改显示记录数选项
         		//插件的汉化
 		        "oLanguage": {
 		            "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -375,7 +364,6 @@
 			})
 			$('.closeAdd').click(function(){
 				$('.bg.addDrug').hide();
-				t.ajax.reload();
 			})
 
 			// 药品数量加减
@@ -395,66 +383,36 @@
 			
 			/*删除按钮*/
 		    $('#table tbody').on( 'click', 'a#delPre', function () {
-		        var data = t.row( $(this).parents('tr') ).data();
-		        if(confirm("是否确认删除这条数据")){
-		            $.ajax({
-		                url:'<%=basePath%>/predrug/delete.abc',
-		                type:'post',
-		                data: {"id": data.id}, 
-		                timeout:"3000",
-		                cache:false,
-		                async:false,
-		                success:function(res){
-		                    if(res.status == 0){
-		                        t.row().remove();	//删除这行的数据
-		                        alert(res.message);
-		                    }else{
-		                    	alert(res.message);
-		                    }
-		                },
-		                error:function(err){
-		                    alert("获取数据失败");
-		                }
-		            });
-		        }
-		        t.ajax.reload();	//刷新datatable
-		    });
-	        //添加药品
-	         $('#table2 tbody').on( 'click', 'a#addPre', function () {
-	        	var params = t2.row( $(this).parents('tr') ).data();
-	        	var inp = $(this).parent().find('input[class*=sum]');
-	        	var drugnum=inp.val();
-	        	var prescriptionId=$('#prescriptionId').val();
-        		$.ajax({
-					url:'<%=basePath%>/predrug/add.abc',
-		    		type :'post',
-		    		data:{
-		    			"id":'',
-		    			"prescriptionid":prescriptionId,
-		    			"drugcode":params['drugcode'],
-		    			"drugname":params['drugname'],
-		    			"drugnum":drugnum,
-		    			"drugprice":params['drugprice'],
-		    			"drugunit":params['drugunit'],
-		    			"usagetext":'',
-		    		},
-		    		timeout:"3000",
-	                cache:false,
-	                async:false,
-		    		success:function(res){
-		    			if(res.message =='添加成功!'){
-		    				//t2.row($(this).parents('tr')).remove();
-		    				alert(res.message);
-		    			}else{
-		    				alert(res.message);
-		    			}
-		    		},
-		    		error:function(err){
-		                alert("获取数据失败");
-		            }
-		        });
-	        	//t2.ajax.reload();		//刷新datatable
+		    	 t.row($(this).parents('tr')).remove().draw( false );;
 			});
+		 	/*添加按钮*/
+		 	$('#table2 tbody').on( 'click', 'a#addPre', function () {
+            //$('.addDrug .add').click(function(){
+            	var params = t2.row( $(this).parents('tr') ).data();
+            	var inp = $(this).parent().find('input[class*=sum]');
+	        	
+	        	var ym = params['drugname'];
+	        	var dj = params['drugprice'];
+	        	var num=inp.val();
+            	var dw = params['drugunit'];
+            	var input = $('#table tr').find('td:nth-last-child(2)').html();
+            	var del = $('#table tr').find('td:last-child').html();
+		        t.row.add([
+		            ym,
+		            dj,
+		            num,
+		            dw,
+		            input,
+		            del
+		        ]).draw();
+
+		    	// 总药价
+		    	var totalYj = 0;
+			    $('#table tr').each(function() { 
+					totalYj += parseFloat($(this).find('td:eq(1)').text()*$(this).find('td:eq(2)').text()); 
+    				$('.other .yj').find('input').val(totalYj);
+				});
+		    });
 	        /*查询药品（基于名称和编号）*/
 	  		$('#selectBtn').on('click', function(){
 	  			drugnameC = $('#drugnameC').val();
@@ -462,6 +420,15 @@
 	   			//url = '<%=basePath%>/drug/list.abc?drugname='+drugnameC+'&drugcode='+drugcodeC;
 	   		  	t2.column(1).search(drugcodeC, false, false).draw();
 	   			t2.column(0).search(drugnameC, false, false).draw();
+
+	  		});
+	  		/*开处方*/
+	  		$('#submitPre').on('click', function(){
+	  			for(var i = 0 ; i < t.Rows.Count ; i++)     
+	  			{     
+	  			   var strName = dt.Rows[i]["drugname"].ToString(); 
+	  			   console.log('strName')
+	  			}
 
 	  		});
 	        // 点击打印
