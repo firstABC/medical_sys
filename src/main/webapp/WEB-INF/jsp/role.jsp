@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -8,16 +14,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-	<link href="${pageContext.request.contextPath}/bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
-	<link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/build.css">
+	<link href="<%=basePath%>/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/css/build.css">
 
-	<link href="${pageContext.request.contextPath}/css/style.css" rel='stylesheet' type='text/css' />
+	<link href="<%=basePath%>/css/style.css" rel='stylesheet' type='text/css' />
 	
-	<script src="${pageContext.request.contextPath}/js/jquery-1.10.2.min.js"></script>
-   	<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-   	<script src="${pageContext.request.contextPath}/bootstrapValidator/bootstrapValidator.min.js"></script>
+	<script src="<%=basePath%>/js/jquery-1.10.2.min.js"></script>
+   	<script src="<%=basePath%>/bootstrap/js/bootstrap.min.js"></script>
+   	<script src="<%=basePath%>/bootstrapValidator/bootstrapValidator.min.js"></script>
 
 </head> 
 <body>
@@ -49,65 +55,63 @@
 						<div class="panel-widget">
 							<div class="panel panel-title">角色管理</div>
 							<div class="panel-body">
-								<div class="roleTable">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>角色</th>
-												<th>拥有权限</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><a href="javascript:;" class="selRole active">角色1</a></td>
-												<td rowspan="7" class="roleList">
-													<div class="checkbox checkbox-info">
-								                        <input id="checkbox1" class="styled" type="checkbox">
-								                        <label for="checkbox1">权限1</label>
-								                    </div>
-								                    <div class="checkbox checkbox-info">
-								                        <input id="checkbox2" class="styled" type="checkbox">
-								                        <label for="checkbox2">权限2</label>
-								                    </div>
-								                    <div class="checkbox checkbox-info">
-								                        <input id="checkbox3" class="styled" type="checkbox">
-								                        <label for="checkbox3">权限3</label>
-								                    </div>
-													<div class="checkbox checkbox-info">
-								                        <input id="checkbox4" class="styled" type="checkbox">
-								                        <label for="checkbox4">权限4</label>
-								                    </div>
-								                    <div class="checkbox checkbox-info">
-								                        <input id="checkbox5" class="styled" type="checkbox">
-								                        <label for="checkbox5">权限5</label>
-								                    </div>
-								                    <div class="checkbox checkbox-info">
-								                        <input id="checkbox6" class="styled" type="checkbox">
-								                        <label for="checkbox6">权限6</label>
-								                    </div>												
-								                 </td>
-											</tr>
-											<tr>
-												<td><a href="javascript:;" class="selRole">角色2</a></td>
-											</tr>
-												<td><a href="javascript:;" class="selRole">角色3</a></td>
-											</tr>
-											<tr>
-												<td><a href="javascript:;" class="selRole">角色4</a></td>
-											</tr>
-											<tr>
-												<td><a href="javascript:;" class="selRole">角色5</a></td>
-											</tr>
-											<tr>
-												<td><a href="javascript:;" class="selRole">角色6</a></td>
-											</tr>
-											<tr>
-												<td><a href="javascript:;" class="selRole">角色7</a></td>
-											</tr>
-										</tbody>
-									</table>
+								<div class="roleTable clearfix">
+									<div class="title clearfix">
+										<ul>
+											<li>角色</li>
+											<li>拥有权限</li>
+										</ul>
+									</div>
+									<!-- 角色 -->
+									<div class="table nav">
+										<ul>
+										<c:forEach items="${ltRole}" var="it" varStatus="idx">
+											<li><a href="javascript:;" class="selRole <c:if test="${idx.index==0}">active</c:if>">${it.rolenmae }<input class="qq" type="hidden" value="${it.roleid }"></a></li>
+										</c:forEach>	
+										</ul>
+									</div>
+									<!-- 权限 -->
+									<div class="table roleBox">
+										<!-- 角色1的权限 -->
+										<c:forEach items="${ltRole}" var="it" varStatus="idx">
+											<div class="roleList <c:if test="${idx.index==0}"> curren </c:if>">
+												<div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}1" class="styled" type="checkbox"  <c:if test="${fn:contains(it.ltPerCode,'A001')}">checked="checked"</c:if> value="A001">
+							                        <label for="checkbox${idx.index+1}1">开户</label>
+							                    </div>
+							                    <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}2" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'A002')}">checked="checked"</c:if> value="A002">
+							                        <label for="checkbox${idx.index+1}2">销户</label>
+							                    </div>
+							                    <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}3" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'B001')}">checked="checked"</c:if> value="B001">
+							                        <label for="checkbox${idx.index+1}3">患者管理</label>
+							                    </div>
+												<div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}4" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'C001')}">checked="checked"</c:if> value="C001">
+							                        <label for="checkbox${idx.index+1}4">病历管理</label>
+							                    </div>
+							                    <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}5" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'D001')}">checked="checked"</c:if> value="D001">
+							                        <label for="checkbox${idx.index+1}5">医疗卡</label>
+							                    </div>
+							                    <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}6" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'E001')}">checked="checked"</c:if> value="E001">
+							                        <label for="checkbox${idx.index+1}6">库房管理</label>
+							                    </div>	
+							                    <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}7" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'F001')}">checked="checked"</c:if> value="F001">
+							                        <label for="checkbox${idx.index+1}7">权限管理</label>
+							                    </div>	
+							                     <div class="checkbox checkbox-info">
+							                        <input id="checkbox${idx.index+1}8" class="styled" type="checkbox" <c:if test="${fn:contains(it.ltPerCode,'G001')}">checked="checked"</c:if> value="G001">
+							                        <label for="checkbox${idx.index+1}8">处方管理</label>
+							                    </div>	
+							                </div>
+						                </c:forEach>
+									</div>
 								</div>
-								<button type="button" class="btn btn-info btn-sm fr">确定</button>
+								<button type="button" class="btn btn-info btn-sm fr qdBtn">确定</button>
 							</div>
 						</div>
 					</div>
@@ -115,24 +119,44 @@
 			</div>
 		</div> 
 
-		<!--/sidebar-menu-->
+		<!-- sidebar-menu-->
 		<jsp:include page="menu.jsp" flush="true"></jsp:include>
 	  	<div class="clearfix"></div>	
 	</div>
 
 	<!-- demo -->
-   	<script type="text/javascript" src='${pageContext.request.contextPath}/js/js.js'></script>
+   	<script type="text/javascript" src='<%=basePath%>/js/js.js'></script>
 
    	<script type="text/javascript">
    		$(function(){
-   			$(".table td, .table th").addClass("text-center");
-
-   			$('.selRole').click(function(){
-   				if (!$(this).hasClass('active')) {
+   			$('.nav li').click(function(){
+   				var index = $(this).index();
+   				if (!$(this).children('.selRole').hasClass('active')) {
    					$('.selRole').removeClass('active');
-	   				$(this).addClass('active');
-	   				// $('.roleList').show();
+	   				$(this).children('.selRole').addClass('active');
+	   				$('.roleList').removeClass('curren');
+	   				$('.roleBox').children('.roleList').eq(index).addClass('curren');
    				}
+   			})
+   			// 点击确定
+   			$('.qdBtn').click(function(){
+   				// 选中的角色
+	   			//var role = $('.nav li').children('.active').text();
+	   			var role = $('.nav li .active .qq').val();
+	   			 alert(role);
+	   			// 权限
+	   			var qx_value = []; 
+	   			//var permissions;
+				$('.curren').find('input.styled:checked').each(function(){ 
+					qx_value.push($(this).val()); 
+				//	permissions+$(this).val()+"-"
+				//	alert(permissions);
+				}); 
+				 alert(qx_value.length==0 ?'你还没有选择任何权限！':qx_value);
+				 
+				 window.location.href="<%=basePath%>/rolep/upR.abc?roleId="+role+"&permissions="+qx_value;
+				 alert("修改成功！")
+				 
    			})
    		})
    	</script>

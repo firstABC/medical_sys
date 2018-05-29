@@ -21,8 +21,11 @@ public class UserServiceImpl implements UserService{
 		uExam.createCriteria().andUseraccountEqualTo(user.getUseraccount())
 								.andUserpwdEqualTo(user.getUserpwd());
 		List<User> ltUser =  userMapper.selectByExample(uExam);
-		User user1 = ltUser==null?null:ltUser.get(0);
-		return user1;
+		if(ltUser!=null&&ltUser.size()>0){
+			User user1 = ltUser.get(0);
+			return user1;
+		}
+		return null;
 	}
 
 	@Override

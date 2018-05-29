@@ -34,6 +34,8 @@
     		success : function(data) {
     			if(data.status == '-1'){
 					alert(data.message);
+				}else if(data.status == '-2'){
+					alert(data.message);
 				}else{
 					window.location.href="${pageContext.request.contextPath}/switch/index.abc";
 				}

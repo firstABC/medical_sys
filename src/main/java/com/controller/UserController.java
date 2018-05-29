@@ -79,14 +79,15 @@ public class UserController {
 						List<Role_permissions>  ltRolepermissions= role_permissionsService.selectRole_permissions(roleid);
 						for(Role_permissions role_permissions:ltRolepermissions){
 							String perid = role_permissions.getPerid();
-							//查具体的权限
+							/*//查具体的权限
 							Permissions permissions = permissionsService.selectPermissions(perid);
-							String percode = permissions.getPercode();
-							permissionsSet.add(percode);
+							String percode = permissions.getPercode();*/
+							permissionsSet.add(perid);
 						}
 					}
 					//将用户的权限放入session中
 					request.getSession().setAttribute("permissionsSet", permissionsSet);
+					logger.error("用户的权限为："+permissionsSet);
 					//修改登录时间
 					SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					Date date=new Date();
@@ -101,6 +102,9 @@ public class UserController {
 					msgDTO.setStatus(-1);
 					msgDTO.setMessage("此用户被冻结！");
 				}
+			}else{
+				msgDTO.setStatus(-2);
+				msgDTO.setMessage("用户或密码错误");
 			}
 		}catch(Throwable e){
 			e.printStackTrace();
@@ -129,6 +133,7 @@ public class UserController {
 		user.setUserid(userId);
 		user.setCreatetime(date);
 		user.setUseraccount(userAccount);
+		userPwd = Md5.encoderByMd5(userPwd);
 		user.setUserpwd(userPwd);
 		user.setStatus("A");
 		int isOk = userService.createUser(user);

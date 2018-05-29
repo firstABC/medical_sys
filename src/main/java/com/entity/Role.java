@@ -1,13 +1,24 @@
 package com.entity;
 
+import java.util.List;
+
 public class Role {
     private String roleid;
 
     private String rolenmae;
 
+    private List<String> ltPerCode;
     
     
-    public Role() {
+    public List<String> getLtPerCode() {
+		return ltPerCode;
+	}
+
+	public void setLtPerCode(List<String> ltPerCode) {
+		this.ltPerCode = ltPerCode;
+	}
+
+	public Role() {
 		super();
 	}
 

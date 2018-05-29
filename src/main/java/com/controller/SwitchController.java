@@ -1,8 +1,7 @@
 package com.controller;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,9 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.entity.Permissions;
 import com.entity.Role;
+import com.entity.Role_permissions;
 import com.entity.User;
 import com.service.PermissionsService;
 import com.service.PrescriptionService;
+import com.service.Role_permissionsService;
 import com.service.UserService;
 import com.util.FileReadUtil;
 import com.util.Utils;
@@ -32,6 +33,8 @@ public class SwitchController {
 	private PermissionsService permissionsService; 
 	@Autowired
 	private PrescriptionService prescriptionService;
+	@Autowired
+	private Role_permissionsService role_permissionsService;
 	
 	@RequestMapping("/login")
 	public String toLogin(){//到登录
@@ -56,10 +59,19 @@ public class SwitchController {
 		String path= url.getPath()+"role.property";
 		List<Role> ltRole = ileReadUtil.fileToRole(path);
 		//从数据库中读取所有的权限
-		List<Permissions> ltPermissions = permissionsService.selectPermissions();
-		
+		//List<Permissions> ltPermissions = permissionsService.selectPermissions();
+		for(Role role :ltRole){
+			String rid = role.getRoleid();
+			List<Role_permissions> ltRP = role_permissionsService.selectRole_permissions(rid);
+			List<String> ltPercode = new ArrayList<String>();
+			for(Role_permissions Role_permissions:ltRP){
+			//	Permissions permissions = permissionsService.selectPermissions(Role_permissions.getPerid());
+				ltPercode.add(Role_permissions.getPerid());
+			}
+			role.setLtPerCode(ltPercode);
+		}
 		mv.addObject("ltRole", ltRole);
-		mv.addObject("ltPermissions", ltPermissions);
+	//	mv.addObject("ltPermissions", ltPermissions);
 		return mv;
 	}
 	

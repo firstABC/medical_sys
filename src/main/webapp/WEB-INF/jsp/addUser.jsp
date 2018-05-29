@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script type="text/javascript">
    		function toAddUser(){
    			var option = {
-   		    		url:'${pageContext.request.getContextPath()}/uesr/createUser.abc',
+   		    		url:'<%=basePath%>/uesr/createUser.abc',
    		    		type :"post",
    		    		dataType:'json',
    		    		headers:{"ClientCallMode" : "ajax"}, 
@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    							alert(data.message);
    						}else{
    							alert(data.message);
-   							window.location.href="${pageContext.request.contextPath}/switch/user.abc";
+   							window.location.href="<%=basePath%>/switch/user.abc";
    						}
    		            },
    		         };
