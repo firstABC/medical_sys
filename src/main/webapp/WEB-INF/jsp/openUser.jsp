@@ -77,7 +77,7 @@
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">卡号<span class="text-muted">*</span></label>
 												<div class="col-sm-8">
-													<input type="tel" class="form-control" placeholder="" name="num" data-bv-trigger="blur" data-bv-message="卡号不能为空" required data-bv-notempty-message="长号不能为空">
+													<input type="tel" class="form-control" placeholder="" name="num" data-bv-trigger="blur" data-bv-message="卡号不能为空" required data-bv-notempty-message="卡号不能为空">
 												</div>
 											</div>
 											<div class="form-group">

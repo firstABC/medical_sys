@@ -96,7 +96,7 @@
 								                <td><%=lastTimeStr %></td>
 								                <td><%="A".equals(user.getStatus())?"正常":"冻结" %></td>
 								                <td>
-								                	<a href="javascript:;">编辑</a>
+								                	<a href="<%=basePath%>/uesr/toEdit.abc?userId=<%=user.getUserid() %>">编辑</a>
 								                </td>
 				                        	</tr>
 				                         <%

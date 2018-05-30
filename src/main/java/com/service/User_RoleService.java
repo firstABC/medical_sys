@@ -18,4 +18,11 @@ public interface User_RoleService {
 	 * @return
 	 */
 	public int insertUser_Role(User_role user_role);
+	
+	/**
+	 * 删除用户角色
+	 * @param userid
+	 * @return
+	 */
+	public int deleteUser_role(String userid);
 }

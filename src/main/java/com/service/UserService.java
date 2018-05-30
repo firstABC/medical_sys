@@ -28,9 +28,25 @@ public interface UserService {
 	public List<User> selectUserAll();
 	
 	/**
+	 * 查询用户信息
+	 * @param userId
+	 * @return
+	 */
+	public User selectUser(String userId);
+	
+	/**
 	 * 创建用户
 	 * @param user
 	 * @return
 	 */
 	public int createUser(User user);
+	
+	/**
+	 * 修改用户信息
+	 * @param user
+	 * @return
+	 */
+	public int editUser(User user);
+	
+	
 }

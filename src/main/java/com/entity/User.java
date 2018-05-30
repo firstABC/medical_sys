@@ -1,6 +1,7 @@
 package com.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private String userid;
@@ -14,8 +15,18 @@ public class User {
     private Date createtime;
 
     private Date lasttime;
+    
+    private List<User_role> ltUR;
 
-    public String getUserid() {
+    public List<User_role> getLtUR() {
+		return ltUR;
+	}
+
+	public void setLtUR(List<User_role> ltUR) {
+		this.ltUR = ltUR;
+	}
+
+	public String getUserid() {
         return userid;
     }
 

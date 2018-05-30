@@ -26,5 +26,12 @@ public class User_RoleServiceImpl implements User_RoleService {
 		int isOk = user_roleMapper.insert(user_role);
 		return isOk;
 	}
+	@Override
+	public int deleteUser_role(String userid) {
+		User_roleExample user_roleExample = new User_roleExample();
+		user_roleExample.createCriteria().andUseridEqualTo(userid);
+		int isOk = user_roleMapper.deleteByExample(user_roleExample);
+		return isOk;
+	}
 
 }
