@@ -32,6 +32,16 @@
     <result column="payee" property="payee" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+    <collection property="ltPrDList" ofType="com.entity.PrescriptionDrug">
+    	 <result column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="prescriptionId" property="prescriptionid" jdbcType="VARCHAR" />
+	    <result column="drugCode" property="drugcode" jdbcType="VARCHAR" />
+	    <result column="drugName" property="drugname" jdbcType="VARCHAR" />
+	    <result column="drugNum" property="drugnum" jdbcType="INTEGER" />
+	    <result column="drugPrice" property="drugprice" jdbcType="DECIMAL" />
+	    <result column="drugUnit" property="drugunit" jdbcType="VARCHAR" />
+	    <result column="usageText" property="usagetext" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -109,8 +119,12 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectPrescriptionById" resultMap="BaseResultMapAndDrugList" parameterType="String">
-  
+   <select id="selectPrescriptionById" parameterType="String" resultMap="BaseResultMap">
+  	select
+    	pre.*
+   	 from prescription pre
+     where pre.prscriptionId=#{prescriptionId}
+    
   </select>
   <delete id="deleteByExample" parameterType="com.entity.PrescriptionExample" >
     delete from prescription

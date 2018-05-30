@@ -4,4 +4,5 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/addCase.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/patient.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/recipeXq.jsp=UTF-8
 encoding/<project>=UTF-8

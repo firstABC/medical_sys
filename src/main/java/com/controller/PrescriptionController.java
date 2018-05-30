@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,8 +61,22 @@ public class PrescriptionController {
 		}
 		
 		logger.info("Get Prescription List End: Status:"+msgDTO.getStatus()+" Message:"+msgDTO.getMessage()+" Total:"+msgDTO.getTotal());
+		map.put("icCardNum", icCardNum);
+		map.put("physician", physician);
 		map.put("msgDTO", msgDTO);
 		mv.setViewName("recipeHis");
+		return mv;
+	}
+	
+	@RequestMapping("/info")
+	public ModelAndView preScriptionInfo(HttpServletRequest request,@RequestParam(value="perId",defaultValue="")String perId){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("recipeXq");
+		Prescription prescription = null;
+		if(perId!=""){
+			 prescription = prescriptionService.queryPrescriptionById(perId);
+		}
+		mv.addObject("prescription", prescription);
 		return mv;
 	}
 }

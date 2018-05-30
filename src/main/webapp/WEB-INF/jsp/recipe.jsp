@@ -51,7 +51,6 @@
 						//$("#paSex").val(data.data.icbalance);
 						$("#paName").val(data.data.paname);
 						$("#paAge").val(data.data.paage);
-						alert(data.data.pasex);
 						if(data.data.pasex=='A'){
 							$("#paSex").val("男");
 						}else{

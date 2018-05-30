@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entity.Prescription;
+import com.entity.PrescriptionDrug;
+import com.entity.PrescriptionDrugExample;
 import com.entity.PrescriptionExample;
+import com.mapper.PrescriptionDrugMapper;
 import com.mapper.PrescriptionMapper;
 import com.service.PrescriptionService;
 import com.util.Utils;
@@ -16,6 +19,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
 	@Autowired
 	private PrescriptionMapper prescriptionMapper;
+	@Autowired
+	private PrescriptionDrugMapper prescriptionDrugMapper;
 	@Override
 	public int selectPrescriptionCode(String prescriptionCode) {
 		PrescriptionExample example = new PrescriptionExample();
@@ -38,8 +43,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 	}
 	@Override
 	public Prescription queryPrescriptionById(String prescriptionId) {
-		
-		return null;
+		Prescription prescription= prescriptionMapper.selectPrescriptionById(prescriptionId);
+		if(prescription!=null){
+			PrescriptionDrugExample example = new PrescriptionDrugExample();
+			List<PrescriptionDrug> ltPreD = prescriptionDrugMapper.selectByExample(example);
+			prescription.setLtPrDList(ltPreD);
+		}
+		return prescription;
 	}
 
 }

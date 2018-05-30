@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<c:when test="${msgDTO.data.pageInfo.list != null && fn:length(msgDTO.data.pageInfo.list) gt 0}">
 												<c:forEach items="${msgDTO.data.pageInfo.list}" var="it" varStatus="idx">
 														<div class="col-sm-4">
-															<a href="javascript:;" class="col-sm-12">
+															<a href="<%=basePath%>/pp/info.abc?perId=${it.prscriptionid }" class="col-sm-12">
 																<h4>处方${idx.index+1}-${it.paname }</h4>
 																<h5>时间<input type="text" name="" 
 																	value="<fmt:formatDate value="${it.createtime}" pattern="yyyy.MM.dd HH:mm:ss"/>"  placeholder="" disabled="disabled"></h5>
@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		window.location.href="<%=basePath%>/pp/pr.abc?icCardNum="+icCardNumC+"&pageno=" + pageNum+"&physician="+physician;
     }
    	$(document).ready(function () {
-		//查询卡号病历
+		//查询卡号处方
          $('#selectBtn').on('click', function(){
         	var icCardNumC = $('#icCardNumC').val();
         	var physician = $('#physician').val();
