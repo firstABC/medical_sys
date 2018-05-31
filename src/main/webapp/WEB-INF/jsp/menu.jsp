@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</li>
 						</c:if>
 						<c:if test="${fn:contains(permissionsSet,'E001')}">
-						<li><a href="money.html" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
+						<li><a href="<%=basePath %>/switch/money.abc" title="财务统计"><i class="fa fa-cny"></i> <span>财务统计</span></a></li>
 						<li class="menu-academico">
 						 	<a href="javascript:;" title="库房管理"><i class="fa fa-stethoscope"></i> <span>库房管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
 						    <ul class="menu-academico-sub" >

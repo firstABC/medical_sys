@@ -128,4 +128,11 @@ public class SwitchController {
 		return mv;
 	}
 	
+	@RequestMapping("/money")
+	public ModelAndView loginOut(){//财务统计
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("money");
+		return mv;
+	}
+	
 }

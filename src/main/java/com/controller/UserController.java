@@ -117,6 +117,21 @@ public class UserController {
 		}
 		return msgDTO;
 	}
+	/**
+	 * 退出登录
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/out")
+	public String toLoginOut(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.setAttribute("userid", "");
+		session.setAttribute("currentUser", "");
+		session.setAttribute("permissionsSet", "");
+		
+		LoginUserMap.removeUser(session.getId());
+		return "/login";
+	}
 	
 	@RequestMapping("/createUser")
 	@ResponseBody
