@@ -46,8 +46,8 @@ public class LoginLimitFilter implements Filter {
 	    String path = servletRequest.getContextPath(); 
 	    String basePath = servletRequest.getScheme()+"://"+servletRequest.getServerName()+":"+servletRequest.getServerPort()+path;
 	    String url =servletRequest.getRequestURI();
-	    System.out.println(url+"----"+path);
-	    basePath = "http://localhost:8080/ERPSystem/switch/login.abc";
+	    System.out.println(url+"----"+path+ "----"+basePath);
+	  //  basePath = basePath+"/";
 	    String sessionid = session.getId();
 	    if(url.endsWith("login.abc")){
 	    	chain.doFilter(request, response);
