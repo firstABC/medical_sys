@@ -43,13 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<li><a href="javascript:;">患者详情</a></li>
 								</ul>
 							</div>
-							<div class="top_left">
-								<h2>
-									<a href="javascript:;">张三<span>主治医师</span></a>
-									<a href="javascript:;">退出</a>
-									<span class="current-time"></span>
-								</h2>
-							</div>
+							<jsp:include page="currentUser.jsp" flush="true"></jsp:include>
 							<div class="clearfix"></div>
 						</div>
 						
@@ -72,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 											</div>
 											<div class="form-group">
-												<label for="" class="col-sm-4 control-label">长号</label>
+												<label for="" class="col-sm-4 control-label">卡号</label>
 												<div class="col-sm-8">
 													<input type="tel" class="form-control" value="${msgDTO.data.iccardnum }" disabled="disabled">
 												</div>

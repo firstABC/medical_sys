@@ -134,5 +134,11 @@ public class SwitchController {
 		mv.setViewName("money");
 		return mv;
 	}
+	@RequestMapping("/takeMedic")
+	public ModelAndView takeMedic(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("takeMedic");
+		return mv;
+	}
 	
 }

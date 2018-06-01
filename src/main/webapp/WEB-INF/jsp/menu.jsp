@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <ul class="menu-academico-sub" >
 							    <li class="menu-academico-avaliacoes"><a href="<%=basePath %>/drug.abc">药品管理</a></li>
 								<li class="menu-academico-avaliacoes"><a href="javascript:;">设备管理</a></li>
+								<li class="menu-academico-avaliacoes"><a href="<%=basePath %>/switch/takeMedic.abc" title="患者管理"><i class="fa fa-plus-square"></i> <span>取药</span></a></li>
 						  	</ul>
 						</li>
 						</c:if>

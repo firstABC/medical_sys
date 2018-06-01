@@ -134,7 +134,7 @@
 												<div class="form-group col-sm-3">
 													<label for="" class="col-sm-4 control-label">日期</label>
 													<div class="col-sm-8">
-														<input type="data" class="form-control" value="2017.9.18" disabled="disabled">
+														<input type="data" class="form-control dateStr" value="2017.9.18" disabled="disabled">
 													</div>
 												</div>
 											</form>
@@ -194,7 +194,7 @@
 											<div class="form-group col-sm-4">
 												<label for="" class="col-sm-4 control-label">编号</label>
 												<div class="col-sm-8">
-													<input type="tel" class="form-control" value="">
+													<input type="tel" class="form-control" value="${prescriptionCode }">
 												</div>
 											</div>
 											<div class="form-group col-sm-4">
@@ -451,6 +451,18 @@
 			
 	    });
 	</script>
-
+	<script>
+   		// 获取当前年月日
+   		$(function(){
+	   		var nowDate = new Date();
+			var year = nowDate.getFullYear();
+			var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1)
+			: nowDate.getMonth() + 1;
+			var day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate
+			.getDate();
+			var dateStr = year + "." + month + "." + day;
+			$('.dateStr').val(dateStr);
+		})
+   	</script>
 </body>
 </html>
