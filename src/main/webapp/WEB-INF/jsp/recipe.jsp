@@ -393,7 +393,7 @@
 	        	var ym = params['drugname'];
 	        	var dj = params['drugprice'];
 	        	var num=inp.val();
-            	var dw = params['drugunit'];
+            	var dw = params['drugunit']=="A"?"盒":"瓶";
             	var input = $('#table tr').find('td:nth-last-child(2)').html();
             	var del = $('#table tr').find('td:last-child').html();
 		        t.row.add([
